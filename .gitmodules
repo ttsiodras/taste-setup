@@ -1,0 +1,21 @@
+[submodule "opengeode"]
+	path = opengeode
+	url = https://gitrepos.estec.esa.int/taste/opengeode.git
+[submodule "asn1-value-editor"]
+	path = asn1-value-editor
+	url = https://gitrepos.estec.esa.int/taste/asn1-value-editor.git
+[submodule "speedometer"]
+	path = speedometer
+	url = https://gitrepos.estec.esa.int/taste/speedometer.git
+[submodule "dmt"]
+	path = dmt
+	url = https://gitrepos.estec.esa.int/taste/dmt.git
+[submodule "pymsc"]
+	path = pymsc
+	url = https://gitrepos.estec.esa.int/taste/pymsc.git
+[submodule "properties"]
+	path = properties
+	url = https://gitrepos.estec.esa.int/taste/properties.git
+[submodule "orchestrator"]
+	path = orchestrator
+	url = https://gitrepos.estec.esa.int/taste/orchestrator.git
