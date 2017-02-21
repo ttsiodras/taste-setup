@@ -19,3 +19,6 @@
 [submodule "taste-MSC"]
 	path = taste-MSC
 	url = https://gitrepos.estec.esa.int/taste/taste-MSC.git
+[submodule "ocarina"]
+	path = ocarina
+	url = https://gitrepos.estec.esa.int/taste/ocarina
