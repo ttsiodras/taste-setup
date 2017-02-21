@@ -1,4 +1,5 @@
 #!/bin/bash
+TASTE_PATHS=$HOME/.bashrc.taste
 
 # Fetch and install latest ASN1SCC release
 mkdir -p $HOME/tool-inst/share/asn1scc/ || exit 1
