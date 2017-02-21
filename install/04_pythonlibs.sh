@@ -2,5 +2,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . ${DIR}/common.sh
 
-pip install --user --upgrade singledispatch || exit 1
-pip install --user --upgrade stringtemplate3 || exit 1
+pip freeze | grep singledispatch >/dev/null \
+    || pip install --user --upgrade singledispatch || exit 1
+pip freeze | grep stringtemplate3 >/dev/null \
+    || pip install --user --upgrade stringtemplate3 || exit 1
