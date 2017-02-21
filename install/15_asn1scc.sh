@@ -9,4 +9,4 @@ wget -q -O - https://github.com/ttsiodras/asn1scc/releases/download/3.3.9/asn1sc
 
 # Add ~/tool-inst/share/asn1scc/ to PATH
 PATH_CMD='export PATH=$PATH:$HOME/tool-inst/share/asn1scc/'
-grep "${PATH_CMD}" ${TASTE_PATHS} || echo "${PATH_CMD}" >> ${TASTE_PATHS}
+grep "${PATH_CMD}" ${TASTE_PATHS} >/dev/null || echo "${PATH_CMD}" >> ${TASTE_PATHS}
