@@ -4,6 +4,17 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Setup the tools in ~/.local/bin
 cd $DIR/../dmt || exit 1
+
+# Skip install if the version installed is the same and the tree is clean
+HEAD="$(grep version= setup.py  | awk -F\" '{print $2}')"
+VERSION_INSTALLED="$(dmt --version 2>/dev/null | grep ^TAST | awk '{print $NF}')"
+git status >/dev/null
+TREE_CLEAN=$?
+if [ ${TREE_CLEAN} -eq 0 -a "${HEAD}" == "${VERSION_INSTALLED}" ] ; then
+    echo DMT tree is clean and already installed. Skipping DMT install...
+    exit 0
+fi
+
 pip3 install --user --upgrade . || exit 1
 
 # Add .local/bin to PATH
