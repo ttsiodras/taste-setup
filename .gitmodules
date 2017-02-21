@@ -22,3 +22,6 @@
 [submodule "ocarina"]
 	path = ocarina
 	url = https://gitrepos.estec.esa.int/taste/ocarina
+[submodule "taste-model-checker"]
+	path = taste-model-checker
+	url = https://gitrepos.estec.esa.int/taste/taste-model-checker.git
