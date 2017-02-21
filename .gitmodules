@@ -13,9 +13,6 @@
 [submodule "pymsc"]
 	path = pymsc
 	url = https://gitrepos.estec.esa.int/taste/pymsc.git
-[submodule "properties"]
-	path = properties
-	url = https://gitrepos.estec.esa.int/taste/properties.git
 [submodule "orchestrator"]
 	path = orchestrator
 	url = https://gitrepos.estec.esa.int/taste/orchestrator.git
