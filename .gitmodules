@@ -25,3 +25,9 @@
 [submodule "taste-model-checker"]
 	path = taste-model-checker
 	url = https://gitrepos.estec.esa.int/taste/taste-model-checker.git
+[submodule "polyorb-hi-c"]
+	path = polyorb-hi-c
+	url = https://gitrepos.estec.esa.int/taste/polyorb-hi-c.git
+[submodule "polyorb-hi-ada"]
+	path = polyorb-hi-ada
+	url = https://gitrepos.estec.esa.int/taste/polyorb-hi-ada.git
