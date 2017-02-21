@@ -16,3 +16,6 @@
 [submodule "orchestrator"]
 	path = orchestrator
 	url = https://gitrepos.estec.esa.int/taste/orchestrator.git
+[submodule "taste-MSC"]
+	path = taste-MSC
+	url = https://gitrepos.estec.esa.int/taste/taste-MSC.git
