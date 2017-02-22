@@ -8,7 +8,14 @@ make distclean # ignore any errors here
 ./support/reconfig || exit 1
 PATH=${PREFIX}/bin:${PATH} ./configure || exit 1
 make || exit 1
-make install
+make install || exit 1
+
+cd $DIR/../polyorb-hi-ada || exit 1
+make distclean # ignore any errors here
+./support/reconfig || exit 1
+PATH=${PREFIX}/bin:${PATH} ./configure || exit 1
+make || exit 1
+make install || exit 1
 
 # Add POHI to PATH
 PATH_CMD='export PATH=$PATH:'"${PREFIX}/bin"
