@@ -16,7 +16,7 @@ cp taste-directives/TASTE-Directives.asn ${PREFIX}/share/taste/TASTE-Directives.
 
 # TASTE types
 mkdir -p ${PREFIX}/share/taste-types
-cp misc/taste-common-types/taste-types.asn ${PREFIX}/share/taste-types/ || exit 1
+cp taste-common-types/taste-types.asn ${PREFIX}/share/taste-types/ || exit 1
 
 # Gnuplot
 cp gnuplot/driveGnuPlotsStreams.pl ${PREFIX}/bin/taste-gnuplot-streams
