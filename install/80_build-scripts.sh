@@ -13,5 +13,6 @@ done
 cd ${PREFIX}/bin/ || exit 1
 [ ! -h assert-builder-ocarina.py ] && ln -s taste_orchestrator.py assert-builder-ocarina.py
 
-# In case the '-h' above already found the symlink.
-exit 0
+# Add to PATH
+PATH_CMD='export PATH=$PATH:'"${PREFIX}/bin"
+UpdatePATH

@@ -1,0 +1,30 @@
+TASTE-Directives DEFINITIONS AUTOMATIC TAGS ::= 
+BEGIN
+
+Simulink-Initializer-Excel-T ::= SEQUENCE
+{
+   filename    IA5String ( SIZE (1 .. 200)),
+   col         INTEGER ( 0 .. 200 ),
+   line        INTEGER (0 .. 200)
+}
+
+Simulink-Script-T ::= SEQUENCE
+{
+   filename    IA5String ( SIZE (1 .. 200))
+}
+
+Simulink-Tunable-Parameter ::= IA5String (SIZE (0..255))
+
+Timer ::= IA5String (SIZE (1..80))
+
+
+Taste-directive ::= CHOICE
+{
+   simulink-initializer-excel Simulink-Initializer-Excel-T,
+   simulink-script            Simulink-Script-T,
+   compiler-option            IA5String (SIZE(1..512)),
+   linker-option              IA5String (SIZE(1..512))
+}
+
+
+END

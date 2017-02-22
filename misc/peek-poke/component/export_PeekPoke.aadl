@@ -1,0 +1,222 @@
+  --{ PeekPoke obj313 2441 2008 
+  --In the deployment view, you must place Inspector_Linux (resp. Inspector Leon) on a X86/Native platform
+  --(resp. LEON2/RTEMS platform).
+  --}
+
+PACKAGE exportedComponent::IV::PeekPoke
+PUBLIC
+
+WITH exportedComponent::FV;
+WITH DataView;
+WITH Taste;
+
+  ---------------------------------------------------
+  -- TASTE Function: exportedComponent::IV::PeekPoke::TASTE_Probe
+  ---------------------------------------------------
+
+  SYSTEM TASTE_Probe
+    FEATURES
+      add_monitorings_obj143 : PROVIDES SUBPROGRAM ACCESS exportedComponent::FV::add_monitorings_obj143.others
+        { Taste::Coordinates => "2670 1879";
+          Taste::RCMoperationKind => sporadic;
+          Taste::RCMperiod => 0 ms;
+          Taste::Deadline => 1000 ms;
+          Taste::Importance => MEDIUM ;};
+      patch_memory_obj155 : PROVIDES SUBPROGRAM ACCESS exportedComponent::FV::patch_memory_obj155.others
+        { Taste::Coordinates => "2670 1902";
+          Taste::RCMoperationKind => sporadic;
+          Taste::RCMperiod => 0 ms;
+          Taste::Deadline => 0 ms;
+          Taste::Importance => MEDIUM ;};
+      remove_monitorings_obj167 : PROVIDES SUBPROGRAM ACCESS exportedComponent::FV::remove_monitorings_obj167.others
+        { Taste::Coordinates => "2670 1890";
+          Taste::RCMoperationKind => sporadic;
+          Taste::RCMperiod => 1000 ms;
+          Taste::Deadline => 1000 ms;
+          Taste::Importance => MEDIUM ;};
+      periodic_monitoring_obj179 : PROVIDES SUBPROGRAM ACCESS exportedComponent::FV::periodic_monitoring_obj179.others
+        { Taste::Coordinates => "2738 1849";
+          Taste::RCMoperationKind => cyclic;
+          Taste::RCMperiod => 100 ms;
+          Taste::Deadline => 100 ms;
+          Taste::Importance => MEDIUM ;};
+      obj1475_obj190 : REQUIRES SUBPROGRAM ACCESS exportedComponent::FV::update_monitorings_obj211.others 
+        { Taste::Coordinates => "2670 1937";
+          Taste::RCMoperationKind => sporadic;};
+    PROPERTIES
+      Source_Language => C;
+      Source_Text => ("taste_probe.zip");
+      Taste::Instance_Name => "Function0";
+  END TASTE_Probe;
+
+  SYSTEM IMPLEMENTATION TASTE_Probe.others
+    SUBCOMPONENTS
+      peeks_obj131 : DATA DataView::TASTE_Peek_list 
+        { Taste::FS_Default_Value => "{}"; };
+      max_monitoring_number_obj132 : DATA DataView::TASTE_Peek_limit 
+        { Taste::FS_Default_Value => "10"; };
+      add_monitorings_obj143_impl : SUBPROGRAM exportedComponent::FV::add_monitorings_obj143.others
+        { Compute_Execution_Time => 0ms..1000ms ;};
+      patch_memory_obj155_impl : SUBPROGRAM exportedComponent::FV::patch_memory_obj155.others
+        { Compute_Execution_Time => 0ms..0ms ;};
+      remove_monitorings_obj167_impl : SUBPROGRAM exportedComponent::FV::remove_monitorings_obj167.others
+        { Compute_Execution_Time => 0ms..1000ms ;};
+      periodic_monitoring_obj179_impl : SUBPROGRAM exportedComponent::FV::periodic_monitoring_obj179.others
+        { Compute_Execution_Time => 0ms..100ms ;};
+    CONNECTIONS
+      DATA ACCESS peeks_obj131 -> add_monitorings_obj143_impl.peeks_obj131;
+      DATA ACCESS max_monitoring_number_obj132 -> add_monitorings_obj143_impl.max_monitoring_number_obj132;
+      SUBPROGRAM ACCESS add_monitorings_obj143_impl  -> add_monitorings_obj143;
+      DATA ACCESS peeks_obj131 -> patch_memory_obj155_impl.peeks_obj131;
+      DATA ACCESS max_monitoring_number_obj132 -> patch_memory_obj155_impl.max_monitoring_number_obj132;
+      SUBPROGRAM ACCESS patch_memory_obj155_impl  -> patch_memory_obj155;
+      DATA ACCESS peeks_obj131 -> remove_monitorings_obj167_impl.peeks_obj131;
+      DATA ACCESS max_monitoring_number_obj132 -> remove_monitorings_obj167_impl.max_monitoring_number_obj132;
+      SUBPROGRAM ACCESS remove_monitorings_obj167_impl  -> remove_monitorings_obj167;
+      DATA ACCESS peeks_obj131 -> periodic_monitoring_obj179_impl.peeks_obj131;
+      DATA ACCESS max_monitoring_number_obj132 -> periodic_monitoring_obj179_impl.max_monitoring_number_obj132;
+      SUBPROGRAM ACCESS periodic_monitoring_obj179_impl  -> periodic_monitoring_obj179;
+  END TASTE_Probe.others;
+
+  ---------------------------------------------------
+  -- TASTE Function: exportedComponent::IV::PeekPoke::TASTE_Probe_Console
+  ---------------------------------------------------
+
+  SYSTEM TASTE_Probe_Console
+    FEATURES
+      update_monitorings_obj211 : PROVIDES SUBPROGRAM ACCESS exportedComponent::FV::update_monitorings_obj211.others
+        { Taste::Coordinates => "2614 1937";
+          Taste::RCMoperationKind => sporadic;
+          Taste::RCMperiod => 0 ms;
+          Taste::Deadline => 0 ms;
+          Taste::Importance => MEDIUM ;};
+      obj1240_obj223 : REQUIRES SUBPROGRAM ACCESS exportedComponent::FV::add_monitorings_obj143.others 
+        { Taste::Coordinates => "2614 1879";
+          Taste::RCMoperationKind => sporadic;};
+      obj1354_obj233 : REQUIRES SUBPROGRAM ACCESS exportedComponent::FV::patch_memory_obj155.others 
+        { Taste::Coordinates => "2614 1902";
+          Taste::RCMoperationKind => sporadic;};
+      obj681_obj243 : REQUIRES SUBPROGRAM ACCESS exportedComponent::FV::remove_monitorings_obj167.others 
+        { Taste::Coordinates => "2614 1890";
+          Taste::RCMoperationKind => sporadic;};
+    PROPERTIES
+      Source_Language => GUI;
+      Taste::Instance_Name => "Function1";
+  END TASTE_Probe_Console;
+
+  SYSTEM IMPLEMENTATION TASTE_Probe_Console.others
+    SUBCOMPONENTS
+      update_monitorings_obj211_impl : SUBPROGRAM exportedComponent::FV::update_monitorings_obj211.others
+        { Compute_Execution_Time => 0ms..0ms ;};
+    CONNECTIONS
+      SUBPROGRAM ACCESS update_monitorings_obj211_impl  -> update_monitorings_obj211;
+  END TASTE_Probe_Console.others;
+
+PROPERTIES
+  Taste::Coordinates => "2425 1788 2869 2054";
+  Taste::dataView => ("DataView","DataView");
+  Taste::dataViewPath => ("DataView.aadl");
+
+END exportedComponent::IV::PeekPoke;
+
+  ---------------------------------------------------
+  -- TASTE Root system: exportedComponent::IV::exportedComponent
+  ---------------------------------------------------
+
+PACKAGE exportedComponent::IV
+PUBLIC
+
+WITH exportedComponent::FV;
+WITH exportedComponent::IV::PeekPoke;
+ 
+
+  SYSTEM exportedComponent
+    PROPERTIES
+      Taste::Export_Date => "Thu Dec 13 16:44:05 CET 2012";
+  END exportedComponent;
+
+  SYSTEM IMPLEMENTATION exportedComponent.others
+    SUBCOMPONENTS
+      TASTE_Probe: SYSTEM exportedComponent::IV::PeekPoke::TASTE_Probe.others
+        { Taste::Coordinates => "2670 1849 2842 1988"; };
+      TASTE_Probe_Console: SYSTEM exportedComponent::IV::PeekPoke::TASTE_Probe_Console.others
+        { Taste::Coordinates => "2455 1847 2614 1991"; };
+    CONNECTIONS
+      obj1546 : SUBPROGRAM ACCESS TASTE_Probe_Console.update_monitorings_obj211  -> TASTE_Probe.obj1475_obj190 
+        { Taste::Coordinates => "2670 1937 2642 1937 2642 1937 2614 1937"; };
+      obj1326 : SUBPROGRAM ACCESS TASTE_Probe.add_monitorings_obj143  -> TASTE_Probe_Console.obj1240_obj223 
+        { Taste::Coordinates => "2614 1879 2642 1879 2642 1879 2670 1879"; };
+      obj1419 : SUBPROGRAM ACCESS TASTE_Probe.patch_memory_obj155  -> TASTE_Probe_Console.obj1354_obj233 
+        { Taste::Coordinates => "2614 1902 2642 1902 2642 1902 2670 1902"; };
+      obj747 : SUBPROGRAM ACCESS TASTE_Probe.remove_monitorings_obj167  -> TASTE_Probe_Console.obj681_obj243 
+        { Taste::Coordinates => "2614 1890 2642 1890 2642 1890 2670 1890"; };
+  END exportedComponent.others;
+END exportedComponent::IV;
+
+PACKAGE exportedComponent::FV
+PUBLIC
+
+WITH DataView;
+WITH TASTE;
+
+  SUBPROGRAM add_monitorings_obj143
+    FEATURES
+      monitorings : IN PARAMETER DataView::TASTE_Peek_list
+        { Taste::encoding => UPER; };
+      peeks_obj131 : REQUIRES DATA ACCESS DataView::TASTE_Peek_list;
+      max_monitoring_number_obj132 : REQUIRES DATA ACCESS DataView::TASTE_Peek_limit;
+    PROPERTIES
+      Taste::Associated_Queue_Size => 1;
+  END add_monitorings_obj143;
+
+  SUBPROGRAM IMPLEMENTATION add_monitorings_obj143.others
+  END add_monitorings_obj143.others;
+
+  SUBPROGRAM patch_memory_obj155
+    FEATURES
+      pokes : IN PARAMETER DataView::TASTE_Poke_list
+        { Taste::encoding => UPER; };
+      peeks_obj131 : REQUIRES DATA ACCESS DataView::TASTE_Peek_list;
+      max_monitoring_number_obj132 : REQUIRES DATA ACCESS DataView::TASTE_Peek_limit;
+    PROPERTIES
+      Taste::Associated_Queue_Size => 1;
+  END patch_memory_obj155;
+
+  SUBPROGRAM IMPLEMENTATION patch_memory_obj155.others
+  END patch_memory_obj155.others;
+
+  SUBPROGRAM remove_monitorings_obj167
+    FEATURES
+      ids : IN PARAMETER DataView::TASTE_Peek_id_list
+        { Taste::encoding => UPER; };
+      peeks_obj131 : REQUIRES DATA ACCESS DataView::TASTE_Peek_list;
+      max_monitoring_number_obj132 : REQUIRES DATA ACCESS DataView::TASTE_Peek_limit;
+    PROPERTIES
+      Taste::Associated_Queue_Size => 1;
+  END remove_monitorings_obj167;
+
+  SUBPROGRAM IMPLEMENTATION remove_monitorings_obj167.others
+  END remove_monitorings_obj167.others;
+
+  SUBPROGRAM periodic_monitoring_obj179
+    FEATURES
+      peeks_obj131 : REQUIRES DATA ACCESS DataView::TASTE_Peek_list;
+      max_monitoring_number_obj132 : REQUIRES DATA ACCESS DataView::TASTE_Peek_limit;
+  END periodic_monitoring_obj179;
+
+  SUBPROGRAM IMPLEMENTATION periodic_monitoring_obj179.others
+  END periodic_monitoring_obj179.others;
+
+  SUBPROGRAM update_monitorings_obj211
+    FEATURES
+      monitorings : IN PARAMETER DataView::TASTE_Monitoring_list
+        { Taste::encoding => UPER; };
+    PROPERTIES
+      Taste::Associated_Queue_Size => 1;
+  END update_monitorings_obj211;
+
+  SUBPROGRAM IMPLEMENTATION update_monitorings_obj211.others
+  END update_monitorings_obj211.others;
+
+END exportedComponent::FV;
+
