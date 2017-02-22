@@ -7,7 +7,7 @@ cd ${DIR}/../misc || exit 1
 # taste-config
 mkdir -p ${PREFIX}/bin
 sed -e "s:INSTALL_PREFIX:${PREFIX}:g" taste-config.pl > taste-config.pl.tmp
-cp taste-config.pl.tmp ${PREFIX}/bin/taste-config
+install -m 755 taste-config.pl.tmp ${PREFIX}/bin/taste-config
 
 # TASTE-Directives.asn
 mkdir -p ${PREFIX}/share/taste
