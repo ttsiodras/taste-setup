@@ -3,6 +3,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . ${DIR}/common.sh
 
 # Install the scripts
+cd ${DIR}
 for i in checkStackUsage.py patchAPLCs.py taste_orchestrator.py 
 do
     cp -u ../orchestrator/orchestrator/$i ${PREFIX}/bin/
