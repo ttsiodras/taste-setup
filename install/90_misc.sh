@@ -2,8 +2,6 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . ${DIR}/common.sh
 
-# ELLIDISS?=/opt/Ellidiss-TASTE-linux
-
 # taste-config
 mkdir -p ${PREFIX}/bin
 sed -e "s:INSTALL_PREFIX:${PREFIX}:g" taste-config.pl > taste-config.pl.tmp
@@ -25,14 +23,7 @@ for i in DataView.aadl DataView.asn export_PeekPoke.aadl taste_probe.zip ; do \
         cp peek-poke/component/$$i ${PREFIX}/share/peekpoke/component/$$i ; \
 done
 
-mkdir -p ${PREFIX}/share/config_ellidiss
-cp ellidiss/*.tcl $(ELLIDISS)/config/externalTools
-cp ellidiss/TASTE_IV_Properties.aadl ${PREFIX}/share/config_ellidiss
-cp ellidiss/TASTE_DV_Properties.aadl ${PREFIX}/share/config_ellidiss
-sudo cp ellidiss/IVConfig.ini /opt/Ellidiss-TASTE-linux/config/
-mkdir -p ${PREFIX}/share/taste-types
-cp taste-common-types/taste-types.asn ${PREFIX}/share/taste-types
-cp -rf config-files/.kde ~/
-cd git-transition/ && ./local_install.sh
-ln -sf $(HOME)/.local/bin/opengeode ${PREFIX}/bin/opengeode
-$(MAKE) -C qemu-Leon3 || exit 1
+# Ellidiss - point the PATH to the repo
+REAL_ELLIDISS=$(realpath "${DIR}/../ellidiss-GUI/TASTE-linux/bin")
+PATH_CMD='export PATH=$PATH:'"${REAL_ELLIDISS}"
+UpdatePATH
