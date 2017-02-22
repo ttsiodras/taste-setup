@@ -26,7 +26,11 @@ for i in DataView.aadl DataView.asn export_PeekPoke.aadl taste_probe.zip ; do \
         cp peek-poke/component/$i ${PREFIX}/share/peekpoke/component/$i ; \
 done
 
+# Helper scripts
+cp -u helper-scripts/* ${PREFIX}/bin/
+
 # Ellidiss - point the PATH to the repo
 REAL_ELLIDISS=$(realpath "${DIR}/../ellidiss-GUI/TASTE-linux/bin")
 PATH_CMD='export PATH=$PATH:'"${REAL_ELLIDISS}"
 UpdatePATH
+
