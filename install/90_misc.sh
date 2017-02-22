@@ -22,7 +22,7 @@ mkdir -p ${PREFIX}/share/peekpoke/component
 cp peek-poke/peekpoke.py ${PREFIX}/share/peekpoke/peekpoke.py
 cp peek-poke/PeekPoke.glade ${PREFIX}/share/peekpoke/PeekPoke.glade
 for i in DataView.aadl DataView.asn export_PeekPoke.aadl taste_probe.zip ; do \
-        cp peek-poke/component/$$i ${PREFIX}/share/peekpoke/component/$$i ; \
+        cp peek-poke/component/$i ${PREFIX}/share/peekpoke/component/$i ; \
 done
 
 # Ellidiss - point the PATH to the repo
