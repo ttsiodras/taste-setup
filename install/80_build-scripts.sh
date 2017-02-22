@@ -10,4 +10,4 @@ done
 
 # Install a symlink for the old name of the build tool
 cd ${PREFIX}/bin/ || exit 1
-ln -s taste_orchestrator.py assert-builder-ocarina.py
+[ ! -h assert-builder-ocarina.py ] && ln -s taste_orchestrator.py assert-builder-ocarina.py
