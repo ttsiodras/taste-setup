@@ -1,0 +1,84 @@
+#!/bin/bash -e
+# $1 may be the interfaceview in AADL (optional if a file called InterfaceView.aadl is present)
+# $2 is the output directory
+# this script builds a unique dataview.aadl file and calls buildsupport with --gw --aadlv2 -o $2 --keep-case
+
+[ -z "$DMT" ] && { echo You must set the DMT environment variable before you can execute this command.; exit 1 ; }
+
+# First check if an existing file is given as first argument (interface view)
+# If not, check for the presence of a file called "InterfaceView.aadl".
+# If no file is present or given, return an error with the command line.
+if [ ! -f "$1" ]
+then
+    if [ -f InterfaceView.aadl ]
+    then
+	INTERFACEVIEW=InterfaceView.aadl
+    else
+        echo 'Error: interface view not found	
+Usage: [FORCE=1] taste-generate-skeletons [InterfaceView.aadl] [output-directory]'
+        exit -1
+    fi
+else
+    INTERFACEVIEW="$1"
+    shift
+fi
+
+grep -i taste-directives.aadl "$INTERFACEVIEW" >/dev/null && {
+    echo Your interface view needs to be upgraded\!
+    echo Please upgrade it with:
+    echo
+    echo "  taste-upgrade-IF-view oldIFview newIFview"
+    echo
+    echo ...and use the newIFview instead.
+    exit 1
+}
+
+# Second, check if an output directory is passed as second argument
+if [ -z "$1" ] 
+then 
+    output_dir=. 
+else 
+    output_dir="$1" 
+fi
+
+AADL_PROPERTIES="$(taste-config --prefix)/share/config_ellidiss/TASTE_IV_Properties.aadl"
+
+if [[ -f InterfaceView.md5 && -z $FORCE ]]
+then
+    before=$(cat InterfaceView.md5)
+    after=$(md5sum "$INTERFACEVIEW")
+    if [ "$before" == "$after" ]
+    then
+        echo 'Interface View has not changed, nothing to do
+If you want to force generation of the skeletons anyway, type:
+$ FORCE=1 taste-generate-skeletons
+'
+        exit 0
+    fi
+fi
+
+# Detect models from Ellidiss tools v2, and convert them to 1.3
+grep "version => \"2" "$INTERFACEVIEW" >/dev/null && {
+   echo '[INFO] Converting interface view from V2 to V1.3'
+   cp -f "$INTERFACEVIEW" "$output_dir"/__interfaceview-v2.aadl
+   TASTE --load-interface-view "$output_dir"/__interfaceview-v2.aadl --export-interface-view-to-1_3 "$INTERFACEVIEW"
+};
+
+
+md5sum "$INTERFACEVIEW" > InterfaceView.md5
+
+mkdir -p "$output_dir" 2>/dev/null && shift || output_dir=.
+echo '[INFO] Collecting ASN.1 files'
+taste-extract-asn-from-design.exe -i "$INTERFACEVIEW" -j "$output_dir"/dataview-uniq.asn
+echo '[INFO] Generating AADL data view'
+asn2aadlPlus "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq.aadl -aadlv2
+asn2aadlPlus "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq-v1.aadl
+taste-extract-asn-from-design.exe -i "$INTERFACEVIEW" -k "$output_dir"/dataview-uniq.asn
+echo '[INFO] Parsing AADL and generating skeletons with buildsupport'
+buildsupport -i "$INTERFACEVIEW" -d "$output_dir"/dataview-uniq.aadl --gw --aadlv2 -o "$output_dir" --keep-case "$AADL_PROPERTIES" "$@"
+cp -f __interfaceview-v2.aadl "$INTERFACEVIEW" 2>/dev/null || :
+rm -f "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq.aadl "$output_dir"/dataview-uniq-v1.aadl \
+      "$output_dir"/__interfaceview-v2.aadl
+
+
+

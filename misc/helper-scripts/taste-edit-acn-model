@@ -1,0 +1,55 @@
+#!/bin/bash -e
+echo TASTE ACN Editor - Use only the SAVE button - not \"Save as..\" !
+
+if [ ! -z $(which kate) ]
+then
+    EDITOR="kate -n"
+elif [ ! -z $(which gvim) ]
+then
+    EDITOR="gvim -f"
+else
+    EDITOR=vi
+fi
+
+if [ ! -z "$1" ]
+then
+    ACNFILENAME="$1"
+else
+    ACNFILENAME=DataView.acn
+fi
+
+if [ ! -f "$ACNFILENAME" ]
+then
+   echo No proper ACN model found. Use taste-create-acn-model first or use $(basename "$0") DataView.acn
+   exit -1
+fi
+
+DATAVIEW=${ACNFILENAME%.*}.asn
+
+if [ ! -f "$DATAVIEW" ]
+then
+    echo No dataview corresponding to your ACN model was found. Make sure "$DATAVIEW" is present
+    exit -1
+fi
+
+if [ -z $NONINTERACTIVE ]
+then
+    before=$(md5sum "$ACNFILENAME")
+    $EDITOR "$ACNFILENAME"
+    after=$(md5sum "$ACNFILENAME")
+fi
+
+if [ ! -f DataView.aadl ]
+then
+    before=
+fi
+ 
+if [ "$before" != "$after" ]
+then
+    taste-update-data-view $1
+    echo 'Everything went fine. Your dataview was properly updated.'
+else
+    echo File unchanged
+fi
+
+

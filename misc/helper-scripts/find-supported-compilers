@@ -1,0 +1,22 @@
+#!/bin/bash
+
+POHIC=$(taste-config --prefix)/include/ocarina/runtime/polyorb-hi-c/make
+POHIADA=$(taste-config --prefix)/include/ocarina/runtime/polyorb-hi-ada/make
+RTEMS_MAKEFILE_PATH=$RTEMS_MAKEFILE_PATH_LEON
+MTMP=${TMP:-/tmp}
+mkdir -p $MTMP
+
+for target in "$POHIC" "$POHIADA"
+do
+    cd "$target" && for f in Makefile.*
+    do
+
+    cat << EOF > ${MTMP}/Makefile.tmp.$$
+include ${f}
+all:    
+	@echo \$(CC)
+EOF
+       export RTEMS_MAKEFILE_PATH=$RTEMS_MAKEFILE_PATH_LEON && make -f $MTMP/Makefile.tmp.$$ all 2>/dev/null
+       rm -f $MTMP/Makefile.tmp.$$
+    done
+done | awk '{print $1}' | sort | uniq | grep -v your_c_compiler | grep -v '^$'

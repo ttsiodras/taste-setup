@@ -1,0 +1,28 @@
+#!/bin/bash
+if [ ! -f "$1" ]
+then
+    if [ -f InterfaceView.aadl ]
+    then
+	echo 'Loading InterfaceView.aadl'
+	INTERFACEVIEW=InterfaceView.aadl
+    else
+	echo 'Error: no interface view found
+Usage: taste-create-deployment-view InterfaceView.aadl'
+        exit -1
+    fi
+else
+    echo 'Loading interface view: "$1"'
+    INTERFACEVIEW="$1"
+fi
+
+grep -i taste-directives.aadl "$INTERFACEVIEW" >/dev/null && {
+    echo Your interface view needs to be upgraded\!
+    echo Please upgrade it with:
+    echo
+    echo "  taste-upgrade-IF-view oldIFview newIFview"
+    echo
+    echo ...and use the newIFview instead.
+    exit 1
+}
+
+TASTE-DV  --aadl-library $(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl --load-interface-view "$INTERFACEVIEW" --edit-aadl DeploymentView.aadl

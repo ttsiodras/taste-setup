@@ -1,0 +1,49 @@
+#!/bin/bash -e
+echo TASTE ACN Editor - Use only the SAVE button - not \"Save as..\" !
+
+DATAVIEW=DataView.asn
+
+if [ ! -z $(which kate) ]
+then
+    EDITOR="kate -n"
+elif [ ! -z $(which gvim) ]
+then
+    EDITOR="gvim -f"
+else
+    EDITOR=vi
+fi
+
+if [ ! -z "$1" ]
+then
+    if [ -f "$1" ]
+    then
+        DATAVIEW="$1"
+    else
+        echo Invalid dataview filename - use $(basename "$0") \<filename.asn\>
+        exit -1
+    fi
+fi
+
+if [ -f "$DATAVIEW" ]
+then 
+    echo Creating dummy ACN file from existing DataView.asn
+else
+    echo First create your ASN.1 data model: run taste-create-data-view
+    exit -1
+fi
+
+TASTE_TYPES=$(taste-config --prefix)/share/taste-types/taste-types.asn
+mono $(which asn1.exe) -ACND "$DATAVIEW" "$TASTE_TYPES"
+
+ACNFILENAME=${DATAVIEW%.*}.acn
+
+if [ -z $NONINTERACTIVE ]
+then
+    $EDITOR "$ACNFILENAME"
+fi
+
+taste-update-data-view $1
+
+echo 'Everything went fine.
+If you want to edit your ACN model, run taste-edit-acn-model
+'

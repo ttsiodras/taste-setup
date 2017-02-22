@@ -1,0 +1,22 @@
+#!/bin/bash
+if [ ! -f "$1" ] 
+then
+    if [ -f DeploymentView.aadl ]
+    then
+	echo Opening DeploymentView.aadl
+	DEPLOYMENTVIEW=DeploymentView.aadl
+    else
+	echo 'Error: no deployment view found
+Usage: taste-edit-deployment-view DeploymentView.aadl'
+        exit 1
+    fi
+else
+    echo Opening "$1"
+    DEPLOYMENTVIEW="$1"
+fi
+# To be compatible with older versions (1.2) call cleanupDV to delete hard copy
+# of the component library from inside DeployementView.aadl
+echo TASTE Deployment view Editor - Use only the SAVE button - not \"Save as..\" !
+cleanupDV.pl "$DEPLOYMENTVIEW" > "/tmp/newDV.aadl.$$" && \
+        mv "/tmp/newDV.aadl.$$" "$DEPLOYMENTVIEW" && \
+        TASTE-DV --edit-aadl "$DEPLOYMENTVIEW" --aadl-library $(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl

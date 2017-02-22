@@ -1,0 +1,57 @@
+#!/bin/bash -e
+
+# Build an SQL database for the current TASTE project
+
+# (1) First check if a project name is given as first argument, othewise take current directory
+if [ "$1" ]
+then
+    DBNAME="$1"
+else
+    DBNAME=$(pwd | sed 's,^.*/,,g' | tr '[A-Z]' '[a-z]' | tr '-' '_')
+fi
+
+echo Creating a TASTE SQL Database for project $DBNAME
+
+# (2) Create the DB output directory
+
+mkdir -p sql_db
+
+# (3) Retrieve ASN.1 file and create a single ASN.1 file with all types inside
+
+INTERFACEVIEW=InterfaceView.aadl
+AADL_PROPERTIES="$(taste-config --prefix)/share/config_ellidiss/TASTE_IV_Properties.aadl"
+
+if [ ! -f InterfaceView.aadl ]
+then
+    echo 'Error: InterfaceView.aadl not found'
+    exit -1
+fi
+
+taste-extract-asn-from-design.exe -i "$INTERFACEVIEW" -j sql_db/$DBNAME.asn
+
+# (4) create Python and SQL Alchemy interfaces
+
+cd sql_db
+asn2dataModel -toPython $DBNAME.asn
+asn2dataModel -toSqlalchemy $DBNAME.asn
+
+# Build the Python interface
+make -f Makefile.python 
+
+# (5) Create postgresql database
+
+echo "drop database if exists $DBNAME; create database $DBNAME;" | psql -h localhost -U taste postgres
+
+cat > initdb.py <<OEF
+from sqlalchemy import create_engine
+from ${DBNAME}_model import Base
+engine = create_engine(
+    'postgresql+psycopg2://taste:tastedb@localhost/${DBNAME}', echo=False)
+Base.metadata.create_all(engine)
+OEF
+python initdb.py
+
+cat > db.info << OEF2
+postgresql+psycopg2://taste:tastedb@localhost/${DBNAME}
+${DBNAME}
+OEF2

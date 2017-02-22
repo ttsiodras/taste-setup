@@ -1,0 +1,91 @@
+#!/bin/bash
+
+error=0
+NB_ARGS=3
+AUTO=0
+
+# If there are no parameters, take default names for Interface, Deployment and Data view
+if [ $# -eq $AUTO ]
+then
+    if [[ -f InterfaceView.aadl && -f DeploymentView.aadl && -f DataView.aadl ]]
+    then
+        echo 'Using InterfaceView.aadl, DeploymentView.aadl, DataView.aadl (defaults)'
+	INTERFACEVIEW=InterfaceView.aadl
+        DEPLOYMENTVIEW=DeploymentView.aadl
+        DATAVIEW=DataView.aadl
+    else
+        error=1
+        echo 'Error: Missing files (need InterfaceView.aadl, DeploymentView.aadl, DataView.aadl)'
+
+    fi
+else
+    # Check if there are 3 parameters and that the files are all present
+    if [[ $# -eq $NB_ARGS && -f "$1" && -f "$2" && -f "$3" ]]
+    then
+        echo 'Loading interface, deployment and data views: "$1" "$2" "$3"'
+        INTERFACEVIEW="$1"
+        DEPLOYMENTVIEW="$2"
+        DATAVIEW="$3"
+    else
+        error=1
+        echo 'Error: specified files missing or wrong number of parameters'
+    fi
+fi
+
+if [ $error -eq 1 ]
+then
+    echo 'If you are using custom names for interface, deployment and data views, please specify them in order:
+Usage: taste-edit-concurrency-view InterfaceView.aadl DeploymentView.aadl DataView.aadl'
+    exit -1
+fi
+
+AADL_PROPERTIES="$(taste-config --prefix)/share/config_ellidiss/TASTE_IV_Properties.aadl "
+AADL_PROPERTIES+="$(taste-config --prefix)/share/config_ellidiss/TASTE_DV_Properties.aadl"
+OCARINA_COMPONENTS="$(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl"
+
+# Tempdir will not be deleted - OS shall make the cleanup (likely at reboot)
+tempdir=$(mktemp -d)
+taste-extract-asn-from-design.exe -i "$INTERFACEVIEW" -j "$tempdir"/dataview-uniq.asn
+asn2aadlPlus "$tempdir"/dataview-uniq.asn "$tempdir"/dataview-uniq.aadl -aadlv2
+taste-extract-asn-from-design.exe -i "$INTERFACEVIEW" -k "$tempdir"/dataview-uniq.asn
+DATAVIEW="$tempdir"/dataview-uniq.aadl
+CMD="buildsupport -i ${INTERFACEVIEW}
+                  -c ${DEPLOYMENTVIEW}
+                  -d ${DATAVIEW}
+                  ${AADL_PROPERTIES}
+                  ${OCARINA_COMPONENTS}
+                  -glue
+                  -gw
+                  -o ${tempdir}"
+
+[ ! -z $DEBUG ] && echo "${CMD}"
+
+# Execute buildsupport:
+$CMD
+
+if [ $? -eq 0 ]
+then
+    PROCESS="$tempdir"/ConcurrencyView/process.aadl
+    for file in "$tempdir"/ConcurrencyView/*_Thread.aadl
+    do
+        PROCESS+=,$file
+    done
+    PROCESS+=,$OCARINA_COMPONENTS
+else
+    echo "The following command failed:
+${CMD}
+"
+    echo 'Buildsupport reported errors - Fix your models before you can edit the Concurrency View'
+    exit -2
+fi
+
+echo 'Running the Concurrency View editor from TASTE
+From this tool you may:
+
+- Verify the schedulability of your system with CHEDDAR
+- Simulate the real-time architecture with MARZHIN
+- Edit the thread priorities, stack size and offset/phase'
+
+PROPERTIES=ConcurrencyView.pro
+[ ! -z $DEBUG ] && echo TASTE-CV --edit-aadl $PROCESS --update-properties $PROPERTIES
+TASTE-CV  --edit-aadl $PROCESS --update-properties $PROPERTIES 

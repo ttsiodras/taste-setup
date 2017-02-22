@@ -1,0 +1,47 @@
+#!/bin/bash -e
+
+# Run the tracer daemon - make sure only one instance exists at a time
+exec 9>/tmp/tracerf.lck
+if flock -n 9
+then
+    $(taste-config --prefix)/share/AutoGUI/tracerd.py -s trace.msc &
+    tracer_pid=$!
+    sleep 0.5
+else
+    echo '(Info) Another instance of the tracer daemon is running'
+fi
+
+if [ ! -f "$1" ]
+then
+    echo 'Usage: taste-run-and-trace binary
+
+This script executes one of your system binaries (on a native Linux platform) and records
+all inner message exchanges in the form of a sequence diagram (MSC).
+You can then open/edit this MSC with the TASTE MSC Editor
+'
+else
+    export VCD_ENABLED=1
+    $(taste-config --prefix)/share/AutoGUI/tracer-inner.py 127.0.0.1 27183 "$1"
+fi
+
+
+# If this script launched the tracer daemon, kill it at the end to write the MSC file
+if [ ! -z $tracer_pid ]
+then
+    echo 'Stopping tracer daemon'
+    # Send Ctrl-C
+    kill -INT "$tracer_pid"
+fi
+
+cp ../dataview-uniq.asn .
+
+# Patch the VCD file (if any)
+if [ -f bench.vcd ]
+then
+    taste-patch-vcd.py ../GlueAndBuild/deploymentview_final/"$1"/deployment.h bench.vcd
+fi
+
+echo 'Trace file were generated. You may now run:
+    msce.py -o ./trace.msc
+    gtkwave ./bench.vcd.new
+'

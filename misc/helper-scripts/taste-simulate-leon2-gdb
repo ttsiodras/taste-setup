@@ -1,0 +1,2 @@
+#!/bin/bash
+/opt/qemu-leon2/bin/qemu-system-sparc -M at697 -nographic -kernel "$@" -gdb tcp::9976 -S

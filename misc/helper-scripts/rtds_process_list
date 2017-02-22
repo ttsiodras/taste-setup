@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# from a RTDS generated code directory, get the list of SDL processes
+# based on the filenames (process code ends with _p.c)
+
+echo '#ifdef NO_RTDS_SCHEDULER' > list_process.def
+
+ls *_p.c 2>/dev/null | cut -f 1 -d _ | xargs -L 1 -I {} echo DECLARE \("{}"\) >> list_process.def
+
+echo '#endif' >> list_process.def
+

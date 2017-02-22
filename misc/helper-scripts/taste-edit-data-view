@@ -1,0 +1,50 @@
+#!/bin/bash -e
+
+echo TASTE Data View Editor - Use only the SAVE button - not \"Save as..\" !
+
+if [ ! -z $(which kate) ]
+then
+    EDITOR="kate -n"
+elif [ ! -z $(which gvim) ]
+then
+    EDITOR="gvim -f"
+else
+    EDITOR=vi
+fi
+
+if [ ! -f "$1" ]
+then
+    if [ -f DataView.asn ]
+    then
+        echo 'Opening DataView.asn'
+        DATAVIEW=DataView.asn
+    else
+        echo Error: no data view found
+        echo Usage: taste-edit-data-view DataView.asn
+        exit 1
+    fi
+else
+    echo Opening "$1"
+    DATAVIEW="$1"
+fi
+
+
+before=$(md5sum "$DATAVIEW")
+$EDITOR "$DATAVIEW" 2>/dev/null
+after=$(md5sum "$DATAVIEW")
+
+if [ ! -f DataView.aadl ]
+then
+    before=
+fi
+
+cp $(taste-config --prefix)/share/taste-types/taste-types.asn .
+
+if [ "$before" != "$after" ] ; then
+    taste-update-data-view $1
+else
+    echo File unchanged
+    exit 0
+fi
+
+

@@ -1,0 +1,72 @@
+#!/bin/bash -e
+
+echo TASTE Dataview Editor - Use only the SAVE button - not \"Save as..\" !
+
+
+# Find a suitable text editor, in order of priority: kate, gvim, vi
+if [ ! -z $(which kate) ]
+then
+    EDITOR="kate -n"
+elif [ ! -z $(which gvim) ]
+then
+    EDITOR="gvim -f"
+else
+    EDITOR=vi
+fi
+
+if [ -f "DataView.asn" ];
+ then echo Opening existing DataView.asn;
+else
+    echo Creating a dummy ASN.1 file with a few type examples - feel free to add, edit, delete...
+    echo 'TASTE-Dataview DEFINITIONS ::=
+BEGIN
+IMPORTS T-Int32, T-UInt32, T-Int8, T-UInt8, T-Boolean FROM TASTE-BasicTypes;
+
+-- A few simple types to start with ASN.1
+MyInteger   ::= T-UInt8
+
+MyReal      ::= REAL (0.0 .. 1000.0)
+
+MyBool      ::= BOOLEAN
+
+MyEnum      ::= ENUMERATED { hello, world, howareyou }
+
+MySeq       ::= SEQUENCE {
+    input-data  MyInteger,
+    output-data MyInteger,
+    validity    ENUMERATED { valid, invalid }
+}
+
+MyChoice    ::= CHOICE {
+    a BOOLEAN,
+    b MySeq
+}
+
+MySeqOf     ::= SEQUENCE (SIZE (2)) OF MyEnum
+
+MyOctStr    ::= OCTET STRING (SIZE (3))
+
+-- You can also declare constants
+myVar       MySeqOf     ::= { hello, world }
+
+END
+' > DataView.asn
+fi
+
+if [ -z $NONINTERACTIVE ]
+then
+    $EDITOR DataView.asn
+    echo Converting the data view to AADL...
+fi
+
+cp $(taste-config --prefix)/share/taste-types/taste-types.asn .
+
+taste-update-data-view
+
+if [ -z $NONINTERACTIVE ]
+then
+    echo 'Everything went fine.
+You can now run taste-create-interface-view or if you want to edit your data view, run taste-edit-data-view
+You can also create an ACN model of your data view by typing taste-create-acn-model
+'
+fi

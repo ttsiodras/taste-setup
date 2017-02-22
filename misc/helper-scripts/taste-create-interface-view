@@ -1,0 +1,19 @@
+#!/bin/bash
+echo 'TASTE Interface view Editor - Use only the SAVE button - not \"Save as..\" !'
+
+if [ ! -f "$1" ]
+then
+    if [ ! -f DataView.aadl ]
+    then
+        echo 'No dataview found. Creating one for you.'
+        NONINTERACTIVE=1 taste-create-data-view
+    fi
+    AADLFILES+=,DataView.aadl
+else
+    echo Using dataview file "$1"
+    AADLFILES+=,"$1"
+fi
+
+TASTE-IV --data-view "$AADLFILES" --edit-aadl InterfaceView.aadl
+
+

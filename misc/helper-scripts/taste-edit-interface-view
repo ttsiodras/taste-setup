@@ -1,0 +1,30 @@
+#!/bin/bash
+if [ ! -f "$1" ] 
+then
+    if [ -f InterfaceView.aadl ]
+    then
+        echo 'Opening InterfaceView.aadl'
+        INTERFACEVIEW=InterfaceView.aadl
+    else
+        echo Error: no interface view found
+        echo Usage: taste-edit-interface-view InterfaceView.aadl
+        exit 1
+    fi
+else
+    echo Opening "$1"
+    INTERFACEVIEW="$1"
+fi
+
+grep -i taste-directives.aadl "$INTERFACEVIEW" >/dev/null && {
+    echo Your interface view needs to be upgraded\!
+    echo Please upgrade it with:
+    echo
+    echo "  taste-upgrade-IF-view oldIFview newIFview"
+    echo
+    echo ...and use the newIFview instead.
+    exit 1
+}
+
+echo TASTE Interface view Editor - Use only the SAVE button - not \"Save as..\" !
+
+TASTE-IV --edit-aadl "$INTERFACEVIEW"
