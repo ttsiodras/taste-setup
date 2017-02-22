@@ -6,7 +6,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd ${DIR}
 for i in checkStackUsage.py patchAPLCs.py taste-orchestrator.py 
 do
-    cp -u ../orchestrator/orchestrator/$i ${PREFIX}/bin/
+    cp -a ../orchestrator/orchestrator/$i ${PREFIX}/bin/
 done
 
 # Install a symlink for the old name of the build tool
