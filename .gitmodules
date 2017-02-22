@@ -34,3 +34,6 @@
 [submodule "testSuites"]
 	path = testSuites
 	url = https://gitrepos.estec.esa.int/taste/regression-suites.git
+[submodule "ellidiss-GUI"]
+	path = ellidiss-GUI
+	url = https://gitrepos.estec.esa.int/taste/ellidiss-release.git
