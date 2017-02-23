@@ -1,7 +1,9 @@
 #!/bin/bash
 ARCH=$(uname -m)
 if [ "${ARCH}" == "x86_64" ] ; then
-    sudo dpkg --add-architecture i386
+    dpkg --print-foreign-architectures | grep i386 >/dev/null || {
+        sudo dpkg --add-architecture i386
+    }
 fi
 sudo apt-get update
 if [ "${ARCH}" == "x86_64" ] ; then
