@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo -n "bash -c 'echo OK'" >/dev/null
+sudo -n bash -c 'echo OK' >/dev/null
 if [ $? -ne 0 ] ; then
     echo You need to install and configure password-less sudo.
     echo "The update process touches system files, so, from a root account:"
