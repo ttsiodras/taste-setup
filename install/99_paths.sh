@@ -23,4 +23,4 @@ diff -u  ${TMP}/oldPaths ${TMP}/newPaths || {
     echo "${INFO} (if you are using the TASTE VM, this has already been done)."
 }
 
-rm -f ${TMP}/oldPaths ${TMP}/newPaths || {
+rm -f ${TMP}/oldPaths ${TMP}/newPaths
