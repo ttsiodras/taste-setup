@@ -15,10 +15,10 @@ bash -c '. ~/.bashrc.taste ; echo $PATH' | sed 's,:,\n,g' | sort -u > ${TMP}/new
 
 diff -u  ${TMP}/oldPaths ${TMP}/newPaths || {
     echo -e "${INFO} A new PATH folder was introduced in your ~/.bashrc.taste"
-    echo -e "${INFO} Source it now..."
-    echo
-    echo -e "${INFO}     . ~/.bashrc.taste"
-    echo
+    echo -e "${INFO} Source it now with..."
+    echo -e "${INFO} "
+    echo -e "${INFO}     source ~/.bashrc.taste"
+    echo -e "${INFO} "
     echo -e "${INFO} ...and make sure your ~/.bashrc is sourcing it as well."
     echo -e "${INFO} (if you are using the TASTE VM, this has already been done)."
 }
