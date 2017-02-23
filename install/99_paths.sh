@@ -14,13 +14,13 @@ echo $PATH | sed 's,:,\n,g' | sort -u > ${TMP}/oldPaths
 bash -c '. ~/.bashrc.taste ; echo $PATH' | sed 's,:,\n,g' | sort -u > ${TMP}/newPaths
 
 diff -u  ${TMP}/oldPaths ${TMP}/newPaths || {
-    echo "${INFO} A new PATH folder was introduced in your ~/.bashrc.taste"
-    echo "${INFO} Source it now..."
+    echo -e "${INFO} A new PATH folder was introduced in your ~/.bashrc.taste"
+    echo -e "${INFO} Source it now..."
     echo
-    echo "${INFO}     . ~/.bashrc.taste"
+    echo -e "${INFO}     . ~/.bashrc.taste"
     echo
-    echo "${INFO} ...and make sure your ~/.bashrc is sourcing it as well."
-    echo "${INFO} (if you are using the TASTE VM, this has already been done)."
+    echo -e "${INFO} ...and make sure your ~/.bashrc is sourcing it as well."
+    echo -e "${INFO} (if you are using the TASTE VM, this has already been done)."
 }
 
 rm -f ${TMP}/oldPaths ${TMP}/newPaths
