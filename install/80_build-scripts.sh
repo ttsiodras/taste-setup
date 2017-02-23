@@ -4,10 +4,13 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Install the scripts
 cd ${DIR}
-for i in checkStackUsage.py patchAPLCs.py taste-orchestrator.py 
+for i in checkStackUsage.py patchAPLCs.py
 do
     cp -a ../orchestrator/orchestrator/$i ${PREFIX}/bin/
 done
+COMMITID=$(cd ../orchestrator/ ; git log --oneline | head -1 | awk '{print $1}')
+cat ../orchestrator/orchestrator/taste-orchestrator.py | \
+    sed "s,COMMITID,${COMMITID}," > ${PREFIX}/bin/taste-orchestrator.py
 
 # Install a symlink for the old name of the build tool
 cd ${PREFIX}/bin/ || exit 1
