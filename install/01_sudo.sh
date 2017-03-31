@@ -20,3 +20,9 @@ if [ $? -ne 0 ] ; then
     echo "install/ folder."
     exit 1
 fi
+touch /dev/shm/foo || {
+    echo "Your user doesn't seem to be able to write inside /dev/shm/"
+    echo "Fix it by executing something like..."
+    echo "    sudo chmod ugo+w /dev/shm/"
+    exit 1
+}

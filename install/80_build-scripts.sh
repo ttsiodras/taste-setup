@@ -11,6 +11,7 @@ done
 COMMITID=$(cd ../orchestrator/ ; git log --oneline | head -1 | awk '{print $1}')
 cat ../orchestrator/orchestrator/taste-orchestrator.py | \
     sed "s,COMMITID,${COMMITID}," > ${PREFIX}/bin/taste-orchestrator.py
+chmod +x ${PREFIX}/bin/taste-orchestrator.py
 
 # Install a symlink for the old name of the build tool
 cd ${PREFIX}/bin/ || exit 1
