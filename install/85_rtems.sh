@@ -1,15 +1,16 @@
 #!/bin/bash
 INSTALLED_RTEMS_INFO="/opt/rtems_LATEST"
 if [ -f "$INSTALLED_RTEMS_INFO" ] ; then
-    cat "$INSTALLED_RTEMS_INFO" | read OLD_RTEMS_MTIME OLD_RTEMS_FOLDER
+    read OLD_RTEMS_MTIME OLD_RTEMS_FOLDER <<< $(cat "$INSTALLED_RTEMS_INFO")
 else
     OLD_RTEMS_MTIME=0
     OLD_RTEMS_FOLDER=""
 fi
 
 echo Checking for new version of the RTEMS compiler...
-if wget -q -O - http://download.tuxfamily.org/taste/RTEMS/LATEST \
-        | read NEW_RTEMS_MTIME NEW_RTEMS_FOLDER NEW_RTEMS_URL ; then
+if wget -q -O /tmp/syncup.$$ http://download.tuxfamily.org/taste/RTEMS/LATEST ; then
+    read NEW_RTEMS_MTIME NEW_RTEMS_FOLDER NEW_RTEMS_URL <<< $(cat /tmp/syncup.$$)
+    rm -f /tmp/syncup.$$
     if [ "$OLD_RTEMS_MTIME" -lt "$NEW_RTEMS_MTIME" ] ; then
         echo Downloading updated version of the RTEMS compiler...
         cd /opt
