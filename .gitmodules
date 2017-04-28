@@ -40,3 +40,6 @@
 [submodule "buildsupport"]
 	path = buildsupport
 	url = https://gitrepos.estec.esa.int/taste/buildsupport.git
+[submodule "msc-editor"]
+	path = msc-editor
+	url = https://gitrepos.estec.esa.int/taste/msc-editor.git
