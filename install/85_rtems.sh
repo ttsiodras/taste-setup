@@ -37,7 +37,7 @@ if wget -q -O /tmp/syncup.$$ "$URL_OF_NEW_RTEMS_INFO" ; then
         fi
     fi
 else
-    echo Failed to get http://download.tuxfamily.org/taste/RTEMS/LATEST ...
+    echo Failed to get "$URL_OF_NEW_RTEMS_INFO"  ...
     echo Aborting.
     exit 1
 fi
