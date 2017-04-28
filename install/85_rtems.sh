@@ -26,6 +26,7 @@ if wget -q -O /tmp/syncup.$$ "$URL_OF_NEW_RTEMS_INFO" ; then
                 echo Aborting.
                 exit 1
             }
+            rm -f $NEW_COMPILER_TARBALL
             NEWBIN=$NEW_RTEMS_FOLDER/bin
             if ! grep "^export PATH=.*$NEWBIN" $HOME/.bashrc.taste ; then
                 echo Adding new compiler "$NEWBIN" to PATH...
