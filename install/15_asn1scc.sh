@@ -7,8 +7,8 @@ mkdir -p ${PREFIX}/share/asn1scc/ || exit 1
 cd ${PREFIX}/share/  || exit 1
 VER=$(asn1.exe 2>&1 | grep '^Current' | awk '{print $NF}')
 if [ "${VER}" != "3.3.09" ] ; then
-    wget -q -O - https://github.com/ttsiodras/asn1scc/releases/download/3.3.9/asn1scc-bin-3.3.9.tar.gz \
-        | tar zxvf -
+    wget -q -O - https://github.com/ttsiodras/asn1scc/releases/download/3.3.9/asn1scc-bin-3.3.9.tar.bz2 \
+        | tar jxvf -
 fi
 
 # Add to PATH
