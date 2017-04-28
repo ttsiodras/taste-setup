@@ -16,7 +16,7 @@ if wget -q -O /tmp/syncup.$$ "$URL_OF_NEW_RTEMS_INFO" ; then
         echo Downloading updated version of the RTEMS compiler...
         cd /opt
         NEW_COMPILER_TARBALL=/tmp/newCompiler.$$.tar.bz2
-        if wget -q -O $NEW_COMPILER_TARBALL "$NEW_RTEMS_URL" ; then
+        if wget -O $NEW_COMPILER_TARBALL "$NEW_RTEMS_URL" ; then
             if [ ! -z "$OLD_RTEMS_FOLDER" ] ; then
                 echo Removing old RTEMS compiler...
                 sudo rm -rf "$OLD_RTEMS_FOLDER"
