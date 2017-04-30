@@ -41,3 +41,11 @@ else
     echo Aborting.
     exit 1
 fi
+
+# Make sure the RTEMS_MAKEFILE_PATH_LEON is set
+grep RTEMS_MAKEFILE_PATH_LEON $HOME/.bashrc.taste >/dev/null || {
+    read UNUSED FINAL_RTEMS_FOLDER <<< $(cat "$INSTALLED_RTEMS_INFO")
+    LEON2_FOLDER="$(find $FINAL_RTEMS_FOLDER -type d -name leon2)"
+    echo Adding RTEMS_MAKEFILE_PATH_LEON env var to settings.
+    echo "export RTEMS_MAKEFILE_PATH_LEON=\"$LEON2_FOLDER\"" >> $HOME/.bashrc.taste
+}
