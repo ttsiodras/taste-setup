@@ -39,7 +39,8 @@ cp ellidiss/TASTE_IV_Properties.aadl ${PREFIX}/share/config_ellidiss || exit 1
 cp ellidiss/TASTE_DV_Properties.aadl ${PREFIX}/share/config_ellidiss || exit 1
 
 # Ellidiss - point the PATH to the repo
-REAL_ELLIDISS=$(realpath "${DIR}/../ellidiss-GUI/TASTE-linux/bin")
+# REAL_ELLIDISS=$(realpath "${DIR}/../ellidiss-GUI/TASTE-linux/bin")
+REAL_ELLIDISS=$(realpath "${DIR}/../ellidiss-GUI/TASTE-v1-linux/bin")
 PATH_CMD='export PATH=$PATH:'"${REAL_ELLIDISS}"
 UpdatePATH
 
