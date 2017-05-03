@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# DISABLE THIS UNTIL BUILD IS FIXED
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . ${DIR}/common.sh
 
