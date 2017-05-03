@@ -1,0 +1,210 @@
+PACKAGE default::DV
+PUBLIC
+WITH Deployment;
+WITH Taste;
+
+ 
+---------------------------------------------------
+-- TASTE Deployement View 
+---------------------------------------------------
+
+  ----------------------
+  -- ProcessorBoards --
+  ----------------------
+
+  SYSTEM board1
+    FEATURES
+      obj5575_ethernet : requires bus access ethernet
+        { Taste::Coordinates => "105 180 107 182"; };
+  END board1;
+
+  PROCESSOR cpu1
+    PROPERTIES
+      Scheduling_Protocol => (Posix_1003_Highest_Priority_First_Protocol);
+  END cpu1;
+
+  PROCESS part1
+  END part1;
+
+  MEMORY mem1
+  END mem1;
+
+  DEVICE driver1
+    FEATURES
+      ethernet : requires bus access ethernet
+        { Taste::Coordinates => "105 180 107 182"; };
+  END driver1;
+
+  SYSTEM IMPLEMENTATION board1.others
+    SUBCOMPONENTS
+      part1 : PROCESS part1
+        {
+          Taste::APLC_Properties => (APLC => "testcontainer::func1"; 
+			 	Coordinates => "21 42 99 76" ; Source_Language => C; );
+          Taste::APLC_Properties => (APLC => "testcontainer::func2"; 
+			 	Coordinates => "21 79 98 113" ; Source_Language => C; );
+          Taste::APLC_Binding => ("testcontainer::func1", "testcontainer::func2");
+          Deployment::Port_Number => 0;
+          Taste::Coordinates => "17 28 103 118";
+        };
+      cpu1 : PROCESSOR cpu1
+        { Taste::Coordinates => "12 19 105 123"; };
+      mem1 : MEMORY mem1
+        { Taste::Coordinates => "12 135 105 167"; };
+      driver1 : DEVICE driver1
+        {
+          Taste::Coordinates => "12 172 105 201";
+        };
+
+    CONNECTIONS
+      --  The bus connections
+      BUS ACCESS obj5575_ethernet -> driver1.ethernet;
+
+    PROPERTIES
+      -- Connexion des CPUs aux process/drivers
+      Actual_Processor_Binding => (reference (cpu1)) applies to part1;
+      Actual_Processor_Binding => (reference (cpu1)) applies to driver1;
+      Actual_Memory_Binding => (reference (mem1)) applies to part1;
+  END board1.others;
+
+  SYSTEM board2
+    FEATURES
+      obj4948_ethernet : requires bus access ethernet
+        { Taste::Coordinates => "215 156 217 158"; };
+  END board2;
+
+  PROCESSOR cpu2
+    PROPERTIES
+      Scheduling_Protocol => (Posix_1003_Highest_Priority_First_Protocol);
+  END cpu2;
+
+  PROCESS part2
+  END part2;
+
+  MEMORY mem2
+  END mem2;
+
+  DEVICE driver2
+    FEATURES
+      ethernet : requires bus access ethernet
+        { Taste::Coordinates => "215 156 217 158"; };
+  END driver2;
+
+  SYSTEM IMPLEMENTATION board2.others
+    SUBCOMPONENTS
+      part2 : PROCESS part2
+        {
+          Taste::APLC_Properties => (APLC => "func1"; 
+			 	Coordinates => "221 53 294 72" ; );
+          Taste::APLC_Binding => ("func1");
+          Deployment::Port_Number => 0;
+          Taste::Coordinates => "219 43 297 78";
+        };
+      cpu2 : PROCESSOR cpu2
+        { Taste::Coordinates => "215 22 301 87"; };
+      mem2 : MEMORY mem2
+        { Taste::Coordinates => "216 97 302 127"; };
+      driver2 : DEVICE driver2
+        {
+          Taste::Coordinates => "217 135 302 170";
+        };
+
+    CONNECTIONS
+      --  The bus connections
+      BUS ACCESS obj4948_ethernet -> driver2.ethernet;
+
+    PROPERTIES
+      -- Connexion des CPUs aux process/drivers
+      Actual_Processor_Binding => (reference (cpu2)) applies to part2;
+      Actual_Processor_Binding => (reference (cpu2)) applies to driver2;
+      Actual_Memory_Binding => (reference (mem2)) applies to part2;
+  END board2.others;
+
+  --------------
+  -- Devices--
+  --------------
+
+  DEVICE netdev2
+    FEATURES
+      ethernet : requires bus access ethernet
+        { Taste::Coordinates => "202 200 208 206"; };
+  END netdev2;
+
+  DEVICE netdev1
+    FEATURES
+      ethernet : requires bus access ethernet
+        { Taste::Coordinates => "112 218 118 224"; };
+  END netdev1;
+
+  -----------
+  -- Buses --
+  -----------
+
+  BUS ethernet
+    PROPERTIES
+      Taste::Interface_Coordinates => ( Interface => "netdev1.ethernet" ; 
+					Coordinates => "129 119 135 125"; Target => " ";);
+      Taste::Interface_Coordinates => ( Interface => "netdev2.ethernet" ; 
+					Coordinates => "190 113 196 119"; Target => " ";);
+      Taste::Interface_Coordinates => ( Interface => "board1.obj5575_ethernet" ; 
+					Coordinates => "147 119 153 125"; Target => " ";);
+      Taste::Interface_Coordinates => ( Interface => "board2.obj4948_ethernet" ; 
+					Coordinates => "175 119 181 125"; Target => " ";);
+  END ethernet;
+
+  -----------------
+  -- Root System --
+  -----------------
+
+  SYSTEM default
+  END default;
+
+  SYSTEM IMPLEMENTATION default.others
+    SUBCOMPONENTS
+      --  The processor boards
+      board1 : SYSTEM board1.others
+        { Taste::Coordinates => "1 1 114 206"; };
+      board2 : SYSTEM board2.others
+        { Taste::Coordinates => "210 7 307 176"; };
+      --  The devices
+      netdev2 : DEVICE netdev2
+        {
+          Taste::APLC_Binding => ();
+          Taste::Coordinates => "208 191 306 218";
+        };
+      netdev1 : DEVICE netdev1
+        {
+          Taste::APLC_Binding => ();
+          Taste::Coordinates => "2 212 112 241";
+        };
+      --  The buses
+      ethernet : BUS ethernet
+        {
+          Taste::Coordinates => "128 99 190 119";
+        };
+
+    CONNECTIONS
+      --  The bus connections
+      obj2378 :BUS ACCESS ethernet -> netdev1.ethernet
+        { Taste::Coordinates => "132 119 132 221 112 221"; };
+      obj2520 :BUS ACCESS ethernet -> netdev2.ethernet
+        { Taste::Coordinates => "208 203 195 203 195 116 190 116"; };
+      obj6140 :BUS ACCESS ethernet -> board1.obj5575_ethernet
+        { Taste::Coordinates => "150 119 150 181 105 181"; };
+      obj6337 :BUS ACCESS ethernet -> board2.obj4948_ethernet
+        { Taste::Coordinates => "178 119 178 157 217 157"; };
+  END default.others;
+
+
+PROPERTIES
+  Taste::Coordinates => "0 0 594 420";
+END default::DV;
+ 
+
+
+---------------------------------------
+-- copied aadl libraries
+-- TASTE requirement
+-- Do not edit below this line
+---------------------------------------
+

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="497.17999"
+   height="400.04001"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="taste-architecture.svg"
+   inkscape:export-filename="/home/julien/wip/taste/doc/maindoc/imgs/taste-architecture.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="225.2233"
+     inkscape:cy="149.07143"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1445"
+     inkscape:window-height="985"
+     inkscape:window-x="168"
+     inkscape:window-y="34"
+     inkscape:window-maximized="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       originx="-79.408392px"
+       originy="-399.5px" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-79.408392,-252.82228)">
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1.26491106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2987"
+       width="230"
+       height="80"
+       x="90"
+       y="272.36218" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="210"
+       y="312.36218"
+       id="text3757"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3759"
+         x="210"
+         y="312.36218"
+         style="text-align:center;text-anchor:middle">Function 1</tspan><tspan
+         sodipodi:role="line"
+         x="210"
+         y="342.42719"
+         id="tspan3932"
+         style="font-size:20px;text-align:center;text-anchor:middle">(C, Ada)</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1.26491106px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2987-1"
+       width="230"
+       height="80"
+       x="330"
+       y="272.36218" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="440"
+       y="312.36218"
+       id="text3757-1"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3759-2"
+         x="440"
+         y="312.36218"
+         style="text-align:center;text-anchor:middle">Function 2</tspan><tspan
+         sodipodi:role="line"
+         x="440"
+         y="342.42719"
+         id="tspan3934"
+         style="font-size:20px;text-align:center;text-anchor:middle">(Simulink)</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3785"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><flowRegion
+         id="flowRegion3787"><rect
+           id="rect3789"
+           width="93.571426"
+           height="43.57143"
+           x="488.57144"
+           y="268.79074" /></flowRegion><flowPara
+         id="flowPara3791"></flowPara></flowRoot>    <rect
+       style="fill:none;stroke:#000000;stroke-width:1.18321598px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2987-2"
+       width="490"
+       height="70"
+       x="80"
+       y="412.36218" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="330"
+       y="444.36218"
+       id="text3757-8"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3759-1"
+         x="330"
+         y="444.36218"
+         style="text-align:center;text-anchor:middle">Glue Layer</tspan><tspan
+         sodipodi:role="line"
+         x="330"
+         y="474.42719"
+         id="tspan3930"
+         style="font-size:20px;text-align:center;text-anchor:middle">(buildsupport)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="160"
+       y="392.36218"
+       id="text3757-7"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3759-20"
+         x="160"
+         y="392.36218">Application Layer</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1.08012342px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2987-2-4"
+       width="490"
+       height="140"
+       x="80"
+       y="262.36227" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.94280905px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2987-2-9"
+       width="490"
+       height="80"
+       x="80"
+       y="492.36218" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="326.07422"
+       y="532.36218"
+       id="text3757-8-1"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3759-1-6"
+         x="326.07422"
+         y="532.36218"
+         style="text-align:center;text-anchor:middle">Middleware Layer</tspan><tspan
+         sodipodi:role="line"
+         x="326.07422"
+         y="562.42719"
+         id="tspan3928"
+         style="font-size:20px;text-align:center;text-anchor:middle">(Ocarina + PolyORB-HI-C)</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2987-2-9-8"
+       width="490"
+       height="70"
+       x="80"
+       y="582.36218" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="340"
+       y="612.36218"
+       id="text3757-8-1-6"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3759-1-6-7"
+         x="340"
+         y="612.36218"
+         style="text-align:center;text-anchor:middle">OS/BSP Layer</tspan><tspan
+         sodipodi:role="line"
+         x="340"
+         y="642.42719"
+         id="tspan3928-5"
+         style="font-size:20px;text-align:center;text-anchor:middle">(Linux, RTEMS, etc.)</tspan></text>
+  </g>
+</svg>

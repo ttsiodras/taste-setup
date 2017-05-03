@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1261"
+   height="1261"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="New document 1">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+    <inkscape:perspective
+       id="perspective3604"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3638"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3674"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3730"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3772"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3829"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3897"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3919"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3941"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3963"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3991"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4013"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4060"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4082"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4131"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4169"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4191"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4213"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4268"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4296"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4318"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4340"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4362"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4384"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4444"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="599.85594"
+     inkscape:cy="245.17701"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="961"
+     inkscape:window-height="795"
+     inkscape:window-x="248"
+     inkscape:window-y="83"
+     inkscape:window-maximized="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2816"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(300.5,-51.862183)">
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2818"
+       width="280"
+       height="140"
+       x="20"
+       y="52.362183" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="40"
+       y="92.362183"
+       id="text3592"><tspan
+         sodipodi:role="line"
+         id="tspan3594"
+         x="40"
+         y="92.362183"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Interface view</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2818-4"
+       width="320"
+       height="140"
+       x="320"
+       y="52.362183" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="330"
+       y="92.362183"
+       id="text3592-4"><tspan
+         sodipodi:role="line"
+         id="tspan3594-9"
+         x="330"
+         y="92.362183"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Deployment view</tspan></text>
+    <path
+       sodipodi:type="arc"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3624"
+       sodipodi:cx="350"
+       sodipodi:cy="332.36218"
+       sodipodi:rx="130"
+       sodipodi:ry="40"
+       d="m 480,332.36218 c 0,22.09139 -58.20298,40 -130,40 -71.79702,0 -130,-17.90861 -130,-40 0,-22.09139 58.20298,-40 130,-40 71.79702,0 130,17.90861 130,40 z"
+       transform="translate(-18,-32)" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="220"
+       y="312.36218"
+       id="text3626"><tspan
+         sodipodi:role="line"
+         id="tspan3628"
+         x="220"
+         y="312.36218"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Buildsupport</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2818-4-8"
+       width="300"
+       height="140"
+       x="660"
+       y="52.362183" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="670"
+       y="92.362183"
+       id="text3592-4-2"><tspan
+         sodipodi:role="line"
+         id="tspan3594-9-8"
+         x="670"
+         y="92.362183"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Functional code</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="161.68359"
+       y="126.36218"
+       id="text3658"><tspan
+         sodipodi:role="line"
+         id="tspan3660"
+         x="161.68359"
+         y="126.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle">Describe system functions,</tspan><tspan
+         sodipodi:role="line"
+         x="161.68359"
+         y="151.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3662">their parameters and</tspan><tspan
+         sodipodi:role="line"
+         x="161.68359"
+         y="176.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3664">implementation language</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="482.16797"
+       y="128.36218"
+       id="text3658-2"><tspan
+         sodipodi:role="line"
+         x="482.16797"
+         y="128.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3706">Specify deployment of system</tspan><tspan
+         sodipodi:role="line"
+         x="482.16797"
+         y="153.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3708">functions on the hardware</tspan><tspan
+         sodipodi:role="line"
+         x="482.16797"
+         y="178.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3710">(processors, bus, ...)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="809.48438"
+       y="112.36218"
+       id="text3658-2-4"><tspan
+         sodipodi:role="line"
+         x="809.48438"
+         y="112.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3710-7">Implementation of functions</tspan><tspan
+         sodipodi:role="line"
+         x="809.48438"
+         y="137.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3758">with traditional code (C, Ada)</tspan><tspan
+         sodipodi:role="line"
+         x="809.48438"
+         y="162.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3760">or application models</tspan><tspan
+         sodipodi:role="line"
+         x="809.48438"
+         y="187.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3762">(SCADE, Simulink, SDL, etc.)</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2818-0"
+       width="340"
+       height="140"
+       x="20"
+       y="392.36218" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="34"
+       y="432.36218"
+       id="text3592-9"><tspan
+         sodipodi:role="line"
+         id="tspan3594-2"
+         x="34"
+         y="432.36218"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Concurrency view</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="185.13672"
+       y="472.36218"
+       id="text3658-9"><tspan
+         sodipodi:role="line"
+         x="185.13672"
+         y="472.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3811">System description that contains</tspan><tspan
+         sodipodi:role="line"
+         x="188.32031"
+         y="497.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3817">tasks, data and inter-process </tspan><tspan
+         sodipodi:role="line"
+         x="185.13672"
+         y="522.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3819">connections</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2818-0-4"
+       width="380"
+       height="140"
+       x="380"
+       y="392.36218" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="480"
+       y="432.36218"
+       id="text3592-9-6"><tspan
+         sodipodi:role="line"
+         id="tspan3594-2-3"
+         x="480"
+         y="432.36218"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Glue code</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="571.13672"
+       y="466.36218"
+       id="text3658-9-9"><tspan
+         sodipodi:role="line"
+         x="571.13672"
+         y="466.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3870">Contain necessary code constructs</tspan><tspan
+         sodipodi:role="line"
+         x="571.13672"
+         y="491.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3878">to distribute application data over</tspan><tspan
+         sodipodi:role="line"
+         x="571.13672"
+         y="516.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3872">the nodes of the distributed system.</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 163.43149,232.29965 191.74701,204.04666 220,232.36218 l 14.15776,-14.1265 -0.0625,56.56851 -56.56851,-0.0625 14.15776,-14.1265 -28.25299,-28.31551 z"
+       id="path3887"
+       sodipodi:nodetypes="cccccccc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 494.09526,229.92014 -28.31552,-28.25299 -28.25299,28.31552 -14.15776,-14.1265 0.0625,56.56851 56.56851,-0.0625 -14.15776,-14.1265 28.25299,-28.31551 z"
+       id="path3887-5"
+       sodipodi:nodetypes="cccccccc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 208.25302,344.04664 -28.31552,-28.25299 -28.25299,28.31552 -14.15776,-14.1265 0.0625,56.56851 56.56851,-0.0625 L 180,372.36218 208.25299,344.04667 z"
+       id="path3887-5-2"
+       sodipodi:nodetypes="cccccccc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 451.68448,340.61517 480,312.36218 l 28.25299,28.31552 14.15776,-14.1265 -0.0625,56.56851 -56.56851,-0.0625 14.15776,-14.1265 -28.25299,-28.31551 z"
+       id="path3887-0"
+       sodipodi:nodetypes="cccccccc" />
+    <path
+       sodipodi:type="arc"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3624-7"
+       sodipodi:cx="350"
+       sodipodi:cy="332.36218"
+       sodipodi:rx="130"
+       sodipodi:ry="40"
+       d="m 480,332.36218 c 0,22.09139 -58.20298,40 -130,40 -71.79702,0 -130,-17.90861 -130,-40 0,-22.09139 58.20298,-40 130,-40 71.79702,0 130,17.90861 130,40 z"
+       transform="translate(-150,340)" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="130"
+       y="682.36218"
+       id="text3626-7"><tspan
+         sodipodi:role="line"
+         id="tspan3628-3"
+         x="130"
+         y="682.36218"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Ocarina</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 220,552.36218 -40,0 0,20 -19.99667,-0.36524 39.26284,40.72382 40.72382,-39.26283 -19.99667,-0.36524 0.007,-20.73051 0,0 z"
+       id="path3887-5-2-4"
+       sodipodi:nodetypes="ccccccccc" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2818-06"
+       width="280"
+       height="140"
+       x="-280"
+       y="52.362183" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="-226"
+       y="92.362183"
+       id="text3592-1"><tspan
+         sodipodi:role="line"
+         id="tspan3594-3"
+         x="-226"
+         y="92.362183"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Data View</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="-138.31641"
+       y="140.36218"
+       id="text3658-6"><tspan
+         sodipodi:role="line"
+         x="-138.31641"
+         y="140.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3664-0">Data type definition</tspan><tspan
+         sodipodi:role="line"
+         x="-138.31641"
+         y="165.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan4050">with ASN1</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -120,192.36218 -40,0 0.007,19.26949 -19.99667,-0.36524 39.26284,40.72382 40.72382,-39.26283 -19.99699,-0.36524 0,-20 0,0 z"
+       id="path3887-5-2-4-2"
+       sodipodi:nodetypes="ccccccccc" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2818-0-4-1"
+       width="300"
+       height="139.99991"
+       x="-300"
+       y="392.36218" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="-292"
+       y="430.36218"
+       id="text3592-9-6-5"><tspan
+         sodipodi:role="line"
+         id="tspan3594-2-3-2"
+         x="-292"
+         y="430.36218"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Data types code</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="-150.30469"
+       y="458.36218"
+       id="text3658-9-9-6"><tspan
+         sodipodi:role="line"
+         x="-150.30469"
+         y="458.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3872-8">Contain data types definition</tspan><tspan
+         sodipodi:role="line"
+         x="-150.30469"
+         y="483.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan4119"> in the implementation</tspan><tspan
+         sodipodi:role="line"
+         x="-150.30469"
+         y="508.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan4121">language (C, Ada, ...)</tspan></text>
+    <path
+       sodipodi:type="arc"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3624-7-7"
+       sodipodi:cx="350"
+       sodipodi:cy="332.36218"
+       sodipodi:rx="130"
+       sodipodi:ry="40"
+       d="m 480,332.36218 c 0,22.09139 -58.20298,40 -130,40 -71.79702,0 -130,-17.90861 -130,-40 0,-22.09139 58.20298,-40 130,-40 71.79702,0 130,17.90861 130,40 z"
+       transform="translate(-490,-40)" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="-210"
+       y="302.36218"
+       id="text3626-7-2"><tspan
+         sodipodi:role="line"
+         id="tspan3628-3-7"
+         x="-210"
+         y="302.36218"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">asn1scc</tspan></text>
+    <path
+       sodipodi:nodetypes="ccccccccc"
+       id="path4159"
+       d="m -120,192.36218 -40,0 0.007,19.26949 -19.99667,-0.36524 39.26284,40.72382 40.72382,-39.26283 -19.99699,-0.36524 0,-20 0,0 z"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       sodipodi:nodetypes="ccccccccc"
+       id="path4159-9"
+       d="m -119.27317,332.73411 -40,0 0.007,19.26949 -19.99667,-0.36524 39.26284,40.72382 40.72382,-39.26283 -19.99699,-0.36524 0,-20 0,0 z"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 220.01001,723.26643 -40,0 0,20 -19.99667,-0.36524 39.26284,40.72382 L 240,744.36218 l -19.99667,-0.36524 0.007,-20.73051 0,0 z"
+       id="path3887-5-2-4-29"
+       sodipodi:nodetypes="ccccccccc" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2818-0-41"
+       width="480"
+       height="160"
+       x="-40"
+       y="792.36218" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="60"
+       y="832.36218"
+       id="text3592-9-4"><tspan
+         sodipodi:role="line"
+         id="tspan3594-2-5"
+         x="60"
+         y="832.36218"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Architecture code</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="202.36328"
+       y="868.36218"
+       id="text3658-9-4"><tspan
+         sodipodi:role="line"
+         x="202.36328"
+         y="868.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan3819-4">Code that creates tasks, protected data,</tspan><tspan
+         sodipodi:role="line"
+         x="202.36328"
+         y="893.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan4250">enable data distribution, runtime</tspan><tspan
+         sodipodi:role="line"
+         x="202.36328"
+         y="918.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan4254">services that supports system functions, and</tspan><tspan
+         sodipodi:role="line"
+         x="202.36328"
+         y="943.36218"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan4258">configure the underlying operating system</tspan></text>
+    <path
+       sodipodi:type="arc"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path3624-7-7-1"
+       sodipodi:cx="350"
+       sodipodi:cy="332.36218"
+       sodipodi:rx="130"
+       sodipodi:ry="40"
+       d="m 480,332.36218 c 0,22.09139 -58.20298,40 -130,40 -71.79702,0 -130,-17.90861 -130,-40 0,-22.09139 58.20298,-40 130,-40 71.79702,0 130,17.90861 130,40 z"
+       transform="translate(-150,760)" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="96"
+       y="1102.3622"
+       id="text3626-7-2-1"><tspan
+         sodipodi:role="line"
+         id="tspan3628-3-7-2"
+         x="96"
+         y="1102.3622"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Compilation</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 220.73383,972.0036 -40,0 0,20 -19.99667,-0.36524 39.26284,40.72384 40.72382,-39.26285 -19.99667,-0.36524 0.007,-20.73051 0,0 z"
+       id="path3887-5-2-4-29-0"
+       sodipodi:nodetypes="ccccccccc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 560,532.36218 -40,0 c 0,490.00002 -60,480.00002 -182.18579,497.33442 l -14.06196,-14.2219 -0.31993,56.5676 L 380,1072.3622 365.93804,1058.1404 400,1052.3622 c 97.85575,0.6609 160,-10 160,-520.00002 l 0,0 z"
+       id="path3887-5-2-4-29-0-0"
+       sodipodi:nodetypes="cccccccccc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 800,192.36218 -40,0 c 171.23771,710.36819 -0.92806,916.25712 -340,880.00002 l 0.3652,-19.9966 -40.7238,39.2628 39.2628,40.7238 0.3653,-19.9966 20.7305,0.01 0,0 c 307.8159,18.4759 546.97107,-81.9126 360,-920.00342 z"
+       id="path3887-5-2-4-29-0-7"
+       sodipodi:nodetypes="cccccccccc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -140,532.36218 -40,0 c -20.45651,358.16816 -17.71492,607.33452 140,580.00002 l 60.36524,0 -0.36524,19.9967 40.72384,-39.2629 -39.26285,-40.7238 -0.36524,19.9967 -20.73051,-0.01 0,0 C -192.10708,1099.3867 -141.41582,780.86295 -140,532.36218 z"
+       id="path3887-5-2-4-29-0-8"
+       sodipodi:nodetypes="ccccccccccc" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2818-0-41-0"
+       width="400"
+       height="120"
+       x="-5.6843419e-14"
+       y="1192.3622" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="4"
+       y="1224.3622"
+       id="text3592-9-4-7"><tspan
+         sodipodi:role="line"
+         id="tspan3594-2-5-7"
+         x="4"
+         y="1224.3622"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">Implementation binary</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="194.04297"
+       y="1254.3622"
+       id="text3658-9-4-4"><tspan
+         sodipodi:role="line"
+         x="194.04297"
+         y="1254.3622"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan4428">Executable binary that runs on the</tspan><tspan
+         sodipodi:role="line"
+         x="194.04297"
+         y="1279.3622"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan4434">target architecture (x86 with Linux,</tspan><tspan
+         sodipodi:role="line"
+         x="194.04297"
+         y="1304.3622"
+         style="font-size:20px;text-align:center;text-anchor:middle"
+         id="tspan4430">LEON with RTEMS or ORK, etc.)</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 220.73383,1132.0036 -40,0 0,20 -19.99667,-0.3652 39.26284,40.7238 40.72382,-39.2629 -19.99667,-0.3652 0.007,-20.7305 0,0 z"
+       id="path3887-5-2-4-29-0-2"
+       sodipodi:nodetypes="ccccccccc" />
+  </g>
+</svg>

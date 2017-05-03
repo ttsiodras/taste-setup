@@ -1,0 +1,423 @@
+\documentclass[11pt]{article}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{xspace}
+\usepackage{minitoc}
+\usepackage{listings}
+\usepackage{epsfig}
+\usepackage{hyperref}
+\usepackage{aeguill}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\bfdefault}{b}
+\usepackage[scaled]{helvet}
+\renewcommand{\ttdefault}{pcr}
+\linespread{1.05}
+\normalfont
+\usepackage[T1]{fontenc}
+
+
+\renewcommand*\thesection{\thechapter\arabic{section}}
+
+\lstset{language=bash,frame=single,basicstyle=\footnotesize}
+
+\lstdefinelanguage{aadl}
+{morekeywords={aadlboolean,aadlinteger,aadlreal,aadlstring,access,all,and,
+        annex,applies,binding,bus,calls,classifier,connections,constant,
+        data,delta,device,end,enumeration,event,extends,false,features,flow,
+        flows,group,implementation,in,inherit,initial,inverse,is,list,memory,
+        mode,modes,none,not,of,or,out,package,parameter,path,port,private,
+        process,processor,properties,property,provides,public,range,
+        reference,refined,refines,requires,server,set,sink,source,
+        subcomponents,subprogram,system,thread,to,true,type,units,value},
+morecomment=[l]{--}}
+
+% Layout for listings
+
+\lstset{language=aadl,
+        basicstyle=\scriptsize\sffamily,
+        aboveskip=.1cm, % \smallskipamount, % \bigskipamount,
+        belowskip=.1cm, % \smallskipamount, % \bigskipamount,
+        abovecaptionskip=.1cm, % \smallskipamount, % \medskipamount,
+        belowcaptionskip=.1cm, % \smallskipamount, % \bigskipamount,
+        xleftmargin=.0cm,
+        captionpos=b,
+        tabsize=3}
+
+
+\lstdefinelanguage{real}
+{morekeywords={cardinal,is\_subcomponent\_of,is\_bound\_to,sum,foreach,theorem,check,end,
+               memory\_set, processor\_set,min,max,
+               process\_set,is\_provided\_class,is\_connected\_to,
+               system\_set,thread\_set,in,bus\_set,data\_set,is\_accessed\_by,connection\_set,
+               virtual\_processor\_set,Cardinal,virtual\_bus\_set,property\_exists},
+morecomment=[l]{--}}
+
+
+% Layout for listings
+
+\lstset{language=aadl,
+        basicstyle=\scriptsize\sffamily,
+        aboveskip=.1cm, % \smallskipamount, % \bigskipamount,
+        belowskip=.1cm, % \smallskipamount, % \bigskipamount,
+        abovecaptionskip=.1cm, % \smallskipamount, % \medskipamount,
+        belowcaptionskip=.1cm, % \smallskipamount, % \bigskipamount,
+        xleftmargin=.0cm,
+        captionpos=b,
+        tabsize=3}
+
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+
+\newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\tit}[1]{\textit{#1}}
+\newcommand{\ttt}[1]{\texttt{#1}}
+\newcommand{\tsc}[1]{\textsc{#1}}
+\newcommand{\tsl}[1]{\textsl{#1}}
+
+
+
+\newcommand{\Concept}[1]{#1\xspace}
+
+\newcommand{\vmware}{\textsc{VMWare}\copyright\xspace}
+\newcommand{\vmwareplayer}{\textsc{VMWare Player}\copyright\xspace}
+\newcommand{\aadl}{\Concept{AADL}}
+\newcommand{\ada}{\Concept{Ada}}
+\newcommand{\arinc}{\Concept{ARINC653}}
+\newcommand{\belllapadula}{\Concept{Bell-Lapadula}}
+\newcommand{\biba}{\Concept{Biba}}
+\newcommand{\taste}{\Concept{Taste}}
+\newcommand{\cheddar}{\Concept{Cheddar}}
+\newcommand{\chineesewall}{\Concept{Chineese Wall}}
+\newcommand{\eclipse}{\Concept{Eclipse}}
+\newcommand{\libpok}{\Concept{libpok}}
+\newcommand{\marte}{\Concept{MARTE}}
+\newcommand{\mils}{\Concept{MILS}}
+\newcommand{\myccmhi}{\Concept{MyCCM-HI}}
+\newcommand{\ocarina}{\Concept{Ocarina}}
+\newcommand{\leon}{\Concept{LEON}}
+\newcommand{\gnatforleon}{\Concept{Gnatforleon}}
+\newcommand{\ocl}{\Concept{OCL}}
+\newcommand{\osate}{\Concept{OSATE}}
+\newcommand{\pok}{\Concept{POK}}
+\newcommand{\posix}{\Concept{POSIX}}
+\newcommand{\polyorbhi}{\Concept{PolyORB-HI}}
+\newcommand{\powerpc}{\Concept{PowerPC}}
+\newcommand{\qemu}{\Concept{QEMU}}
+\newcommand{\real}{\Concept{REAL}}
+\newcommand{\rtems}{\Concept{RTEMS}}
+\newcommand{\sparc}{\Concept{Sparc}}
+\newcommand{\spoq}{\Concept{SPOQ}}
+\newcommand{\standardcc}{\Concept{Critères Communs}}
+\newcommand{\standarddo}{\Concept{DO178B}}
+\newcommand{\sysml}{\Concept{SysML}}
+\newcommand{\uml}{\Concept{UML}}
+\newcommand{\xml}{\Concept{XML}}
+\newcommand{\xcov}{\Concept{xcov}}
+
+\newcommand{\onehalffig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=.50\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+\newcommand{\onemedfig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=.75\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+
+\newcommand{\onefullfig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=.90\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+\newcommand{\onehugefig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=1\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+
+\newcommand{\onesmallfig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=.40\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+
+\newcommand{\onetinyfig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=.30\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+
+
+\title{
+\centerline{\epsfig{file=imgs/assert-logo.pdf,width=.75\textwidth}}
+Implementation of device drivers and bus protocols}
+
+\author{Julien Delange}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Rationale}
+PolyORB-HI-C is able to send and receive data from/to the network using socket
+interfaces. However, we want to use other devices to exchange data 
+(such as SpaceWire or serial buses) and specify how data are exchanged
+(protocols used to send/receive data).
+
+For that, we need to change \polyorbhi functions and code generation patterns.
+This document presents problems and potential solutions.
+
+
+\section{Problem}
+
+   \subsection{Calls to send/receive data}
+   Figure \ref{figure:actual-calls} illustrates how data are exchanged in a
+   system generated from \aadl. Generated entities are depicted in red whereas
+   static code (from \polyorbhi) is shown in blue. We also detail how messages
+   are stored : \texttt{request} (R) or \texttt{message} (M).
+
+   Request structure is internal to \polyorbhi. It is a structure that contains
+   the variables and the port that should receive this variable. A message is a
+   1024 bytes buffer where data is written.
+
+   In this picture, we saw several problems :
+   \begin{enumerate}
+      \item
+         Users can not tune the way messages are sent (functions used to send
+         messages over the network)
+      \item
+         Content of messages is fixed and length is fixed by \polyorbhi.
+   \end{enumerate}
+
+   \onefullfig{imgs/actual-calls}
+   {Calls to send/receive data accross a system generated from \aadl}
+   {figure:actual-calls}
+
+\section{Objectives}
+The objectives are the following:
+\begin{enumerate}
+   \item
+      \textbf{Modeling side:} describe device drivers and protocols in a
+      consistent way. The output of this step is to define how we model data
+      exchange between several nodes with \aadl models. In particular, we should
+      rely on \texttt{device}, \texttt{bus}, \texttt{connections} and maybe
+      \texttt{virtual bus} \aadl entities.
+   \item
+      \textbf{Code generation side:} generate calls to device drivers
+      send/receive functions and give the ability to use different protocols. In
+      particular, the static part of \polyorbhi and the dynamic part from the
+      \aadl model must be interfaced in a way that we could
+      marshall/unmarshall/send/receive data on various hardware and platforms.
+\end{enumerate}
+
+\section{Proposal}
+   \subsection{Modeling}
+   We propose the following modeling patterns:
+   \begin{itemize}
+      \item
+         \texttt{Device} components model the API to send data. For TCP/IP, it is
+         \texttt{send()} and \texttt{receive()} functions. You can add some
+         properties to contrain the device driver. A device must be bound to a
+         \texttt{processor} or \texttt{virtual processor} component.
+      \item
+         The internal implementation of a device driver is specified using the
+         \texttt{Device\_Driver} property associated with the \texttt{device}
+         component. This property contains an \texttt{abstract} component
+         classifier with all required components that implement the driver.
+      \item
+         Each device that accesses to a bus must declare a \texttt{bus
+         access} (in \texttt{features}) so that we can connect the device to its bus. If several buses
+         of the same type are used in the model, we can precisely know on which
+         one it operates.
+      \item
+         \texttt{Bus} components represent the medium that transport the data. It does
+         not specify any protocol.
+      \item
+         \texttt{Virtual bus} components model a protocol.
+      \item
+         The association between a \texttt{virtual bus} and a \texttt{bus}
+         component is specified by components containment : the \texttt{bus}
+         contains one or several \texttt{virtual bus} to describe which protocol
+         it can transport.
+      \item
+         A \texttt{device} component specifies which protocols it supports by
+         specifying the \texttt{Provided\_Virtual\_Bus\_Class} property.
+      \item
+         Each connection must be bound with the 
+         \texttt{Actual\_Connection\_Binding} property with :
+         \begin{enumerate}
+            \item
+               A \texttt{virtual bus} contained in a \texttt{bus}
+            \item
+               The \texttt{device} that send the data on the current node.
+         \end{enumerate}
+   \end{itemize}
+
+
+   \subsection{Model example}
+   The following model gives an illustration on how we can model connections
+   between two processes that exchanges data using several buses. The model is
+   not complete but it gives an overview of the modeling patterns.
+
+   \begin{lstlisting}[language=aadl]
+   bus implementation eth_network.i
+   subcomponents
+      tcp : virtual bus tcp_ip.i;
+   end eth_network.i;
+
+   bus implementation uart_bus.i
+   subcomponents
+      dummy : virtual bus dummy.i;
+   end uart_bus.i;
+
+   device implementation uart.i
+   properties
+      Provided_Virtual_Bus_Class => (classifier (virtual bus dummy.i));
+   end uart.i;
+
+   device implementation eth.i
+   properties
+      Provided_Virtual_Bus_Class => (classifier (virtual bus tcp_ip.i));
+   end eth.i;
+
+
+   system implementation my_system.i
+   subcomponents
+      process_sender       : device sender.i;
+      process_receiver     : device receiver.i;
+
+      device_uart_sender   : device uart.i;
+      device_uart_receive  : device uart.i;
+
+      device_eth_sender    : device eth.i;
+      device_eth_receive   : device eth.i;
+
+      cpu_sender           : processor powerpc.i;
+      cpu_receive          : processor x86.i;
+
+      eth                  : bus eth_network.i;
+      uart                 : bus uart_bus.i;
+   connections
+      bus access eth -> device_eth_sender.device_access;
+      bus access eth -> device_eth_receiver.device_access;
+
+      bus access uart -> device_uart_sender.device_access;
+      bus access uart -> device_uart_receiver.device_access;
+
+      process_sender.source1 -> process_receiver.sink1
+         {Actual_Connection_Binding (reference (eth.tcp))};
+      process_sender.source2 -> process_receiver.sink2
+         {Actual_Connection_Binding (reference (uart.dummy))};
+   properties
+      Actual_Processor_Binding => (reference (cpu_sender))
+         applies to device_uart_sender;
+      Actual_Processor_Binding => (reference (cpu_sender))
+         applies to device_eth_sender;
+      Actual_Processor_Binding => (reference (cpu_sender))
+         applies to process_sender;
+
+      Actual_Processor_Binding => (reference (cpu_receiver))
+         applies to device_uart_receiver;
+      Actual_Processor_Binding => (reference (cpu_receiver))
+         applies to device_eth_receiver;
+      Actual_Processor_Binding => (reference (cpu_receiver))
+         applies to process_receiver;
+   end my_system.i;
+   \end{lstlisting}
+
+
+   \subsection{Potential validation rules}
+   For a validation point of view, we can then check that :
+   \begin{itemize}
+      \item
+         Protocols of each \texttt{bus} is supported by at least one
+         \texttt{device} connected to it.
+      \item
+         Devices are able to support each connection (they support the
+         appropriate protocol).
+      \item
+         Process that exchange data through an \aadl connection can actually send 
+         it through devices that shares the same bus (use \texttt{access}
+         connections to do this analysis/validation).
+   \end{itemize}
+
+
+   \subsection{Code Generation}
+   Figure \ref{figure:proposed-calls} illustrates the proposed call sequence. In
+   particular, it shows how messages are exchanged. We see the main differences:
+   \begin{itemize}
+      \item
+         Generated code handle only \texttt{request} type. It does not longer
+         care about messages.
+      \item
+         Messages are completly handled by device drivers so that they handle
+         their own size, marshalling, \ldots
+      \item
+         We introduce a delivery service. Depending on how device communicate
+         and their associated communication patterns (1-to-N, N-to-N, 1-to-1, 
+         \ldots), it can use a different delivery service. We introduce two
+         delivery methods :
+         \begin{enumerate}
+            \item
+               One that deliver a request to all connected entities (such as a
+               broadcast). In this delivery method, the message is sent, no
+               matter how many recipients the device has. It is a convenient way
+               to send message for a N-to-1 or 1-to-1 communication pattern.
+            \item
+               One that deliver a request to connected entities only. This is
+               the old \texttt{main\_deliver} method.
+         \end{enumerate}
+   \end{itemize}
+
+   \onefullfig{imgs/proposed-calls}
+   {Proposal to change the call sequence in generated applications}
+   {figure:proposed-calls}
+
+
+      \subsubsection{Additional work in \ocarina}
+      The following information should be added in the generated code to support
+      different protocols/device.
+
+      \begin{itemize}
+         \item
+            Add an endianess configuration directive so that device drivers know on
+            which architecture they are running (useful for marshall/unmarshall functions).
+            We can do that with a macro such as \texttt{POLYORB\_HI\_BIGENDIAN}
+            (set to 0 or 1, depending on the \texttt{Execution\_Platform} property
+            of the \aadl \texttt{processor} component).
+      \end{itemize}
+
+\end{document}

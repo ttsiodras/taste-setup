@@ -1,0 +1,19 @@
+MyProtocol DEFINITIONS ::= BEGIN
+
+Port-T[size 16, encode-what values, encoding pos-int] 
+
+Header-T []
+{
+   size [endianness little, encoding pos-int, size 16],
+   port [endianness little, encoding pos-int, encode-what values, size 16] 
+}
+
+Payload-T[size auto]
+
+Packet-T []
+{
+   header [],
+   payload []
+}
+
+END

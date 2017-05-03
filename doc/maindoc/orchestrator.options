@@ -1,0 +1,67 @@
+TASTE/ASSERT orchestrator
+Usage: taste-builder.py <options>
+Where <options> are:
+
+-f, --fast
+	Skip waiting for ENTER between stages
+
+-g, --debug
+	Enable debuging options
+
+-p, --with-polyorb-hi-c
+	Use PolyORB-HI-C (instead of the default, PolyORB-HI-Ada)
+
+-r, --with-coverage
+	Use GCC coverage options (gcov) for the generated applications
+
+-h, --gprof
+	Create binaries that can be profiled with gprof
+
+-o, --output <outputDir>
+	Directory with generated sources and code
+
+-s, --stack <stackSizeInKB>
+	How much stack size to use (in KB)
+
+-i, --interfaceView <i_view.aadl>
+	The interface view in AADL
+
+-c, --deploymentView <d_view.aadl>
+	The deployment view in AADL
+
+-S, --subSCADE name:<zipFile>
+	a zip file with the SCADE generated C code for a subsystem
+	with the AADL name of the subsystem before the ':'
+
+-M, --subSIMULINK name:<zipFile>
+	a zip file with the SIMULINK/ERT generated C code for a subsystem
+	with the AADL name of the subsystem before the ':'
+
+-C, --subC name:<zipFile>
+	a zip file with the C code for a subsystem
+	with the AADL name of the subsystem before the ':'
+
+-A, --subAda name:<zipFile>
+	a zip file with the Ada code for a subsystem
+	with the AADL name of the subsystem before the ':'
+
+-G, --subOG name:file1.pr<,file2.pr,...>
+	ObjectGeode PR files for a subsystem
+	with the AADL name of the subsystem before the ':'
+
+-P, --subRTDS name:<zipFile>
+	a zip file with the RTDS-generated code for a subsystem
+	with the AADL name of the subsystem before the ':'
+
+-V, --subVHDL name
+	with the AADL name of the VHDL subsystem
+
+-e, --with-extra-C-code <deploymentPartition:directoryWithCfiles>
+	Directory containing additional .c files to be compiled and linked in for deploymentPartition
+
+-d, --with-extra-Ada-code <deploymentPartition:directoryWithADBfiles>
+	Directory containing additional .adb files to be compiled and linked in for deploymentPartition
+
+-l, --with-extra-lib deploymentPartition:/path/to/libLibrary1.a<,/path/to/libLibrary2.a,...>
+	Additional libraries to be linked in for deploymentPartition
+

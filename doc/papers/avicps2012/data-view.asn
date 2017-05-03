@@ -1,0 +1,23 @@
+VEGA DEFINITIONS ::=
+BEGIN
+T-GNC-LV-SIM-CONTEXT ::= SEQUENCE {
+    attitude-quaternion         T-QUAT-FLOAT32,
+    ng-vel-incr-irs             T-VECT3-FLOAT32,
+    ng-vel-incr-accelero        T-VECT3-FLOAT32,
+    filtered-angles-sample-1    T-VECT3-FLOAT32,
+    filtered-angles-sample-2    T-VECT3-FLOAT32
+}
+
+T-GNC-LV-SIM-INPUTS ::= SEQUENCE {
+    sequ-exec-request-vect
+        T-HAS-SEQUENCE-EXEC-BEEN-REQUESTED-VECT,
+    tvc-set-point-eng-vect
+        T-TVC-SET-POINT-ENG-VECT,
+    racs-ev-cmd-vect        
+        T-RACS-EV-CMD-VECT
+}
+
+T-QUAT-FLOAT32 ::= SEQUENCE
+        (SIZE(size-T-QUAT-COMPONENTS)) OF T-FLOAT32
+# ... 
+END

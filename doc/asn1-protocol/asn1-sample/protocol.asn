@@ -1,0 +1,20 @@
+MyProtocol DEFINITIONS AUTOMATIC TAGS ::= BEGIN
+
+Port-T ::= ENUMERATED {portA(1), portB(2) }
+
+Header-T ::= SEQUENCE
+{
+   size INTEGER (0 .. 100),
+   port Port-T
+}
+
+Payload-T ::= OCTET STRING (SIZE (1..255))
+
+Packet-T ::= SEQUENCE
+{
+   header Header-T,
+   payload Payload-T
+}
+
+
+END

@@ -1,0 +1,275 @@
+\documentclass[11pt]{article}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{xspace}
+\usepackage{minitoc}
+\usepackage{listings}
+\usepackage{epsfig}
+\usepackage{hyperref}
+\usepackage{aeguill}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\bfdefault}{b}
+\usepackage[scaled]{helvet}
+\renewcommand{\ttdefault}{pcr}
+\linespread{1.05}
+\normalfont
+\usepackage[T1]{fontenc}
+
+
+\renewcommand*\thesection{\thechapter\arabic{section}}
+
+\lstset{language=bash,frame=single,basicstyle=\footnotesize}
+
+\lstdefinelanguage{aadl}
+{morekeywords={aadlboolean,aadlinteger,aadlreal,aadlstring,access,all,and,
+        annex,applies,binding,bus,calls,classifier,connections,constant,
+        data,delta,device,end,enumeration,event,extends,false,features,flow,
+        flows,group,implementation,in,inherit,initial,inverse,is,list,memory,
+        mode,modes,none,not,of,or,out,package,parameter,path,port,private,
+        process,processor,properties,property,provides,public,range,
+        reference,refined,refines,requires,server,set,sink,source,
+        subcomponents,subprogram,system,thread,to,true,type,units,value},
+morecomment=[l]{--}}
+
+% Layout for listings
+
+\lstset{language=aadl,
+        basicstyle=\scriptsize\sffamily,
+        aboveskip=.1cm, % \smallskipamount, % \bigskipamount,
+        belowskip=.1cm, % \smallskipamount, % \bigskipamount,
+        abovecaptionskip=.1cm, % \smallskipamount, % \medskipamount,
+        belowcaptionskip=.1cm, % \smallskipamount, % \bigskipamount,
+        xleftmargin=.0cm,
+        captionpos=b,
+        tabsize=3}
+
+
+\lstdefinelanguage{real}
+{morekeywords={cardinal,is\_subcomponent\_of,is\_bound\_to,sum,foreach,theorem,check,end,
+               memory\_set, processor\_set,min,max,
+               process\_set,is\_provided\_class,is\_connected\_to,
+               system\_set,thread\_set,in,bus\_set,data\_set,is\_accessed\_by,connection\_set,
+               virtual\_processor\_set,Cardinal,virtual\_bus\_set,property\_exists},
+morecomment=[l]{--}}
+
+
+% Layout for listings
+
+\lstset{language=aadl,
+        basicstyle=\scriptsize\sffamily,
+        aboveskip=.1cm, % \smallskipamount, % \bigskipamount,
+        belowskip=.1cm, % \smallskipamount, % \bigskipamount,
+        abovecaptionskip=.1cm, % \smallskipamount, % \medskipamount,
+        belowcaptionskip=.1cm, % \smallskipamount, % \bigskipamount,
+        xleftmargin=.0cm,
+        captionpos=b,
+        tabsize=3}
+
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+
+\newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\tit}[1]{\textit{#1}}
+\newcommand{\ttt}[1]{\texttt{#1}}
+\newcommand{\tsc}[1]{\textsc{#1}}
+\newcommand{\tsl}[1]{\textsl{#1}}
+
+
+
+\newcommand{\Concept}[1]{#1\xspace}
+
+\newcommand{\vmware}{\textsc{VMWare}\copyright\xspace}
+\newcommand{\vmwareplayer}{\textsc{VMWare Player}\copyright\xspace}
+\newcommand{\aadl}{\Concept{AADL}}
+\newcommand{\ada}{\Concept{Ada}}
+\newcommand{\arinc}{\Concept{ARINC653}}
+\newcommand{\belllapadula}{\Concept{Bell-Lapadula}}
+\newcommand{\biba}{\Concept{Biba}}
+\newcommand{\taste}{\Concept{Taste}}
+\newcommand{\cheddar}{\Concept{Cheddar}}
+\newcommand{\chineesewall}{\Concept{Chineese Wall}}
+\newcommand{\eclipse}{\Concept{Eclipse}}
+\newcommand{\libpok}{\Concept{libpok}}
+\newcommand{\marte}{\Concept{MARTE}}
+\newcommand{\mils}{\Concept{MILS}}
+\newcommand{\myccmhi}{\Concept{MyCCM-HI}}
+\newcommand{\ocarina}{\Concept{Ocarina}}
+\newcommand{\leon}{\Concept{LEON}}
+\newcommand{\gnatforleon}{\Concept{Gnatforleon}}
+\newcommand{\ocl}{\Concept{OCL}}
+\newcommand{\osate}{\Concept{OSATE}}
+\newcommand{\pok}{\Concept{POK}}
+\newcommand{\posix}{\Concept{POSIX}}
+\newcommand{\polyorbhi}{\Concept{PolyORB-HI}}
+\newcommand{\powerpc}{\Concept{PowerPC}}
+\newcommand{\qemu}{\Concept{QEMU}}
+\newcommand{\rasta}{\Concept{RASTA}}
+\newcommand{\real}{\Concept{REAL}}
+\newcommand{\rtems}{\Concept{RTEMS}}
+\newcommand{\sparc}{\Concept{Sparc}}
+\newcommand{\spoq}{\Concept{SPOQ}}
+\newcommand{\standardcc}{\Concept{Critères Communs}}
+\newcommand{\standarddo}{\Concept{DO178B}}
+\newcommand{\sysml}{\Concept{SysML}}
+\newcommand{\uml}{\Concept{UML}}
+\newcommand{\xml}{\Concept{XML}}
+\newcommand{\xcov}{\Concept{xcov}}
+
+\newcommand{\onehalffig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=.50\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+\newcommand{\onemedfig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=.75\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+
+\newcommand{\onefullfig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=.90\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+\newcommand{\onehugefig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=1\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+\newcommand{\hugeaadlmodel}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{angle=90,file=#1.pdf,width=15cm}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+
+
+\newcommand{\onesmallfig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=.40\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+
+\newcommand{\onetinyfig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=.30\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+
+
+\title{
+\centerline{\epsfig{file=imgs/assert-logo.pdf,width=.75\textwidth}}
+RASTA case-study}
+
+\author{~}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Overall architecture}
+The overall architecture of the system is depicted in figure
+\ref{figure:archi-globale}. Each LEON board is connected with a \rasta card
+through the PCI bus. The RASTA provides connectors for Spacewire and serial
+buses.
+
+The two LEON boards communicate through the Spacewire bus and standalone Linux
+computers are connected to the \rasta cards through the serial bus.
+
+Finally, each LEON board is connected to an FPGA through the serial bus.
+
+   \onefullfig{imgs/archi-globale}
+   {Overall architecture of the distributed system}
+   {figure:archi-globale}
+
+
+\section{AADL architecture}
+
+
+   \subsection{Overview}
+   To test the integration of our architecture, we propose to design a
+   distributed architecture with four nodes:
+   \begin{enumerate}
+      \item
+         Two nodes run on a LEON board. Each one is connected to an FPGA through
+         a serial bus. These nodes communicates through the RASTA board using
+         the spacewire link.
+      \item
+         Two Linux computers that communication with the LEON through the serial
+         interface of the RASTA boards.
+   \end{enumerate}
+
+      \subsubsection{Test application}
+      To test the correctness of our design and the feasability of this
+      implementation, we propose to make a simple ping/pong example :
+      \begin{itemize}
+         \item
+            One LEON board \textit{pings} the other through the RASTA card and
+            its spacewire link.
+         \item
+            Each Linux computer \textit{pings} one LEON board using the serial
+            line of each RASTA card.
+         \item
+            Each LEON board executes a process that sends data to the FPGA
+            through the serial line.
+      \end{itemize}
+
+
+   \subsection{Graphical representation}
+   The figure \ref{figure:archi-aadl} depicts the \aadl architecture of our
+   proposed case study. It does
+   not provide all details (no thread, \ldots) but gives an overview of the different processors,
+   processes, \ldots.
+
+   \hugeaadlmodel{imgs/archi-aadl}
+   {AADL model}
+   {figure:archi-aadl}
+
+
+   \newpage
+
+   \subsection{Textual representation}
+
+   \lstinputlisting[language=aadl,numberstyle=\tiny]{aadl/processors.aadl}
+   \lstinputlisting[language=aadl,numberstyle=\tiny]{aadl/application.aadl}
+   \lstinputlisting[language=aadl,numberstyle=\tiny]{aadl/types.aadl}
+   \lstinputlisting[language=aadl,numberstyle=\tiny]{aadl/main.aadl}
+   \lstinputlisting[language=aadl,numberstyle=\tiny]{aadl/devices.aadl}
+   \lstinputlisting[language=aadl,numberstyle=\tiny]{aadl/buses.aadl}
+   \lstinputlisting[language=aadl,numberstyle=\tiny]{aadl/protocols.aadl}
+
+\end{document}

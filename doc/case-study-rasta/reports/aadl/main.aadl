@@ -1,0 +1,105 @@
+package main
+
+public
+
+with processors;
+with application;
+with devices;
+with buses;
+
+system case_study_rasta
+end case_study_rasta;
+
+system implementation case_study_rasta.i
+subcomponents
+   bus_serial_leon1_linux1 : bus buses::serial.i;
+   bus_serial_leon2_linux2 : bus buses::serial.i;
+   bus_spacewire : bus buses::spacewire.pohi;
+
+   pinger1 : process application::pinger.i;
+   pinger2 : process application::pinger.i;
+   pinger3 : process application::pinger.i;
+
+   pingme1 : process application::ping_me.i;
+   pingme2 : process application::ping_me.i;
+   pingme3 : process application::ping_me.i;
+
+   fpga_output1 : process application::fpga_test.i;
+   fpga_output2 : process application::fpga_test.i;
+
+   leon1 : processor processors::leon_2.i;
+   leon2 : processor processors::leon_2.i;
+
+
+   linux1 : processor processors::linux_native.i;
+   linux2 : processor processors::linux_native.i;
+
+   serial_port_leon_1 : device devices::serial_port.raw;
+   serial_port_leon_2 : device devices::serial_port.raw;
+
+   serial_port_linux_1 : device devices::serial_port.raw;
+   serial_port_linux_2 : device devices::serial_port.raw;
+
+   rasta1 : device devices::rasta.pohi;
+   rasta2 : device devices::rasta.pohi;
+
+   fpga1 : device devices::fpga.raw;
+   fpga2 : device devices::fpga.raw;
+connections
+   bus access bus_spacewire -> rasta1.spacewire;
+   bus access bus_spacewire -> rasta2.spacewire;
+
+   bus access bus_serial_leon1_linux1 -> rasta1.serial_line;
+   bus access bus_serial_leon2_linux2 -> rasta2.serial_line;
+
+   bus access bus_serial_leon1_linux1 -> serial_port_linux_1.serial_line;
+   bus access bus_serial_leon2_linux2 -> serial_port_linux_2.serial_line;
+
+   bus access bus_serial_leon1_linux1 -> serial_port_leon_1.serial_line;
+   bus access bus_serial_leon2_linux2 -> serial_port_leon_2.serial_line;
+
+   port pinger1.data_source -> pingme1.data_sink
+      {Actual_Connection_Binding => (reference (bus_spacewire.pohi));};
+
+   port pinger2.data_source -> pingme2.data_sink
+      {Actual_Connection_Binding => (reference (bus_serial_leon1_linux1.dummy));};
+
+   port pinger3.data_source -> pingme3.data_sink
+      {Actual_Connection_Binding => (reference (bus_serial_leon2_linux2.dummy));};
+
+   port fpga_output1.fpga_data -> fpga1.data_sink;
+
+   port fpga_output2.fpga_data -> fpga2.data_sink;
+properties
+   Actual_Processor_Binding => (reference (leon1)) applies to fpga_output1;
+   Actual_Processor_Binding => (reference (leon2)) applies to fpga_output2;
+
+   Actual_Processor_Binding => (reference (leon1)) applies to fpga1;
+   Actual_Processor_Binding => (reference (leon2)) applies to fpga2;
+
+   Actual_Processor_Binding => (reference (leon1)) applies to pinger1;
+   Actual_Processor_Binding => (reference (leon2)) applies to pingme1;
+
+   Actual_Processor_Binding => (reference (leon1)) applies to pingme2;
+   Actual_Processor_Binding => (reference (leon2)) applies to pingme3;
+
+   Actual_Processor_Binding => (reference (linux1)) applies to pinger2;
+   Actual_Processor_Binding => (reference (linux2)) applies to pinger3;
+
+   Actual_Processor_Binding => (reference (leon1)) applies to rasta1;
+   Actual_Processor_Binding => (reference (leon2)) applies to rasta2;
+
+   Actual_Processor_Binding => (reference (leon1))
+      applies to serial_port_leon_1;
+
+   Actual_Processor_Binding => (reference (leon2))
+      applies to serial_port_leon_2;
+
+   Actual_Processor_Binding => (reference (linux1))
+      applies to serial_port_linux_1;
+
+   Actual_Processor_Binding => (reference (linux2))
+      applies to serial_port_linux_2;
+end case_study_rasta.i;
+
+end main;

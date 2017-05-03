@@ -1,0 +1,88 @@
+package application
+
+public
+
+with types;
+
+subprogram pinger_spg
+features
+   data_source : out parameter types::int.i;
+properties
+	Source_Language => C;
+	Source_Name => "user_pinger";
+end pinger_spg;
+
+subprogram pingme_spg
+features
+   data_sink : in parameter types::int.i;
+properties
+	Source_Language => C;
+	Source_Name => "user_pingme";
+end pingme_spg;
+
+thread pinger_thread
+features
+   data_source : out event data port types::int.i;
+properties
+	Dispatch_Protocol => Periodic;
+end pinger_thread;
+
+thread implementation pinger_thread.i
+calls
+	mycall : {
+	  pspg : subprogram pinger_spg;
+	};
+connections
+	parameter pspg.data_source -> data_source;
+end pinger_thread.i;
+
+thread pingme_thread
+features
+   data_sink : in event data port types::int.i;
+properties
+	Dispatch_Protocol => Periodic;
+end pingme_thread;
+
+thread implementation pingme_thread.i
+calls
+	mycall : {
+	  pspg : subprogram pingme_spg;
+	};
+connections
+	parameter data_sink -> pspg.data_sink;
+end pingme_thread.i;
+
+
+process pinger
+features
+   data_source : out event data port types::int.i;
+end pinger;
+
+process implementation pinger.i
+subcomponents
+	thr : thread pinger_thread.i;
+connections
+	port thr.data_source -> data_source;
+end pinger.i;
+
+process ping_me
+features
+   data_sink : in event data port types::int.i;
+end ping_me;
+
+process implementation ping_me.i
+subcomponents
+	thr : thread pingme_thread.i;
+connections
+	port data_sink -> thr.data_sink;
+end ping_me.i;
+
+process fpga_test
+features
+	fpga_data : out data port types::int.i;
+end fpga_test;
+
+process implementation fpga_test.i
+end fpga_test.i;
+
+end application;

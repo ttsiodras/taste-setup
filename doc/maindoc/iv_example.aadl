@@ -1,0 +1,147 @@
+PACKAGE default::IV
+PUBLIC
+WITH DataView;
+WITH default::FV;
+with default::IV::container;
+with default::IV::container2;
+WITH Taste;
+
+---------------------------------------------------
+-- TASTE Interface View 
+---------------------------------------------------
+
+  SYSTEM default
+  END default;
+
+  SYSTEM IMPLEMENTATION default.others
+    SUBCOMPONENTS
+      function1: SYSTEM default::IV::container::function1.others
+        { Taste::Coordinates => "14 14 35 45"; };
+      function2: SYSTEM default::IV::container::function2.others
+        { Taste::Coordinates => "91 27 109 50"; };
+      function3: SYSTEM default::IV::container2::function3.others
+        { Taste::Coordinates => "135 33 155 70"; };
+      function4: SYSTEM default::IV::container2::function4.others
+        { Taste::Coordinates => "135 73 185 94"; };
+    CONNECTIONS
+      obj342 : SUBPROGRAM ACCESS function2.provided1  -> function1.required1 
+        { Taste::Coordinates => "35 42 63 42 63 46 91 46"; };
+  END default.others;
+
+
+
+PROPERTIES
+  Taste::Coordinates => "0 0 297 210";
+  TASTE::dataView => " DataView ";
+  TASTE::dataViewPath => "/tmp/dataview.aadl";
+
+END default::IV;
+
+PACKAGE default::IV::container
+PUBLIC
+
+WITH default::FV;
+WITH DataView;
+WITH Taste;
+
+  ---------------------------------------------------
+  -- TASTE Function: default::IV::container::function1
+  ---------------------------------------------------
+
+  SYSTEM function1
+    FEATURES
+      required1 : REQUIRES SUBPROGRAM ACCESS default::FV::provided1
+        { Taste::Coordinates => "35 41 37 43"; };
+    PROPERTIES
+      Source_Language => C;
+      Taste::Coordinates => "14 14 35 45";
+  END function1;
+
+  SYSTEM IMPLEMENTATION function1.others
+  END function1.others;
+
+  ---------------------------------------------------
+  -- TASTE Function: default::IV::container::function2
+  ---------------------------------------------------
+
+  SYSTEM function2
+    FEATURES
+      provided1 : PROVIDES SUBPROGRAM ACCESS default::FV::provided1
+      {
+        Taste::RCMoperationKind => sporadic;
+        Taste::RCMperiod => 0 ms;
+        Compute_Execution_Time => 0 ms .. 10 ms;
+        Taste::Deadline => 0 ms;
+        TASTE::Importance => MEDIUM ;
+        Taste::Coordinates => "89 45 91 47";
+      };
+    PROPERTIES
+      Source_Language => C;
+      Taste::Coordinates => "91 27 109 50";
+  END function2;
+
+  SYSTEM IMPLEMENTATION function2.others
+    SUBCOMPONENTS
+      provided1_impl : SUBPROGRAM default::FV::provided1;
+    CONNECTIONS
+      SUBPROGRAM ACCESS provided1_impl  -> provided1;
+  END function2.others;
+
+PROPERTIES
+  Taste::Coordinates => "1 4 119 100";
+END default::IV::container;
+
+PACKAGE default::IV::container2
+PUBLIC
+
+WITH default::FV;
+WITH DataView;
+WITH Taste;
+
+  ---------------------------------------------------
+  -- TASTE Function: default::IV::container2::function3
+  ---------------------------------------------------
+
+  SYSTEM function3
+    PROPERTIES
+      Source_Language => C;
+      Taste::Coordinates => "135 33 155 70";
+  END function3;
+
+  SYSTEM IMPLEMENTATION function3.others
+  END function3.others;
+
+  ---------------------------------------------------
+  -- TASTE Function: default::IV::container2::function4
+  ---------------------------------------------------
+
+  SYSTEM function4
+    PROPERTIES
+      Source_Language => C;
+      Taste::Coordinates => "135 73 185 94";
+  END function4;
+
+  SYSTEM IMPLEMENTATION function4.others
+  END function4.others;
+
+PROPERTIES
+  Taste::Coordinates => "129 16 189 98";
+END default::IV::container2;
+
+PACKAGE default::FV
+PUBLIC
+
+WITH DataView;
+with Taste;
+
+  SUBPROGRAM provided1
+    FEATURES
+      paramin1 : in PARAMETER DataView::TM_T
+        { Taste::encoding => NATIVE; };
+  END provided1;
+
+  SUBPROGRAM bla
+  END bla;
+
+END default::FV;
+

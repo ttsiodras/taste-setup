@@ -1,0 +1,40 @@
+package devices
+
+public
+
+with types;
+with buses;
+with protocols;
+
+device serial_port
+features
+   serial_line : requires bus access buses::serial.i;
+properties
+   Provided_Virtual_Bus_Class => (classifier (protocols::dummy.i));
+end serial_port;
+
+device implementation serial_port.raw
+end serial_port.raw;
+
+device rasta
+features
+   serial_line : requires bus access buses::serial.i;
+   spacewire   : requires bus access buses::spacewire.pohi;
+end rasta;
+
+device implementation rasta.pohi
+properties
+   Provided_Virtual_Bus_Class => (classifier (protocols::pohi.i));
+end rasta.pohi;
+
+device fpga
+features
+   data_sink : in data port types::int.i;
+end fpga;
+
+device implementation fpga.raw
+properties
+   Provided_Virtual_Bus_Class => (classifier (protocols::dummy.i));
+end fpga.raw;
+
+end devices;

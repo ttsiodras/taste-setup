@@ -1,0 +1,64 @@
+#########################
+# AS the root user
+#########################
+adduser assert
+cd /opt/
+# Yes, the symlinks point to nothing - bear with me
+ln -s /home/assert/tool-inst ocarina-2.0w-suite-x86-linux-2016.svn
+ln -s /opt/DMT-Tools DMT
+apt-get update
+apt-get install subversion libgtk2-gladexml-perl xpdf libgnome2-perl xterm libxml-parser-perl libxml-libxml-perl libgtk2-perl libfile-copy-recursive-perl nedit zip sudo libxml-libxml-simple-perl libbonoboui2-0 libgnome2-0 libgnomeui-0  libgnomevfs2-0  libgnome2-vfs-perl libgnomevfs2-common python-pexpect libxenomai-dev xenomai-runtime python-gtk2-dev gtkwave libdbd-sqlite3-perl libdbi-perl libsqlite3-dev sqlite3 xmldiff libxml2-dev qemu-system wmctrl python-ply tree python-llvm kate tk8.5 libtool python3-pip libxslt-dev libxml2-dev libarchive-dev libacl1-dev libattr1-dev libacl1 libattr1 python-lxml python-jinja2 libglib2.0-0 libmono-system-runtime4.0-cil libmono-corlib4.0-cil libmono-system-runtime-serialization-formatters-soap4.0-cil  libmono-system-web4.0-cil  libmono-system-xml4.0-cil libmono-system4.0-cil mono-runtime libmono-system-numerics4.0-cil libmono-system-data-linq4.0-cil libmono-corlib2.0-cil libmono-system2.0-cil python-pygraphviz postgresql-9.4 postgresql-client-9.4 postgresql-client-common postgresql-common pgadmin3 python-psycopg2 lcov libzmq3-dev python-coverage curl autoconf automake gnat ccache binfmt-support vim strace dos2unix python-antlr python-pip python3-pip git python-pyside python-pip python-matplotlib gcc procps bash-completion
+. /etc/bash_completion
+echo ':CLR:M::MZ::/usr/bin/mono:' > /proc/sys/fs/binfmt_misc/register
+visudo
+(
+  # add assert to passwordless sudoers:
+  root	ALL=(ALL:ALL) ALL
++ assert  ALL=(root) NOPASSWD: ALL
+)
+vi /etc/sysctl.conf 
+(
+	add at the bottom:
+	fs.mqueue.msg_max = 100
+)
+sysctl fs.mqueue.msg_max=100
+# If you target RTEMS, copy the /opt/rtems-4.11 folder from the ASSERT VM under /opt
+su - assert
+
+#########################
+# NOW AS the assert user
+#########################
+(copy from TASTE VM) /home/assert/assert_env.sh  into /home/assert/
+(
+	add this sourcing at the end of your /home/assert/.bashrc :
+	. ~/assert_env.sh 
+)
+. ~/assert_env.sh 
+svn co https://tecsw.estec.esa.int/svn/taste/branches/stable tool-src/
+(answer: 'p' for permanently)
+
+cd tool-src/
+sudo mkdir -p /opt/Ellidiss-TASTE-linux/config/
+sudo chmod 777 /opt/Ellidiss-TASTE-linux/config/
+sudo chmod 777 /opt/Ellidiss-TASTE-linux/
+pip install --user enum34 
+pip install --user http://antlr3.org/download/Python/antlr_python_runtime-3.1.3.tar.gz
+pip install --user singledispatch
+mkdir -p ~/tool-inst/bin
+cd ~/tool-src
+(if anything breaks, cat /tmp/buildlog  and send it to me)
+make
+
+# Ellidiss tools - contributed by Javier Hidalgo
+
+sudo rm -rf /opt/Ellidiss-TASTE-linux/* 
+sudo cp -a /home/assert/tool-src/ellidiss/TASTE-linux/* /opt/Ellidiss-TASTE-linux/
+for i in IVConfig.ini TASTE_IV_Properties.aadl TASTE_DV_Properties.aadl ; do
+    sudo cp -a /home/assert/tool-src/misc/ellidiss/$i /opt/Ellidiss-TASTE-linux/config/
+done
+cat /opt/Ellidiss-TASTE-linux/config/IVConfig.ini | sed 's,./bin/asn2aadl.exe,/opt/DMT/asn2aadlPlus/asn2aadlPlus.py,' > /tmp/patched.$$ && sudo mv /tmp/patched.$$ /opt/Ellidiss-TASTE-linux/config/IVConfig.ini
+
+# Fix path to Ellidiss tools, if missing
+if ! grep Ellidi /home/assert/assert_env.sh > /dev/null ; then
+    { cat /home/assert/assert_env.sh ; echo 'export PATH=$PATH:/opt/Ellidiss-TASTE-linux/' ; } > /tmp/env.$$ && mv /tmp/env.$$ /home/assert/assert_env.sh
+fi

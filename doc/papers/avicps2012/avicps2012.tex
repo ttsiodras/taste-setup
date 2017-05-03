@@ -1,0 +1,771 @@
+
+%% bare_conf.tex
+%% V1.3
+%% 2007/01/11
+%% by Michael Shell
+%% See:
+%% http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.7 or later) with an IEEE conference paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%
+%% File list of work: IEEEtran.cls, IEEEtran_HOWTO.pdf, bare_adv.tex,
+%%                    bare_conf.tex, bare_jrnl.tex, bare_jrnl_compsoc.tex
+%%*************************************************************************
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. IEEE's font choices can trigger bugs that do  ***
+% *** not appear when using other class files.                            ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+
+% Note that the a4paper option is mainly intended so that authors in
+% countries using A4 can easily print to A4 and see how their papers will
+% look in print - the typesetting of the document will not typically be
+% affected with changes in paper size (but the bottom and side margins will).
+% Use the testflow package mentioned above to verify correct handling of
+% both paper sizes by the user's LaTeX system.
+%
+% Also note that the "draftcls" or "draftclsnofoot", not "draft", option
+% should be used if it is desired that the figures are to be displayed in
+% draft mode.
+%
+\documentclass[10pt, conference, compsocconf]{IEEEtran}
+\usepackage{hyperref}
+\usepackage{acronym}
+\usepackage{epsfig}
+\usepackage{listings}
+
+\lstdefinelanguage{asn}
+{morekeywords={definitions,automatic,tags,default,integer},
+morecomment=[l]{--}}
+
+\newcounter{figcounter}
+\def\epsin #1#2#3#4{
+\refstepcounter{figcounter} \label{#3}
+\[
+\mbox{
+  \epsfxsize=#2mm
+  \epsffile{#1.eps}
+}
+\]
+%\vspace{0mm}
+\begin{center}
+  \parbox{7cm}{{\bf FIGURE \arabic{figcounter}:}\quad {\it #4 } } \\
+\end{center}
+}
+
+% Add the compsocconf option for Computer Society conferences.
+%
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[conference]{../sty/IEEEtran}
+
+
+
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/oberdiek/
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+
+
+
+
+% *** CITATION PACKAGES ***
+%
+%\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 4.0 (2003-05-27) and later if using hyperref.sty. cite.sty does
+% not currently provide for hyperlinked citations.
+% The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/cite/
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at: 
+% http://www.ctan.org/tex-archive/macros/latex/required/graphics/
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found as epslatex.ps or
+% epslatex.pdf at: http://www.ctan.org/tex-archive/info/
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage[cmex10]{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics. If using
+% it, be sure to load this package with the cmex10 option to ensure that
+% only type 1 fonts will utilized at all point sizes. Without this option,
+% it is possible that some math symbols, particularly those within
+% footnotes, will be rendered in bitmap form which will result in a
+% document that can not be IEEE Xplore compliant!
+%
+% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
+% There is also a support site at:
+% http://algorithms.berlios.de/index.html
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/tools/
+
+
+%\usepackage{mdwmath}
+%\usepackage{mdwtab}
+% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
+% especially mdwmath.sty and mdwtab.sty which are used to format equations
+% and tables, respectively. The MDWtools set is already installed on most
+% LaTeX systems. The lastest version and documentation is available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/mdwtools/
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+%\usepackage{eqparbox}
+% Also of notable interest is Scott Pakin's eqparbox package for creating
+% (automatically sized) equal width boxes - aka "natural width parboxes".
+% Available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/eqparbox/
+
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\usepackage[tight,footnotesize]{subfigure}
+% subfigure.sty was written by Steven Douglas Cochran. This package makes it
+% easy to put subfigures in your figures. e.g., "Figure 1a and 1b". For IEEE
+% work, it is a good idea to load it with the tight package option to reduce
+% the amount of white space around the subfigures. subfigure.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at:
+% http://www.ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
+% subfigure.sty has been superceeded by subfig.sty.
+
+
+
+%\usepackage[caption=false]{caption}
+%\usepackage[font=footnotesize]{subfig}
+% subfig.sty, also written by Steven Douglas Cochran, is the modern
+% replacement for subfigure.sty. However, subfig.sty requires and
+% automatically loads Axel Sommerfeldt's caption.sty which will override
+% IEEEtran.cls handling of captions and this will result in nonIEEE style
+% figure/table captions. To prevent this problem, be sure and preload
+% caption.sty with its "caption=false" package option. This is will preserve
+% IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later 
+% (recommended due to many improvements over 1.2) of subfig.sty supports
+% the caption=false option directly:
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%
+% The latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
+% The latest version and documentation of caption.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/caption/
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure. The latest version and documentation can be found at:
+% http://www.ctan.org/tex-archive/macros/latex/base/
+
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
+% Documentation is contained in the stfloats.sty comments as well as in the
+% presfull.pdf file. Do not use the stfloats baselinefloat ability as IEEE
+% does not allow \baselineskip to stretch. Authors submitting work to the
+% IEEE should note that IEEE rarely uses double column equations and
+% that authors should try to avoid such use. Do not be tempted to use the
+% cuted.sty or midfloat.sty packages (also by Sigitas Tolusis) as IEEE does
+% not format its papers in such ways.
+
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/misc/
+% Read the url.sty source comments for usage information. Basically,
+% \url{my_url_here}.
+
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{Towards a Model-Driven Engineering Software Development Framework}
+
+
+% author names and affiliations
+% use a multiple column layout for up to two different
+% affiliations
+
+\author{\IEEEauthorblockN{Maxime Perrotin, Julien Delange and Samir Bennani}
+\IEEEauthorblockA{European Space Agency, TEC-SWE\\
+Keplerlaan 1\\
+2201AZ Noordwijk, The Netherlands\\
+Email: firstname.lastname@esa.int}
+}
+
+% conference papers do not typically use \thanks and this command
+% is locked out in conference mode. If really needed, such as for
+% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
+% after \documentclass
+
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
+% 
+%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
+%Homer Simpson\IEEEauthorrefmark{2},
+%James Kirk\IEEEauthorrefmark{3}, 
+%Montgomery Scott\IEEEauthorrefmark{3} and
+%Eldon Tyrell\IEEEauthorrefmark{4}}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+%Georgia Institute of Technology,
+%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
+%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
+
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+
+
+\begin{abstract}
+Design and Implementation of Safety-Critical Systems is becoming very difficult
+becauses it involves many requirements coming from different engineering domains. Due
+to the increase of complexity, software of such systems can no longer be produced
+with traditional methods, which show their limit over time. In that context,
+new development approaches have to be introduced to 
+avoid actual development traps and pitfalls. Among them,
+the Model-Driven Engineering approach consists at representing
+system artifacts with models and auto-generate the code by refining
+them from high-level concepts down to the code. However, as for every
+new approach, it also brings new problems such as requirements consistency
+among the different notations (models) as well as integration
+issues (for example, making sure that implementation code 
+from different models will behave correctly when merged on a single execution
+platform).
+
+This article presents our experience for integrating Guidance
+and Navigation Control (GNC) algorithms designed with Application Models
+(Simulink) with Architecture Models (AADL). The process
+relies on code generator for both models and integrate it on a typical execution
+platform.
+In particular, we focus on the challenges of the integration, illustrating
+the practical problems we faced for producing a space system
+using a Model-Driven Engineering Approach.
+
+\end{abstract}
+
+\begin{IEEEkeywords}
+AADL, TASTE, Simulink, MDE
+\end{IEEEkeywords}
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+
+\section{Introduction}
+% no \IEEEPARstart
+
+\subsection{Context}
+Safety-critical systems are getting more complex, collocating more
+functions on the same computing platform. As a consequence, their design
+becomes more complicated, leading to a long and potentially painful
+design process. Designers have to take into account requirements
+coming from different domains and specified with heterogeneous formalisms.
+
+For that reason, producing the system using traditional methods is
+no longer feasible : checking impact between all requirements
+disseminated across different specifications and notations is 
+impossible, especially when the process is not automated. For that
+reason, new approaches must be designed. In our context, the Model-Driven
+Engineering (MDE) approach aims at separating system concerns in models,
+let engineers focus on their part of the system while tools
+automate the integration and ensure consistencies between modelling
+artifacts.
+
+
+\subsection{Problem}
+One key aspect of the MDE methodology is
+the separation of concerns: each engineer focuses on designing
+and implementing his part of the system dedicated to his domain
+while specific tools process each implementation artifact, ensure 
+their integration and preserve a semantic consistency between 
+notations. 
+
+Despite having a clear separation between each domain,
+several problems remain when implementing a full MDE
+approach. First of all, because of the use of different
+notations, some requirements are sometimes captured twice in
+different models using heterogeneous notations. Then, tools are expected
+to ensure their consistency but engineers are also requested
+not to break them when manipulating models. Another issue
+is about simulation and implementation correctness: even
+when a system was intensively tested using simulation functions, its
+integration as an implementation code can generate a lot of errors.
+Most of the time, this is due to the heterogeneous nature of the
+execution platform, whose environment is different from the simulation.
+Thus, having a dedicated process that ensures a smooth integration 
+of system functions by enforcing their behavior correctness is a must.
+
+In that context, to improve MDE approaches, it is worthwhile 
+to identify all traps and pitfalls in order to strengthen the overall
+approach. Outcome of such investigations would make tools more 
+resilient to potential integration errors, the type of issue which is 
+typically discovered just before completion of
+a project, when few resources are available 
+
+\subsection{Outline}
+The remainder of this paper is structured in two main
+sections. The first one is an overview of the tools we use:
+the TASTE toolset (Architecture modelling~\cite{bass2003software}), 
+ and Simulink~\cite{EE6393A162144B9BBB6B44D9BC0C4742} (Software modelling) and their 
+integration. Second part of this paper presents
+our latest experiments to design a spacecraft 
+system using our MDE toolset by designing 
+GNC algorithms on top of a distributed architecture
+designed with TASTE. We provide a feedback about traditional
+traps and pitfalls of such integration, leading to
+an open discussion about potential improvements of the whole MDE development
+process.
+
+
+
+% You must have at least 2 lines in the paragraph with the drop letter
+% (should never be an issue)
+
+\section{Background}
+
+   \subsection{Simulink}
+   Simulink consists of a graphical modelling language and a set of tools for designing
+   software (an example is shown in figure \ref{fig:simulink-model}). It focuses on the definition of functional
+   concerns and is mostly used to design algorithms in specific engineering
+   domain (power control, navigation, etc.).
+
+   Simulink is a well-known and established tool, providing
+   convenient notation to abstract engineering concepts with
+   a user-friendly simulation interface. Thus, it is a very efficient
+   tool for engineers to prototype, design
+   and implement their part of the system. In the context of the space
+   industry, it is used in many engineering domains, from mechanical to robotics.
+   In the present case-study, it was used to produce the GNC
+   algorithms of a launcher.
+
+   \subsection{TASTE}
+   TASTE~\cite{delange11sdl} is a project developed, maintained and supported by the European Space
+   Agency. It aims at providing a MDE toolset for the production
+   of safety-critical systems. For that purpose, it defines the system using
+   three views:
+   \begin{enumerate}
+      \item
+         The \textbf{Data View} (DaV) specifies data types and encoding functions
+         used to communicate between system components using the ASN.1~\cite{dubuisson1999asn} language
+         (see listing \ref{listing:data-view} for an example). 
+         It corresponds to the external interfaces of the system, as specified in the ICD that specified
+         all interfaces between the sub-systems (with their types, properties,
+         etc.).
+      \item
+         The \textbf{Interface View} (IV) enumerates system functions (what the
+         system is doing), their requirements and constraints (timing, data protection, etc.)
+         and interactions among then (communication channels) using the AADL~\cite{aadl} language. Function connections
+         reference the \textbf{Data View} to specify types being used.
+         As this model remains descriptive (a graphical sample is shown in
+         figure \ref{fig:taste-model-iv}), it has to be associated
+         with code that implements functions.
+      \item
+         \textbf{Deployment View} (DeV) defines the execution platform 
+         (processors, buses, etc.) of the system, its configuration 
+         as well as deployment of functions (from the \textbf{Interface View}) into it.
+         It also uses the AADL~\cite{aadl} for that purpose, an example is shown
+         in figure \ref{fig:taste-model-dv}.
+   \end{enumerate}
+
+   These models are processed with their functional code to
+   automatically produce system implementation (as shown in figure \ref{fig:taste-process})
+   through the following steps:
+   \begin{itemize}
+      \item
+         The \textbf{Data View} is translated into declarations (data types, functions) in the target code
+         (C, Ada, etc.) so that we can use the same interfaces with different
+         languages.
+      \item
+         The \textbf{Interface} and \textbf{Deployment Views} are processed
+         to create an architecture code that supports the execution
+         of the functional code. This aims at creating and configuring resources
+         (tasks, mutexes, etc.) that reflect requirements specified in the
+         interface view (period, deadline, etc.).
+      \item
+         The \textbf{Integration Process} compiles the functional code from the user
+         with the architecture code generated from models, producing the program
+         to be deployed on the execution target.
+         This code is also automatically tailored to the target operating
+         system. As for now, our toolchain supports several architecture
+         (x86, SPARC, etc.) and different Operating System for safety-critical
+         systems such as Linux or RTEMS~\cite{RTEMS}.
+   \end{itemize}
+
+   \epsin{imgs/taste-process}{80}{fig:taste-process}{TASTE development process}
+
+
+   \subsection{Integration of Software Models into Architecture Models}
+   Our process (figure \ref{fig:taste-process}) automatically deploys
+   application code (written by domain-specific users, such as
+   electrical/mechanical engineers) on top of architecture code.
+   The former can be designed
+   using either regular (C, Ada) or modelling (Simulink, SDL, etc.) languages. Our
+   toolchain automatically generates glue code that connects functional
+   blocks, enabling communication between code written with different languages
+   and executed on heterogeneous architectures.
+   
+   However, when integrating application models (such as Simulink), algorithms requirements 
+   must comply with the architecture constraints (timing requirements of the
+   \textbf{Interface View}, interfaces definition of the \textbf{Data View},
+   etc.). Using a traditional, manual integration, no check is performed, lack of compliance between models
+   is discovered either after integration (at best), or during execution (at
+   worst). The following section contains the description of a complete case study we conducted
+   in order to experiment and validate the use of a model-based approach with the TASTE tools.
+
+
+\section{Case-Study and feedback}
+
+   \subsection{Overview}
+
+   In order to validate our approach and tools, we have built a system to support the validation
+   of the navigation algorithms (GNC) of a onboard launcher software. In that context, we have developed
+   (or reused) a large set of Simulink models that represent the environment of the software: the sensors
+   and actuators on one side, and the flight dynamics on the other side. This way we have the means
+   to generate realistic data at runtime to feed the control laws and run in closed loop.
+
+   On the other side, we have the flight code of the control laws in Ada language. The challenge is to
+   put both pieces together, and make them run on different platform: first natively on Linux to test
+   the integration, and later on a mixed platforms (x86/Linux for the environment models, and Sparc/Leon
+   for the control law running in real-time). At runtime, we want to observe data and plot the control laws'
+   main parameters. TASTE provide the means to achieve these goals.
+
+   \subsection{Application modelling}
+
+   \epsin{imgs/simulink-model}{80}{fig:simulink-model}{Simulink model of our case-study}
+
+   Modelling the application with TASTE was done in three steps
+   \begin{enumerate}
+      \item
+         specify the data types in ASN.1
+         to describe the messages exchanged between our functions (listing \ref{listing:data-view})
+      \item
+         capture the logical architecture
+         of the system (figure \ref{fig:taste-model-iv}) into an Interface View that references 
+         the Simulink model (shown in {fig:simulink-model}). 
+      \item
+         model the deployment of the application, by mapping the functions onto hardware components, and connect them
+         with buses (figure \ref{fig:taste-model-dv}).
+   \end{enumerate}
+
+   From these models, TASTE generate \textit{skeletons}, that consist in empty code blocks that would contain
+   the application (Simulink models). Once these code blocks have been filled by the user, 
+   tools automatically create all the glue code that
+   is necessary to implement the system (communication, etc.) without having to manually tweak the interfaces. This 
+   auto-connects blocks from different implementation languages (Ada, C,
+   Simulink, etc.) smoothly, without having to change the communication
+   mechanisms. Using these tools gave us guarantee
+   that there would be no inconsistencies in data representation for each block. This allows to start running
+   simulations very quickly and make rapid prototyping of embedded application without having to tweak application code.
+  
+   \lstinputlisting[caption={Data View of our case-study},label=listing:data-view,language=asn,basicstyle=\footnotesize,frame=single,numberstyle=\tiny,captionpos=b]{data-view.asn}
+
+   \epsin{imgs/taste-model-iv}{80}{fig:taste-model-iv}{Interface View of our case-study}
+
+
+   \subsection{Feedback}
+
+   The experience gives us the ability to produce a large scale launcher simulator that we are now
+   running to cross-check the control laws of our launchers. Until now, we did most 
+   of these simulations entirely within the Matlab/Simulink environment. 
+   It is also a very powerful and effective approach; the drawback
+   is that the execution is not representative of real targets, and that the integration of the code later on
+   in the real onboard software can become much more difficult when done at a later stage. Using automated tools
+   to make the models and code integration from the very early stages of the development brings significant added
+   value and makes things simpler to integrate for non-software people.
+
+   However, we experienced two major issues when integrating Simulink code on the real
+   target. First of all, the generated code from application models is not
+   fully consistent with the models specification, leading to errors that were not
+   seen during simulation. This brings us to debug the generated code by hand to
+   discover the problem. This should be automatically detected by the tools. Also, another
+   issue was the programming skills of engineers : the toolchain required
+   adaptation of existing Simulink models to the TASTE interface. This job requires some
+   model refactoring to fit TASTE and Simulink models and was not easy for non
+   computer-scientist engineers. As a result, we spent a lot of time explaining
+   the design process to engineers so that they can use our toolchain.
+
+\section{Conclusion}
+This article presents our feedback about the issues of the deployment
+of software models with architecture, particularly regarding potential
+errors that are introduced during the integration phase, at the latest
+phases of system production. These experiments were done in the context
+of internal projects at the European Space Agency, while integrating
+GNC algorithms (designed and tested usign simulation functions
+from Simulink) with an execution runtime.
+
+These issues convince us to strenghthen the overall development process
+and propose new functionalities that aim at checking system compliance
+between execution and simulation. For example, being able to monitor system
+interfaces and check correctness between simulation and execution
+would help developers but also support the overall development process,
+providing artifacts required for system validation.
+
+   \subsection{Perspectives}
+   Verification between models could also be introduced earlier in the
+   development process, prior to system integration. For example, it would be
+   possible to check compliance between heterogeneous models before generating 
+   or integrating code. This engineering effort, even if technically feasible, would
+   require a static analysis of the model, which requires a huge
+   maintainance effort due to the number of application languages supported by our
+   toolchain.
+
+\*section{Aknowledgment} 
+
+The authors would like to thank the VEGA project and the TEC-ECN and TEC-SW laboratories for their support and contributions to this paper. 
+
+\section*{Acronyms}
+\begin{acronym}
+\acro{ASN}{~~ Abstract Syntax Notation}
+\acro{ICD}{~~ Interface Control Description}
+\acro{GNC}{~~ Guidance and Navigation Control}
+\acro{MDE}{~~ Model-Driven Engineering}
+\acro{TASTE}{~~ The ASSERT Set of Tools for Engineering}
+\end{acronym}
+
+
+   \epsin{imgs/taste-model-dv}{80}{fig:taste-model-dv}{Deployment View of our case-study}
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{biblio}
+
+
+
+% that's all folks
+\end{document}
+
+

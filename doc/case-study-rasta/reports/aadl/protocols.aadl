@@ -1,0 +1,17 @@
+package protocols
+
+public
+
+virtual bus dummy
+end dummy;
+
+virtual bus implementation dummy.i
+end dummy.i;
+
+virtual bus pohi
+end pohi;
+
+virtual bus implementation pohi.i
+end pohi.i;
+
+end protocols;

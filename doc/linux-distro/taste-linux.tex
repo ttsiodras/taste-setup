@@ -1,0 +1,719 @@
+\documentclass[11pt]{book}
+
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{xspace}
+\usepackage{minitoc}
+\usepackage{listings}
+\usepackage{epsfig}
+\usepackage{fullpage}
+\usepackage[pdftex, colorlinks=true,linkcolor=blue, urlcolor=blue, citecolor=blue]{hyperref}
+\usepackage{hyperref}
+\usepackage{rotating}
+\usepackage{multirow}
+
+\renewcommand{\rmdefault}{ppl}
+\renewcommand{\bfdefault}{b}
+\usepackage[scaled]{helvet}
+\renewcommand{\ttdefault}{pcr}
+\linespread{1.05}
+\normalfont
+\usepackage[T1]{fontenc}
+
+
+%\renewcommand*\thesection{\thechapter\arabic{section}}
+
+\lstset{language=bash,frame=single,basicstyle=\footnotesize}
+
+\lstdefinelanguage{aadl}
+{morekeywords={aadlboolean,aadlinteger,aadlreal,aadlstring,access,all,and,
+        annex,applies,binding,bus,calls,classifier,connections,constant,
+        data,delta,device,end,enumeration,event,extends,false,features,flow,
+        flows,group,implementation,in,inherit,initial,inverse,is,list,memory,
+        mode,modes,none,not,of,or,out,package,parameter,path,port,private,
+        process,processor,properties,property,provides,public,range,
+        reference,refined,refines,requires,server,set,sink,source,
+        subcomponents,subprogram,system,thread,to,true,type,units,value},
+morecomment=[l]{--}}
+
+% Layout for listings
+
+\lstset{language=aadl,
+        basicstyle=\scriptsize\sffamily,
+        aboveskip=.1cm, % \smallskipamount, % \bigskipamount,
+        belowskip=.1cm, % \smallskipamount, % \bigskipamount,
+        abovecaptionskip=.1cm, % \smallskipamount, % \medskipamount,
+        belowcaptionskip=.1cm, % \smallskipamount, % \bigskipamount,
+        xleftmargin=.0cm,
+        captionpos=b,
+        tabsize=3}
+
+
+\lstdefinelanguage{real}
+{morekeywords={cardinal,is\_subcomponent\_of,is\_bound\_to,sum,foreach,theorem,check,end,
+               memory\_set, processor\_set,min,max,
+               process\_set,is\_provided\_class,is\_connected\_to,
+               system\_set,thread\_set,in,bus\_set,data\_set,is\_accessed\_by,connection\_set,
+               virtual\_processor\_set,Cardinal,virtual\_bus\_set,property\_exists},
+morecomment=[l]{--}}
+
+
+% Layout for listings
+
+\lstset{language=aadl,
+        basicstyle=\scriptsize\sffamily,
+        aboveskip=.1cm, % \smallskipamount, % \bigskipamount,
+        belowskip=.1cm, % \smallskipamount, % \bigskipamount,
+        abovecaptionskip=.1cm, % \smallskipamount, % \medskipamount,
+        belowcaptionskip=.1cm, % \smallskipamount, % \bigskipamount,
+        xleftmargin=.0cm,
+        captionpos=b,
+        tabsize=3}
+
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+
+\newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\tit}[1]{\textit{#1}}
+\newcommand{\ttt}[1]{\texttt{#1}}
+\newcommand{\tsc}[1]{\textsc{#1}}
+\newcommand{\tsl}[1]{\textsl{#1}}
+
+
+
+\newcommand{\Concept}[1]{#1\xspace}
+
+\newcommand{\vmware}{\textsc{VMWare}\footnotesize{\copyright}\xspace}
+\newcommand{\adacore}{\textsc{Adacore}\footnotesize{\copyright}\xspace}
+\newcommand{\vmwareplayer}{\textsc{VMWare Player}\footnotesize{\copyright}\xspace}
+\newcommand{\aadl}{\Concept{AADL}}
+\newcommand{\ada}{\Concept{Ada}}
+\newcommand{\arinc}{\Concept{ARINC653}}
+\newcommand{\debian}{\Concept{Debian}}
+\newcommand{\belllapadula}{\Concept{Bell-Lapadula}}
+\newcommand{\biba}{\Concept{Biba}}
+\newcommand{\taste}{\Concept{Taste}}
+\newcommand{\cheddar}{\Concept{Cheddar}}
+\newcommand{\chineesewall}{\Concept{Chineese Wall}}
+\newcommand{\eclipse}{\Concept{Eclipse}}
+\newcommand{\libpok}{\Concept{libpok}}
+\newcommand{\marte}{\Concept{MARTE}}
+\newcommand{\mils}{\Concept{MILS}}
+\newcommand{\myccmhi}{\Concept{MyCCM-HI}}
+\newcommand{\ocarina}{\Concept{Ocarina}}
+\newcommand{\leon}{\Concept{LEON}}
+\newcommand{\gnatforleon}{\Concept{Gnatforleon}}
+\newcommand{\ocl}{\Concept{OCL}}
+\newcommand{\osate}{\Concept{OSATE}}
+\newcommand{\pok}{\Concept{POK}}
+\newcommand{\posix}{\Concept{POSIX}}
+\newcommand{\powerpc}{\Concept{PowerPC}}
+\newcommand{\qemu}{\Concept{QEMU}}
+\newcommand{\real}{\Concept{REAL}}
+\newcommand{\rtems}{\Concept{RTEMS}}
+\newcommand{\sparc}{\Concept{Sparc}}
+\newcommand{\spoq}{\Concept{SPOQ}}
+\newcommand{\standardcc}{\Concept{Critères Communs}}
+\newcommand{\standarddo}{\Concept{DO178B}}
+\newcommand{\sysml}{\Concept{SysML}}
+\newcommand{\uml}{\Concept{UML}}
+\newcommand{\xml}{\Concept{XML}}
+\newcommand{\xcov}{\Concept{xcov}}
+
+\newcommand{\onehalffig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=.50\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+\newcommand{\onemedfig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=.75\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+
+\newcommand{\onefullfig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=.90\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+\newcommand{\onehugefig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=1\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+
+\newcommand{\onesmallfig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=.40\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+
+\newcommand{\onetinyfig}[3]{%
+  \begin{figure}[htbp]
+    \centerline{\epsfig{file=#1.pdf,width=.30\textwidth}}
+    \caption{#2}
+    \label{#3}
+  \end{figure}
+}
+
+\newcommand{\boxfixme}[1]{%
+\begin{center}
+\fbox{%
+   \begin{minipage}{0.5\textwidth}
+   \centering{\textbf{!!! FIXME !!!}}
+   \rule{\linewidth}{0.5pt}
+   #1
+   \end{minipage}%
+}
+\end{center}
+}
+
+\title{
+\centerline{\epsfig{file=imgs/logo-taste.pdf,width=.75\textwidth}}
+TASTE-Linux distribution documentation \\ v1.1}
+
+\author{Julien Delange}
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\chapter{Introduction to the TASTE Linux distribution}
+The TASTE Linux distribution was designed to be used for the implementation of
+Robotics applications. However, it can be tailored for the development of other
+real-time applications.
+
+The distribution is based on Debian, stable version. On top of Debian, we build
+a customized kernel based on the vanilla kernel (from
+\url{http://www.kernel.org}) and the Xenomai patch.
+
+   \section{Availability}
+   The latest version of the distribution is available on the internet, at the
+   following address:
+   \url{http://download.tuxfamily.org/taste/linux-taste/linux-taste.img}
+
+
+\chapter{Use the TASTE Linux distribution}
+
+   \section{Running the distribution}
+      \subsection{Deploy on an USB stick}
+      You can put the distribution on a USB stick in order to be able to deploy
+      it automatically on a system. To do so, download the image and issue the
+      following command on Linux:
+      \begin{verbatim}
+      dd if=taste-linux.img of=/path/to/your/usb/key/device
+      \end{verbatim}
+
+      It will write the taste linux image on your usb stick so that you can run
+      the distro from the usb stick. Be careful, this would erase all existing
+      data on your usb stick and even destroy the existing filesystem
+      (partitions and so on).
+
+
+      \subsection{Emulation with QEMU}
+      To run the image, you can use qemu for rapid
+      development/prototyping.
+      The following command line would start the distro in qemu :
+      \begin{verbatim}
+   qemu -hda taste-linux.img -boot c -net nic,vlan=0  \
+      -net tap,vlan=0,ifname=tap0,script=/etc/qemu-ifup -m 256 -localtime
+      \end{verbatim}
+
+         \subsubsection{Increase QEMU speed} 
+         You can run the system faster by using the virtualization
+         functions of your architecture (if supported). In that case,
+         use the -enable-kvm option when qemu is launched.
+         Make sure that the following modules are loaded into your kernel
+         (depending on your processor manufacturer): \texttt{kvm-intel} or
+         \texttt{kvm-amd}).
+
+         \subsubsection{Networking support within QEMU}
+         If you want to connect your QEMU instance with your Linux system,
+         you have to configure a bridge. On regular Debian/Linux system,
+         you can do that be editing your network configuration. Proceed
+         as it :
+         \begin{enumerate}
+            \item
+            Edit \texttt{/etc/network/interfaces} and add the following lines 
+            (assuming that your computer is connected using \texttt{eth0} and
+            that your network connection is configured with dhcp):
+            \begin{verbatim}
+            auto br0
+            iface br0 inet dhcp
+            bridge_ports eth0
+            bridge_fd 9
+            bridge_hello 2
+            bridge_maxage 12
+            bridge_stp off
+            \end{verbatim}
+
+            \item
+            Restart the network by ussing the following command:
+            \begin{verbatim}
+            /etc/init.d/networking restart
+            \end{verbatim}
+         
+            \item
+            Edit \texttt{/etc/qemu-ifup} and put the following lines:
+            \begin{verbatim}
+            #!/bin/sh
+            echo "Executing /etc/qemu-ifup"
+            echo "Bringing up $1 for bridged mode..."
+            sudo /sbin/ifconfig $1 0.0.0.0 promisc up
+            echo "Adding $1 to br0..."
+            sudo /usr/sbin/brctl addif br0 $1
+            sleep 2
+            \end{verbatim}
+
+            \item
+            Launch QEMU with these additional parameters:
+            \begin{verbatim}
+   -net nic,vlan=0 -net tap,vlan=0,ifname=tap0,script=/etc/qemu-ifup
+            \end{verbatim}
+
+            So, the following command would start qemu with KVM
+            support and network configured:
+
+            \begin{verbatim}
+   qemu -hda taste-linux.img -boot c \
+   -net nic,vlan=0 -net tap,vlan=0,ifname=tap0,script=/etc/qemu-ifup \
+   -m 256 -localtime -enable-kvm -clock rtc
+            \end{verbatim}
+
+            \item
+            If you want to avoid to type your password each time
+            the \texttt{/etc/qemu-ifup} script is invoked, you have to configure
+            sudo. In that case, invoke \texttt{visudo} (as root) and change
+            your configuration like this:
+
+            \begin{verbatim}
+   Cmnd_Alias      QEMU=/sbin/ifconfig,/sbin/modprobe,/usr/sbin/brctl
+   youruser ALL=NOPASSWD: QEMU
+            \end{verbatim}
+
+            or
+
+            \begin{verbatim}
+   Cmnd_Alias      QEMU=/sbin/ifconfig,/sbin/modprobe,/usr/sbin/brctl
+   %yourgroup ALL=NOPASSWD: QEMU
+            \end{verbatim}
+         \end{enumerate}
+
+   \section{Accounts and password}
+   The root password is:
+   \begin{verbatim}
+      taste
+   \end{verbatim}
+
+   The system also defines a regular user account:
+   \begin{itemize}
+      \item
+         \textbf{Username:} taste
+      \item
+         \textbf{Password:} taste
+   \end{itemize}
+
+   \section{Directories and path}
+   The following directories have to be considered if you plan to develop for
+   this target/platform:
+   \begin{itemize}
+      \item
+         Xenomai main directory: \texttt{/usr/xenomai}
+      \item
+         Xenomai libraries: \texttt{/usr/xenomai/lib}
+   \end{itemize}
+
+
+   \section{Configuration of the analogy devices}
+   First of all, you have to load the appropriate kernel module (for example
+   \texttt{analogy\_ni\_pcimio}). Then, you have to invoke the
+   \texttt{analogy\_config} from Xenomai tools to be able to load and control
+   the card. Invoke it like this:
+   \begin{verbatim}
+   analogy_config DEVICEID DEVICEDRIVER
+   \end{verbatim}
+
+
+   For example, you can invoke the tool as it:
+   \begin{verbatim}
+   analogy_config analogy0 analogy_ni_pcimio
+   \end{verbatim}
+
+   Then, in that case, the device would be available in the analogy framework in
+   Xenomai under the name \texttt{analogy0}.
+
+   \section{Kernel modules automatically loaded}
+   When the system starts, the following modules are automatically loaded:
+   \begin{itemize}
+      \item
+         \texttt{xeno\_posix}
+      \item
+         \texttt{xeno\_native}
+   \end{itemize}
+
+   \section{Kernel modules available}
+   The kernel modules specific to Xenomai are located in the following
+   directories:
+   \begin{itemize}
+      \item
+         \texttt{/lib/modules/KERNEL\_VERSION/kernel/kernel/xenomai}
+      \item
+         \texttt{/lib/modules/KERNEL\_VERSION/kernel/drivers/xenomai}
+   \end{itemize}
+
+   The following modules are available:
+   \begin{itemize}
+      \item \texttt{xeno\_nucleus}
+      \item \texttt{xeno\_uitron}
+      \item \texttt{xeno\_vrtx}
+      \item \texttt{xeno\_native}
+      \item \texttt{xeno\_vxworks}
+      \item \texttt{xeno\_rtdm}
+      \item \texttt{xeno\_psos}
+      \item \texttt{xeno\_posix}
+      \item \texttt{xeno\_analogy}
+      \item \texttt{analogy\_s526}
+      \item \texttt{analogy\_parport}
+      \item \texttt{analogy\_8255}
+      \item \texttt{analogy\_ni\_mio}
+      \item \texttt{analogy\_ni\_tio}
+      \item \texttt{analogy\_ni\_pcimio}
+      \item \texttt{analogy\_ni\_mite}
+      \item \texttt{analogy\_fake}
+      \item \texttt{analogy\_loop}
+      \item \texttt{xeno\_rtipc}
+      \item \texttt{xeno\_rtdmtest}
+      \item \texttt{xeno\_klat}
+      \item \texttt{xeno\_switchtest}
+      \item \texttt{xeno\_irqbench}
+      \item \texttt{xeno\_timerbench}
+      \item \texttt{xeno\_sigtest}
+      \item \texttt{xeno\_can\_peak\_pci}
+      \item \texttt{xeno\_can\_mem}
+      \item \texttt{xeno\_can\_esd\_pci}
+      \item \texttt{xeno\_can\_ems\_pci}
+      \item \texttt{xeno\_can\_peak\_dng}
+      \item \texttt{xeno\_can\_sja1000}
+      \item \texttt{xeno\_can\_plx\_pci}
+      \item \texttt{xeno\_can\_isa}
+      \item \texttt{xeno\_can\_ixxat\_pci}
+      \item \texttt{xeno\_can\_virt}
+      \item \texttt{xeno\_can}
+      \item \texttt{xeno\_16550A}
+   \end{itemize}
+
+   \section{Configuration of the kernel}
+   The kernel sources are available in \texttt{/usr/src/linux}. The sources of
+   Xenomai are also available in the  \texttt{/usr/src} directory. The
+   configuration file of the kernel is available in
+   \texttt{/usr/src/linux/.config}.
+
+   \section{Rebuild your own kernel}
+   You can rebuild your own kernel by issuing the following command in the
+   \texttt{/usr/src/linux} directory:
+
+   \begin{verbatim}
+   make-kpkg --initrd kernel_image
+   \end{verbatim}
+
+
+   \section{Communication with the machine}
+   A ssh server is installed within the VM. File transfer operations and access
+   to the machine can be done using ssh of any sftp-compliant program.
+
+
+
+\chapter{Use the Analogy layer for interaction with acquisition data boards}
+The TASTE linux distribution embedds the xenomai real-time kernel. Is also
+includes an analogy layer which purpose is to interface with acquisition boards,
+such as the one supported by the comedi drivers.
+
+This analogy layer provides user functions to communicate with acquisition
+boards in a uniform and smooth way. In the following, we explain where you can
+find relevant documentation to use the analogy layer and provide an example of
+the use of these boards.
+
+   \section{Documentation of the analogy layer}
+   User-level functions that interacts with the analogy layer of Xenomai are
+   documented in the Xenomai API document. It is available on the Xenomai
+   website (\url{http://www.xenomai.org}), either in PDF or HTML
+   format\footnote{you can
+   check out this page for example
+   \url{http://www.xenomai.org/documentation/xenomai-2.5/html/api/index.html}
+   and search within the \texttt{Analogy API} module}.
+
+
+   \section{Use the board: the \texttt{analogy\_config} tool}
+   First of all, you must define the boards that will be used by your system.
+   You do that using the \texttt{analogy\_config} tool. This tool specify which
+   driver (kernel module) is used for each board. Each board is identified
+   using a number, starting from 0 (so, the first board will be
+   \texttt{analogy0}).
+
+   So, to associate an analogy device with a driver, you just have to invoke the
+   following command:
+\begin{verbatim}
+analogy_config analogy_device kernel_module
+\end{verbatim}
+
+   For example:
+\begin{verbatim}
+analogy_config analogy0 analogy_ni_pcimio
+\end{verbatim}
+
+   In this case, the card \texttt{analogy0} is identified as using the kernel
+   module \texttt{analogy\_ni\_pcimio}. When using the analogy API, you will
+   refer to it using the name \texttt{analogy0}.
+
+   \section{Use the board and the analogy API}
+   First of all, you have to include the header file \texttt{analogy.h} provided
+   by the analogy layer of xenomai. For that, you have to use the following
+   pre-processing code:
+
+\begin{lstlisting}
+   #include <xenomai/analogy/analogy.h>
+\end{lstlisting}
+
+   Then, you have to open the device. This is done by using the function
+   \texttt{a4l\_open} function which opens the device and stores relevant
+   information about it in a structure with the type \texttt{a4l\_desc\_t}. The
+   following listing illustrates how to use this function (note that a return
+   code different from 0 means that an error was raised when opening the device) :
+   \begin{lstlisting}
+   a4l_desc_t arm_device;
+   ret = a4l_open (&arm_device, "analogy0");
+
+   if (ret != 0)
+   {
+      printf ("[EXOARM] Error while opening the arm device, return code=%d \n", ret);
+      return;
+   }
+   \end{lstlisting}
+
+   Then, once the device is opened, you need to fill its descriptor
+   informations. This is done by calling the \texttt{a4l\_fill\_desc} function,
+   like this:
+   \begin{lstlisting}
+   ret = a4l_fill_desc (&arm_device);
+
+   if (ret != 0)
+   {
+      printf ("[EXOARM] Error while calling fill_desc(), return code=%d \n", ret);
+      return;
+   }
+   \end{lstlisting}
+
+
+   \subsection{Getting channel information}
+   Then, for each channel of the acquisition board, you need to get channel
+   information. This is done with the \texttt{a4l\_get\_chinfo} function. For
+   example, the following function call will retrieve information for the first
+   channel of the device opened in the \texttt{arm\_device} variable. Note that
+   a return code different from 0 means that an error happened.
+
+   \begin{lstlisting}
+   a4l_chinfo_t channel_infos;
+
+   ret = a4l_get_chinfo (&arm_device, 0, 0, &channel_infos);
+   if (ret != 0)
+   {
+      printf ("[EXOARM] Error invoking a4l_get_chinfo\n");
+   }
+   \end{lstlisting}
+
+
+   \subsection{Getting range information}
+   Then, for each channel, you need to get the range information, which indicate
+   to maximum and minimum value that can be acquired on a particular channel.
+   You can get this information by calling the \texttt{a4l\_get\_rnginfo}
+   function. It will store information about data range in a
+   \texttt{a4l\_rnginfo\_t} structure, that will be used later when
+   acquiring/converting data.
+
+   The following listing shows how to get range informations for the first
+   channel on the device opened using the \texttt{arm\_device} variable. 
+
+   \begin{lstlisting}
+   a4l_rnginfo_t range_infos;
+   ret = a4l_get_rnginfo (&arm_device, 0, 0, 0, &range_infos);
+   if (ret != 0)
+   {
+      printf ("[EXOARM] Error invoking a4l_get_rnginfo\n");
+   }
+   \end{lstlisting}
+
+
+   \subsection{Acquiring data}
+   Then, you acquire the data using the \texttt{a4l\_sync\_read} function. This
+   function gets \textit{raw} data, meaning that the acquired data cannot be
+   used directly and has to be converted later on in a programming-language
+   dependent type (for example, an \texttt{int} or a \texttt{double}).
+
+   So, when you acquire a data, you just have to provide a buffer to store the
+   data and specify its size. In the following listing, we acquire data on the
+   first channel and store it in the buffer \texttt{raw}, which has a length of
+   128 bytes.
+
+   \begin{lstlisting}
+   uint8_t raw[128];
+   ret = a4l_sync_read (&arm_device, 0, 0, 0, &raw, 128);
+   if (ret <= 0)
+   {
+       printf("[arm] Error while acquiring the data\n");
+   }
+   \end{lstlisting}
+
+   \subsection{Convert RAW data to programming types}
+   Finally, you need to convert the RAW data acquired previously to a type that
+   can be used in your programming language. This is done with the serie of
+   functions \texttt{a4l\_rawto*}. To convert the \textit{raw} data into a
+   \texttt{double} type, you can use the \texttt{a4l\_rawtod} function.
+
+   Conversion function requires the channel and range informations that has been
+   taken previously (see the previous sections). The following listing
+   illustrates how you can convert the \textit{raw} data acquired previously
+   into a \texttt{double} type using the channel and range informations obtained
+   previously in the variable \texttt{range\_infos} and \texttt{channe\_infos}.
+   \begin{lstlisting}
+   double converted_value;
+   ret = a4l_rawtod (&channel_infos, &range_infos, &converted_value, &raw, 1);
+
+   if (ret <= 0)
+   {
+       printf("[arm] Error while converting the data\n");
+   }
+   \end{lstlisting}
+
+
+   \subsection{Initialization and acquisition example}
+   The following listing shows an example of the use of an acquisition board. We
+   assume the board was initialized using the \texttt{analogy\_config} and
+   opened as \texttt{analogy0}. Then, it opens the data, get range and channel
+   informations and finally acquires data on the first channel every second. It
+   finally outputs the data on the standard output.
+
+
+   \begin{lstlisting}
+   #include <stdio.h>
+   #include <xenomai/analogy/analogy.h>
+
+   int main ()
+   {
+      int ret;
+      a4l_desc_t      arm_device;
+
+      a4l_chinfo_t   channel_infos;
+      a4l_rnginfo_t  range_infos;
+
+      double         val;
+      uint8_t        raw[128];
+
+
+      ret = a4l_open (&arm_device, "analogy0");
+
+      if (ret != 0)
+      {
+         printf ("[EXOARM] Error while opening the arm device, return code=%d \n", ret);
+         return;
+      }
+      arm_device.sbdata = malloc(arm_device.sbsize);
+
+
+      ret = a4l_fill_desc (&arm_device);
+
+      if (ret != 0)
+      {
+         printf ("[EXOARM] Error while calling fill_desc(), return code=%d \n", ret);
+         return;
+      }
+
+
+      ret = a4l_get_chinfo (&arm_device, 0, 0, &channel_infos);
+      if (ret != 0)
+      {
+         printf ("[EXOARM] Error invoking a4l_get_chinfo\n");
+      }
+
+      ret = a4l_get_rnginfo (&arm_device, 0, 0, 0, &range_infos);
+      if (ret != 0)
+      {
+         printf ("[EXOARM] Error invoking a4l_get_rnginfo\n");
+      }
+
+      while (1)
+      {
+         ret = a4l_sync_read (&arm_device, 0, 0, 0, &raw, 128);
+         if (ret <= 0)
+         {
+             printf("[arm] Error while acquiring the data\n");
+         }
+
+         ret = a4l_rawtod (channel_infos, range_infos, &val, &raw, 1);
+
+         if (ret <= 0)
+         {
+             printf("[arm] Error while converting the data\n");
+         }
+      }
+   }
+   \end{lstlisting}
+
+\chapter{Development for the TASTE Linux distribution}
+   \section{Available software}
+   The following development tools are available within the distribution:
+   \begin{itemize}
+      \item
+         binutils
+      \item
+         GCC
+      \item
+         Xenomai with \texttt{POSIX} and \texttt{Native} skins
+   \end{itemize}
+
+\chapter{Annexes}
+
+   \section{Links and websites}
+   \begin{itemize}
+      \item
+         Debian - \url{http://www.debian.org}
+      \item
+         Xenomai - \url{http://www.xenomai.org}
+      \item
+         Comedi - \url{http://www.comedi.org}
+      \item
+         System configuration for QEMU and network concerns: \url{http://compsoc.dur.ac.uk/~djw/qemu.html}
+   \end{itemize}
+
+
+\bibliographystyle{unsrt}
+\bibliography{biblio}
+
+\nocite{*}
+
+\end{document}

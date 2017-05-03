@@ -1,0 +1,24 @@
+package buses
+
+public
+
+with protocols;
+
+bus spacewire
+end spacewire;
+
+bus implementation spacewire.pohi
+subcomponents
+   pohi : virtual bus protocols::pohi.i;
+end spacewire.pohi;
+
+bus serial
+end serial;
+
+bus implementation serial.i
+subcomponents
+   dummy : virtual bus protocols::dummy.i;
+end serial.i;
+
+end buses;
+
