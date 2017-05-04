@@ -3,8 +3,6 @@
 # $2 is the output directory
 # this script builds a unique dataview.aadl file and calls buildsupport with --gw --aadlv2 -o $2 --keep-case
 
-[ -z "$DMT" ] && { echo You must set the DMT environment variable before you can execute this command.; exit 1 ; }
-
 # First check if an existing file is given as first argument (interface view)
 # If not, check for the presence of a file called "InterfaceView.aadl".
 # If no file is present or given, return an error with the command line.
