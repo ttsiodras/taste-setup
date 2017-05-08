@@ -7,3 +7,5 @@ export DISABLE_TASTE_BANNER=1
 for INSTALL_SCRIPT in install/[0-9]*sh ; do
     ${INSTALL_SCRIPT} || { echo Failed in execution of "${INSTALL_SCRIPT}" ; exit 1 ; }
 done
+echo "Please close this terminal and open a new one (to"
+echo "(make sure the environment variables are updated)."
