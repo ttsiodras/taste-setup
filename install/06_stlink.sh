@@ -6,11 +6,11 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR/../stlink || exit 1
 make release || exit 1
 
-STUTIL_PATH=$(realpath "${DIR}/ ../stlink/build/Release/src/gdbserver")
+STUTIL_PATH=$(realpath "${DIR}/../stlink/build/Release/src/gdbserver")
 PATH_CMD='export PATH=$PATH:'"${STUTIL_PATH}"
 UpdatePATH
 
-STFLASH_PATH=$(realpath "${DIR}/ ../stlink/build/Release")
+STFLASH_PATH=$(realpath "${DIR}/../stlink/build/Release")
 PATH_CMD='export PATH=$PATH:'"${STFLASH_PATH}"
 UpdatePATH
 
