@@ -30,7 +30,7 @@ if wget -q -O /tmp/syncup.$$ "$URL_OF_NEW_RTEMS_INFO" ; then
             NEWBIN=$NEW_RTEMS_FOLDER/bin
             if ! grep "^export PATH=.*$NEWBIN" $HOME/.bashrc.taste ; then
                 echo Adding new compiler "$NEWBIN" to PATH...
-                echo "export PATH=$NEWBIN:\$PATH" >> "$HOME/.bashrc.taste"
+                echo "export PATH=\$PATH:$NEWBIN" >> "$HOME/.bashrc.taste"
             fi
             echo $NEW_RTEMS_MTIME $NEW_RTEMS_FOLDER | \
                 sudo tee "$INSTALLED_RTEMS_INFO"
