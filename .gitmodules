@@ -46,3 +46,6 @@
 [submodule "stlink"]
 	path = stlink
 	url = https://github.com/texane/stlink.git
+[submodule "components_library"]
+	path = components_library
+	url = https://gitrepos.estec.esa.int/taste/components_library
