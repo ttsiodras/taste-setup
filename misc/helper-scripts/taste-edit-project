@@ -27,9 +27,25 @@ if [ ! -f DeploymentView.aadl ]
 then
     EXTRA_CMD+=--load-interface-view
     EXTRA_CMD+=' InterfaceView.aadl' 
-    EXTRA_CMD+=' --aadl-library $(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl'
+    EXTRA_CMD+=' --aadl-library $(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl '
 else
     EXTRA_CMD=
 fi
+
+# Add the components from the components library
+FIRST=1
+LIBDIR=$(taste-config --prefix)/share/components_library
+for each in $LIBDIR/*
+do
+    if [ $FIRST -eq 1 ]
+    then
+        EXTRA_CMD+='--edit-aadl '
+    else
+        EXTRA_CMD+=,
+    fi
+    EXTRA_CMD+=$each/interfaceview.aadl
+    FIRST=0
+done
+
 echo TASTE $EXTRA_CMD --data-view DataView.aadl --load-deployment-view DeploymentView.aadl
 TASTE $EXTRA_CMD --data-view DataView.aadl --load-deployment-view DeploymentView.aadl
