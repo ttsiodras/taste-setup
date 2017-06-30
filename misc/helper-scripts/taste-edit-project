@@ -61,8 +61,7 @@ do
 done
 
 echo -e "${INFO} Running
-    TASTE $EXTRA_CMD 
-          --data-view DataView.aadl 
+    TASTE $EXTRA_CMD          --data-view DataView.aadl 
           --load-deployment-view DeploymentView.aadl
 "
 TASTE $EXTRA_CMD --data-view DataView.aadl --load-deployment-view DeploymentView.aadl
