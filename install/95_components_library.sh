@@ -21,6 +21,9 @@ for i in * ; do
         # No, install component in library
         echo "[-] Installing $i in component library..."
         cp -a "$i" ${LIBDIR} || exit 1
+        cd ${LIBDIR}/"$i" || exit 1
+        echo "[-] Updating ASN.1 file paths..."
+        taste-update-data-view *asn
     else
         # Yes, it is - check for updates
         cd "${DIR}"/../components_library/"$i" || exit 1
@@ -30,6 +33,8 @@ for i in * ; do
         if [ "${OLDVER}" != "${NEWVER}" ] ; then
             echo "[-] Updating $i in component library..."
             cp -a "${DIR}"/../components_library/"$i"/* . 
+            echo "[-] Updating ASN.1 file paths..."
+            taste-update-data-view *asn
         fi
     fi
 done
