@@ -1,25 +1,35 @@
 #!/bin/bash
+
+if [ -t 0 ] ; then
+    COLORON="\e[1m\e[32m"
+    REDCOLORON="\e[1m\e[31m"
+    COLOROFF="\e[0m"
+else
+    COLORON=""
+    REDCOLORON=""
+    COLOROFF=""
+fi
+
+
 if [ -f InterfaceView.aadl ]
 then
-    echo 'Opening TASTE project'
+    echo -e "${INFO} Opening TASTE project"
     INTERFACEVIEW=InterfaceView.aadl
 else
-    echo Error: missing InterfaceView.aadl
-    echo First use taste-create-project to start a new project
+    echo -e "${ERROR} Missing InterfaceView.aadl"
+    echo -e "${ERROR} First use taste-create-project to start a new project"
     exit 1
 fi
 
 grep -i taste-directives.aadl "$INTERFACEVIEW" >/dev/null && {
-    echo Your interface view needs to be upgraded\!
-    echo Please upgrade it with:
+    echo -e "${ERROR} Your interface view needs to be upgraded\!"
+    echo "   Please upgrade it with:"
     echo
-    echo "  taste-upgrade-IF-view oldIFview newIFview"
+    echo "      taste-upgrade-IF-view oldIFview newIFview"
     echo
-    echo ...and use the newIFview instead.
+    echo "   ...and use the newIFview instead."
     exit 1
 }
-
-echo TASTE Project Editor - Use only the SAVE button - not \"Save as..\" !
 
 # If there is no deployment view, only load interface view
 EXTRA_CMD=
@@ -47,5 +57,5 @@ do
     FIRST=0
 done
 
-echo TASTE $EXTRA_CMD --data-view DataView.aadl --load-deployment-view DeploymentView.aadl
+# echo TASTE $EXTRA_CMD --data-view DataView.aadl --load-deployment-view DeploymentView.aadl
 TASTE $EXTRA_CMD --data-view DataView.aadl --load-deployment-view DeploymentView.aadl

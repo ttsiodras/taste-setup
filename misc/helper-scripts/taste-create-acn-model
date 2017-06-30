@@ -1,5 +1,16 @@
 #!/bin/bash -e
-echo TASTE ACN Editor - Use only the SAVE button - not \"Save as..\" !
+
+# TASTE ACN File creator
+
+if [ -t 0 ] ; then
+    COLORON="\e[1m\e[32m"
+    REDCOLORON="\e[1m\e[31m"
+    COLOROFF="\e[0m"
+else
+    COLORON=""
+    REDCOLORON=""
+    COLOROFF=""
+fi
 
 DATAVIEW=DataView.asn
 
@@ -19,16 +30,17 @@ then
     then
         DATAVIEW="$1"
     else
-        echo Invalid dataview filename - use $(basename "$0") \<filename.asn\>
+        echo -e -n "${ERROR} Invalid dataview filename - "
+        echo use $(basename "$0") \<filename.asn\>
         exit -1
     fi
 fi
 
 if [ -f "$DATAVIEW" ]
 then 
-    echo Creating dummy ACN file from existing DataView.asn
+    echo -e "${INFO} Creating dummy ACN file from existing DataView.asn"
 else
-    echo First create your ASN.1 data model: run taste-create-data-view
+    echo -e "${INFO} First create your ASN.1 data model: run taste-create-data-view"
     exit -1
 fi
 
@@ -44,6 +56,8 @@ fi
 
 taste-update-data-view $1
 
-echo 'Everything went fine.
-If you want to edit your ACN model, run taste-edit-acn-model
-'
+if [ -z $NONINTERACTIVE ]
+then
+    echo -e "${INFO} All OK"
+    echo -e "${INFO} If you want to edit your ACN model, run taste-edit-acn-model"
+fi

@@ -45,7 +45,7 @@ if [ -z "$(echo -n $DATAVIEW)" ]
 then
     if [ -f DataView.asn ]
     then
-        echo -e '${INFO} Using file: DataView.asn'
+        echo -e "${INFO} Using file: DataView.asn"
         DATAVIEW=$(readlink -e DataView.asn)
     else
         >&2 echo -e "${ERROR} No data view found"
