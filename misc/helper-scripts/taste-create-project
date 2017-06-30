@@ -46,6 +46,14 @@ do
 done
 
 # Invoke the GUI from Ellidiss
+echo -e "${INFO} Running "
+echo "    TASTE $EXTRA_CMD
+          --data-view DataView.aadl 
+          --load-interface-view InterfaceView.aadl 
+          --load-deployment-view DeploymentView.aadl 
+          --aadl-library $(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl
+"
+
 TASTE $EXTRA_CMD \
       --data-view DataView.aadl \
       --load-interface-view InterfaceView.aadl \
