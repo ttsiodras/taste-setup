@@ -2,6 +2,19 @@
 
 echo TASTE Data View Convertor - From ASN.1 to AADLV2
 
+if [ -t 0 ] ; then
+    COLORON="\e[1m\e[32m"
+    REDCOLORON="\e[1m\e[31m"
+    COLOROFF="\e[0m"
+else
+    COLORON=""
+    REDCOLORON=""
+    COLOROFF=""
+fi
+INFO="${COLORON}[INFO]${COLOROFF}"
+ERROR="${REDCOLORON}[ERROR]${COLOROFF}"
+
+
 # User may pass several ASN.1 files as parameters
 for f in $@
 do
@@ -11,16 +24,16 @@ do
     then
         if [ ! -f "$f" ]
         then
-            echo File not found: $f
+            echo -e "${INFO} File not found: ${f}"
             exit 1
         else
-            echo Using file: $f
+            echo -e "${INFO} Using file: ${f}"
             filename=$(readlink -e "$f")
             DATAVIEW+="$filename "
             acnfile=$(readlink -e "${f%.*}.acn")
             if [ -f "$acnfile" ]
             then
-                echo Using ACN file: $acnfile
+                echo -e "${INFO} Using ACN file: ${acnfile}"
                 DATAVIEW+="$acnfile "
             fi
         fi
@@ -32,16 +45,16 @@ if [ -z "$(echo -n $DATAVIEW)" ]
 then
     if [ -f DataView.asn ]
     then
-        echo 'Using file: DataView.asn'
+        echo -e '${INFO} Using file: DataView.asn'
         DATAVIEW=$(readlink -e DataView.asn)
     else
-        echo Error: no data view found
-        echo 'Usage: taste-update-data-view <set of ASN.1 files>'
+        >&2 echo -e "${ERROR} No data view found"
+        echo -e "${INFO} Usage: taste-update-data-view <set of ASN.1 files>"
         exit 1
     fi
     if [ -f DataView.acn ]
     then
-        echo 'Using file: DataView.acn'
+        echo -e "${INFO} Using file: DataView.acn"
         DATAVIEW+=" $(readlink -e DataView.acn)"
     fi
 fi
@@ -51,26 +64,28 @@ AADL=DataView.aadl
 
 if [ -f __ExtraTypes.asn ]
 then
-    echo 'Using file: __ExtraTypes.asn'
+    echo -e "${INFO} Using file: __ExtraTypes.asn"
     DATAVIEW+=" $(readlink -e "__ExtraTypes.asn")"
 fi
 
 if [ -f __ExtraTypes.acn ]
 then
-    echo 'Using file: __ExtraTypes.acn'
+    echo -e "${INFO} Using file: __ExtraTypes.acn"
     DATAVIEW+=" $(readlink -e "__ExtraTypes.acn")"
 fi
 
 DATAVIEW+=" $(taste-config --prefix)/share/taste-types/taste-types.asn"
 
+
 asn2aadlPlus $DATAVIEW "$AADL" -aadlv2
 
 if [ "$?" = "1" ]
 then
-    echo 'ERROR: Impossible to convert the dataview from ASN.1 to AADL' > /dev/stderr
+    >&2 echo -e "${ERROR} Impossible to convert the dataview from ASN.1 to AADL"
+    echo -e "${INFO} Command: asn2aadlPlus ${DATAVIEW} ${AADL} -aadlv2"
     exit 1
 else
-    echo All OK
+    echo -e "${INFO} All OK"
     exit 0
 fi
 
