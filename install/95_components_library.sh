@@ -32,6 +32,7 @@ for i in * ; do
         OLDVER=$(getver *aadl)
         if [ "${OLDVER}" != "${NEWVER}" ] ; then
             echo "[-] Updating $i in component library..."
+            rm -f *
             cp -a "${DIR}"/../components_library/"$i"/* . 
             echo "[-] Updating ASN.1 file paths..."
             taste-update-data-view *asn
