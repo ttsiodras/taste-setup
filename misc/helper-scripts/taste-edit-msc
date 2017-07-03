@@ -1,0 +1,31 @@
+#!/bin/bash -e
+
+# TASTE MSC Editor
+# Edit a MSC file
+
+if [ -t 0 ] ; then
+    COLORON="\e[1m\e[32m"
+    REDCOLORON="\e[1m\e[31m"
+    COLOROFF="\e[0m"
+else
+    COLORON=""
+    REDCOLORON=""
+    COLOROFF=""
+fi
+
+INFO="${COLORON}[INFO]${COLOROFF}"
+ERROR="${REDCOLORON}[ERROR]${COLOROFF}"
+
+MSC_FILENAME=$1
+
+echo -e "${INFO} Opening MSC Editor..."
+echo -e "${INFO} Filename: ${MSC_FILENAME}"
+
+EDITOR=taste-msc-editor
+
+
+if [ -z $NONINTERACTIVE ]
+then
+    $EDITOR -o $MSC_FILENAME
+fi
+
