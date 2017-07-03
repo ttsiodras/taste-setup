@@ -26,6 +26,6 @@ EDITOR=taste-msc-editor
 
 if [ -z $NONINTERACTIVE ]
 then
-    $EDITOR $MSC_FILENAME
+    $EDITOR -o $MSC_FILENAME
 fi
 

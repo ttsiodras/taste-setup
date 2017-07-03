@@ -36,7 +36,7 @@ end testcase;
 
 if [ -z $NONINTERACTIVE ]
 then
-    $EDITOR $MSC_FILENAME
+    $EDITOR -o $MSC_FILENAME
 fi
 
 if [ -z $NONINTERACTIVE ]
