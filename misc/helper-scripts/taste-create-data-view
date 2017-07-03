@@ -12,6 +12,8 @@ else
     COLOROFF=""
 fi
 
+INFO="${COLORON}[INFO]${COLOROFF}"
+ERROR="${REDCOLORON}[ERROR]${COLOROFF}"
 
 
 # Find a suitable text editor, in order of priority: kate, gvim, vi
