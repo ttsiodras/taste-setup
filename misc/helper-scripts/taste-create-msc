@@ -1,0 +1,46 @@
+#!/bin/bash -e
+
+# TASTE MSC Editor
+# Create a new MSC file for a given Provided interface of a function
+
+if [ -t 0 ] ; then
+    COLORON="\e[1m\e[32m"
+    REDCOLORON="\e[1m\e[31m"
+    COLOROFF="\e[0m"
+else
+    COLORON=""
+    REDCOLORON=""
+    COLOROFF=""
+fi
+
+INFO="${COLORON}[INFO]${COLOROFF}"
+ERROR="${REDCOLORON}[ERROR]${COLOROFF}"
+
+FUNC_NAME=$1
+shift
+PI_NAME=$1
+shift
+MSC_FILENAME=$1
+shift
+
+echo -e "${INFO} Creating new MSC..."
+echo -e "${INFO} Function: ${FUNC_NAME} PI: ${PI_NAME} Output: ${MSC_FILENAME}"
+
+EDITOR=taste-msc-editor
+
+echo 'msc testcase;
+
+end testcase;
+' > $MSC_FILENAME
+
+
+if [ -z $NONINTERACTIVE ]
+then
+    $EDITOR $MSC_FILENAME
+fi
+
+if [ -z $NONINTERACTIVE ]
+then
+    echo -e "${INFO} MSC created"
+    echo -e "${INFO} Run taste-edit-msc ${MSC_FILENAME} to edit"
+fi
