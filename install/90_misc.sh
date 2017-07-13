@@ -23,12 +23,8 @@ cp gnuplot/driveGnuPlotsStreams.pl ${PREFIX}/bin/taste-gnuplot-streams || exit 1
 
 # PeekPoke component
 mkdir -p ${PREFIX}/share/peekpoke
-mkdir -p ${PREFIX}/share/peekpoke/component
 cp peek-poke/peekpoke.py ${PREFIX}/share/peekpoke/peekpoke.py || exit 1
 cp peek-poke/PeekPoke.glade ${PREFIX}/share/peekpoke/PeekPoke.glade || exit 1
-for i in DataView.aadl DataView.asn export_PeekPoke.aadl taste_probe.zip ; do \
-        cp peek-poke/component/$i ${PREFIX}/share/peekpoke/component/$i || exit 1; \
-done
 
 # Helper scripts
 cp -a helper-scripts/* ${PREFIX}/bin/
