@@ -1,13 +1,13 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
-import sys, os, re, threading, time, signal
+import sys, os, re, threading, time, signal, ctypes
 
 sys.path.append(".")
 
-#from PythonAccess import *
 import DV
 import dataview_uniq_asn
-import PythonAccess as PA
+import PythonController
+PA = PythonController.PythonAccess
 
 sizePerType = {
     DV.int_32:4,
@@ -80,14 +80,15 @@ class Poll_taste_probe_console(threading.Thread):
         while True:
             inform("Attempting to open msgQ %s", self.msgQname)
             self._msgQueue = PA.OpenMsgQueueForReading(self.msgQname)
-            if (self._msgQueue != -1): break
+            if (self._msgQueue != -1):
+                break
             print "Communication channel over", self.msgQname, "not established yet...\n"
             time.sleep(1)
             if self._bDie:
                 return
         # Then, now that msgQ is opened, start polling:
         bufferSize = PA.GetMsgQueueBufferSize(self._msgQueue)
-        self._pMem = DV.new_byte_SWIG_PTR(bufferSize)
+        self._pMem = ctypes.create_string_buffer(bufferSize).raw
         while not self._bDie:
             inform("Polling Q")
             self.messageReceivedType = PA.RetrieveMessageFromQueue(self._msgQueue, bufferSize, self._pMem)
