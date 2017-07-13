@@ -10,9 +10,9 @@ if [ ! -f "$1" ]
 then
     if [ -f InterfaceView.aadl ]
     then
-	INTERFACEVIEW=InterfaceView.aadl
+        INTERFACEVIEW=InterfaceView.aadl
     else
-        echo 'Error: interface view not found	
+        echo 'Error: interface view not found
 Usage: [FORCE=1] taste-generate-skeletons [InterfaceView.aadl] [output-directory]'
         exit -1
     fi

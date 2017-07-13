@@ -1,23 +1,61 @@
 #!/bin/bash -e
-echo 'TASTE Project Creator - Use only the SAVE button - not \"Save as..\" !'
+echo 'TASTE Project Creator'
+
+if [ -t 0 ] ; then
+    COLORON="\e[1m\e[32m"
+    REDCOLORON="\e[1m\e[31m"
+    COLOROFF="\e[0m"
+else
+    COLORON=""
+    REDCOLORON=""
+    COLOROFF=""
+fi
+
+INFO="${COLORON}[INFO]${COLOROFF}"
+ERROR="${REDCOLORON}[ERROR]${COLOROFF}"
+
 
 if [ -f InterfaceView.aadl ]
 then
-    echo 'InterfaceView.aadl already exists. Use taste-edit-project instead.'
-    exit 0
+    echo -e "${ERROR} InterfaceView.aadl already exists. Use taste-edit-project instead."
+    exit 1
 fi
 
 if [ ! -f DataView.aadl ]
 then
-    echo 'Creating a default ASN.1 data model.'
+    echo -e "${INFO} Creating a default ASN.1 data model."
     NONINTERACTIVE=1 taste-create-data-view
     NONINTERACTIVE=1 taste-create-acn-model
 else
-    echo Using existing DataView.aadl
+    echo -e "${INFO} Using existing DataView.aadl"
 fi
 
+# Add the components from the components library
+FIRST=1
+LIBDIR=$(taste-config --prefix)/share/components_library
+for each in $LIBDIR/*
+do
+    if [ $FIRST -eq 1 ]
+    then
+        EXTRA_CMD+='--edit-aadl '
+    else
+        EXTRA_CMD+=,
+    fi
+    EXTRA_CMD+=$each/interfaceview.aadl
+    FIRST=0
+done
+
 # Invoke the GUI from Ellidiss
-TASTE --data-view DataView.aadl \
+echo -e "${INFO} Running "
+echo "    TASTE $EXTRA_CMD
+          --data-view DataView.aadl 
+          --load-interface-view InterfaceView.aadl 
+          --load-deployment-view DeploymentView.aadl 
+          --aadl-library $(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl
+"
+
+TASTE $EXTRA_CMD \
+      --data-view DataView.aadl \
       --load-interface-view InterfaceView.aadl \
       --load-deployment-view DeploymentView.aadl \
       --aadl-library $(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl

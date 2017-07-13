@@ -1,6 +1,19 @@
 #!/bin/bash -e
 
-echo TASTE Dataview Editor - Use only the SAVE button - not \"Save as..\" !
+# TASTE Dataview Editor
+
+if [ -t 0 ] ; then
+    COLORON="\e[1m\e[32m"
+    REDCOLORON="\e[1m\e[31m"
+    COLOROFF="\e[0m"
+else
+    COLORON=""
+    REDCOLORON=""
+    COLOROFF=""
+fi
+
+INFO="${COLORON}[INFO]${COLOROFF}"
+ERROR="${REDCOLORON}[ERROR]${COLOROFF}"
 
 
 # Find a suitable text editor, in order of priority: kate, gvim, vi
@@ -14,22 +27,33 @@ else
     EDITOR=vi
 fi
 
-if [ -f "DataView.asn" ];
- then echo Opening existing DataView.asn;
+if [ -f "DataView.asn" ]
+then
+    if [ -z $NONINTERACTIVE ]
+    then
+        echo -e "${INFO} Opening existing DataView.asn"
+    fi
 else
-    echo Creating a dummy ASN.1 file with a few type examples - feel free to add, edit, delete...
+    if [ -z $NONINTERACTIVE ]
+    then
+        echo -e "${INFO} Creating a dummy ASN.1 file with a few type examples - feel free to add, edit, delete..."
+    fi
     echo 'TASTE-Dataview DEFINITIONS ::=
 BEGIN
 IMPORTS T-Int32, T-UInt32, T-Int8, T-UInt8, T-Boolean FROM TASTE-BasicTypes;
 
--- A few simple types to start with ASN.1
-MyInteger   ::= T-UInt8
+-- ASN.1 Type definitions must start with an uppercase
+-- Field names in records (SEQUENCE) must start with a lowercase
+-- Underscores are not allowed: use dash (hyphen) 
 
+-- Simple types:
+
+MyInteger   ::= INTEGER (0..255)
 MyReal      ::= REAL (0.0 .. 1000.0)
-
 MyBool      ::= BOOLEAN
+MyEnum      ::= ENUMERATED { hello, world, how-are-you }
 
-MyEnum      ::= ENUMERATED { hello, world, howareyou }
+-- Complex types:
 
 MySeq       ::= SEQUENCE {
     input-data  MyInteger,
@@ -56,7 +80,7 @@ fi
 if [ -z $NONINTERACTIVE ]
 then
     $EDITOR DataView.asn
-    echo Converting the data view to AADL...
+    echo -e "${INFO} Converting the data view to AADL..."
 fi
 
 cp $(taste-config --prefix)/share/taste-types/taste-types.asn .
@@ -65,8 +89,8 @@ taste-update-data-view
 
 if [ -z $NONINTERACTIVE ]
 then
-    echo 'Everything went fine.
-You can now run taste-create-interface-view or if you want to edit your data view, run taste-edit-data-view
-You can also create an ACN model of your data view by typing taste-create-acn-model
-'
+    echo -e "${INFO} Data View created"
+    echo -e "${INFO} Run taste-edit-data-view to edit"
+    echo -e "${INFO}     taste-create-acn-model to specify binary encodings with ACN"
+    echo -e "${INFO}     taste-create-project to create a new TASTE project"
 fi
