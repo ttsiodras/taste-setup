@@ -8,8 +8,8 @@ else
 fi
 INFO="${COLORON}[INFO]${COLOROFF}"
 
-/bin/sh --version >/dev/null 2>&1 | grep -i bash || {
-    echo -e "${INFO} Many legacy TASTE Makefiles depend on /bin/sh pointing to bash."
+/bin/sh --version 2>&1 | grep -i bash || {
+    echo -e "${INFO} Many legacy Makefiles used depend on /bin/sh pointing to bash."
     echo -e "${INFO} Please change your /bin/sh appropriately."
     exit 1
 }
