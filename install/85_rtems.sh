@@ -52,3 +52,11 @@ grep RTEMS_MAKEFILE_PATH_LEON $HOME/.bashrc.taste >/dev/null || {
     echo Adding RTEMS_MAKEFILE_PATH_LEON env var to settings.
     echo "export RTEMS_MAKEFILE_PATH_LEON=\"$LEON3_FOLDER\"" >> $HOME/.bashrc.taste
 }
+
+# We moved to RTEMS4.12, the official SMP implementation
+# Add a replace for it
+TMPCFG=$HOME/.bashrc.taste.new
+cat $HOME/.bashrc.taste | \
+    sed 's,opt/rtems-4.[0-9]*/sparc-rtems4.[0-9]*/leon.,opt/rtems-4.12/sparc-rtems4.12/leon3,' \
+    > ${TMPCFG}
+mv ${TMPCFG} $HOME/.bashrc.taste
