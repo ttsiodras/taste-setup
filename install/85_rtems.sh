@@ -62,7 +62,8 @@ cat $HOME/.bashrc.taste | \
 mv ${TMPCFG} $HOME/.bashrc.taste
 
 # Add symlink from original path - RTEMS toolchain "burns" hardcoded paths!
-[ -f /opt/rtems-4.12/bin/sparc-rtems4.12-gcc ] && \
+if [ -f /opt/rtems-4.12/bin/sparc-rtems4.12-gcc ] ; then \
     /opt/rtems-4.12/bin/sparc-rtems4.12-gcc -v 2>&1 | \
     grep 4f3b8da031e42d126afd94d17582123f66b78a68 && \
     { cd /opt ; sudo ln -s rtems-4.12 rtems-4.11.2-SMP-FPU-2017.07.13 ; }
+fi
