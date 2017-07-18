@@ -57,9 +57,13 @@ grep RTEMS_MAKEFILE_PATH_LEON $HOME/.bashrc.taste >/dev/null || {
 # Add a replace for it
 TMPCFG=$HOME/.bashrc.taste.new
 cat $HOME/.bashrc.taste | \
-    sed "s,/opt/rtems-4.[0-9]*/sparc-rtems4.[0-9]*/leon.,${NEW_RTEMS_FOLDER}/sparc-rtems4.12/leon3," \
+    sed 's,opt/rtems-4.[0-9]*/sparc-rtems4.[0-9]*/leon.,opt/rtems-4.12/sparc-rtems4.12/leon3,' \
     > ${TMPCFG}
 mv ${TMPCFG} $HOME/.bashrc.taste
 
-# Remove deprecated symlink
-sudo rm -f /opt/rtems-4.11.2-SMP-FPU-2017.07.13 2>/dev/null
+# Add symlink from original path - RTEMS toolchain "burns" hardcoded paths!
+if [ -f /opt/rtems-4.12/bin/sparc-rtems4.12-gcc ] ; then \
+    /opt/rtems-4.12/bin/sparc-rtems4.12-gcc -v 2>&1 | \
+    grep 4f3b8da031e42d126afd94d17582123f66b78a68 && \
+    { cd /opt ; sudo ln -s rtems-4.12 rtems-4.11.2-SMP-FPU-2017.07.13 ; }
+fi
