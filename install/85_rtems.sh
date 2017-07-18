@@ -12,7 +12,7 @@ URL_OF_NEW_RTEMS_INFO=http://download.tuxfamily.org/taste/RTEMS/LATEST
 if wget -q -O /tmp/syncup.$$ "$URL_OF_NEW_RTEMS_INFO" ; then
     read NEW_RTEMS_MTIME NEW_RTEMS_FOLDER NEW_RTEMS_URL <<< $(cat /tmp/syncup.$$)
     rm -f /tmp/syncup.$$
-    if [ "$OLD_RTEMS_MTIME" -lt "$NEW_RTEMS_MTIME" ] ; then
+    if [ "$OLD_RTEMS_MTIME" -ne "$NEW_RTEMS_MTIME" ] ; then
         echo Downloading updated version of the RTEMS compiler...
         cd /opt
         NEW_COMPILER_TARBALL=/tmp/newCompiler.$$.tar.bz2
