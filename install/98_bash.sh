@@ -6,10 +6,12 @@ else
     COLORON=""
     COLOROFF=""
 fi
-INFO="${COLORON}[INFO]${COLOROFF}"
+ERROR="${COLORON}[ERROR]${COLOROFF}"
 
 /bin/sh --version 2>&1 | grep -i bash || {
-    echo -e "${INFO} Many legacy Makefiles used depend on /bin/sh pointing to bash."
-    echo -e "${INFO} Please change your /bin/sh appropriately."
+    echo -e "${ERROR} Many legacy Makefiles used depend on /bin/sh pointing to bash."
+    echo -e "${ERROR} You need to change your /bin/sh appropriately - e.g."
+    echo -e "${ERROR}"
+    echo -e "${ERROR}    cd /bin ; sudo rm sh ; sudo ln -s bash sh"
     exit 1
 }
