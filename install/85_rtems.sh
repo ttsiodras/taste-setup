@@ -48,22 +48,18 @@ fi
 # Make sure the RTEMS_MAKEFILE_PATH_LEON is set
 grep RTEMS_MAKEFILE_PATH_LEON $HOME/.bashrc.taste >/dev/null || {
     read UNUSED FINAL_RTEMS_FOLDER <<< $(cat "$INSTALLED_RTEMS_INFO")
-    LEON3_FOLDER="$(find $FINAL_RTEMS_FOLDER -type d -name leon3)"
+    GR712_FOLDER="$(find $FINAL_RTEMS_FOLDER -type d -name gr712rc)"
     echo Adding RTEMS_MAKEFILE_PATH_LEON env var to settings.
-    echo "export RTEMS_MAKEFILE_PATH_LEON=\"$LEON3_FOLDER\"" >> $HOME/.bashrc.taste
+    echo "export RTEMS_MAKEFILE_PATH_LEON=\"$GR712_FOLDER\"" >> $HOME/.bashrc.taste
 }
 
-# We moved to RTEMS4.12, the official SMP implementation
-# Add a replace for it
+# Remove obsolete "hack" around test-era compiler
+sudo rm -f /opt/rtems-4.11.2-SMP-FPU-2017.07.13 2>/dev/null
+
+# We have moved to RTEMS4.12, the officially SMP-supporting implementation.
+# Add a replace for it, and for the default target BSP
 TMPCFG=$HOME/.bashrc.taste.new
 cat $HOME/.bashrc.taste | \
-    sed "s,/opt/rtems-4.[0-9]*/sparc-rtems4.[0-9]*/leon.,${NEW_RTEMS_FOLDER}/sparc-rtems4.12/leon3," \
+    sed "s,/opt/rtems-4.[^/]*/sparc-rtems4.[^/]*/leon.,${NEW_RTEMS_FOLDER}/sparc-rtems4.12/gr712rc," \
     > ${TMPCFG}
 mv ${TMPCFG} $HOME/.bashrc.taste
-
-# Add symlink from original path - RTEMS toolchain "burns" hardcoded paths!
-if [ -f /opt/rtems-4.12/bin/sparc-rtems4.12-gcc ] ; then \
-    /opt/rtems-4.12/bin/sparc-rtems4.12-gcc -v 2>&1 | \
-    grep 4f3b8da031e42d126afd94d17582123f66b78a68 && \
-    { cd /opt ; [ ! -h rtems-4.11.2-SMP-FPU-2017.07.13 ] && sudo ln -s rtems-4.12 rtems-4.11.2-SMP-FPU-2017.07.13 ; }
-fi
