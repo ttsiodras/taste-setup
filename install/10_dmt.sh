@@ -15,6 +15,11 @@ if [ ${TREE_CLEAN} -eq 0 -a "${HEAD}" == "${VERSION_INSTALLED}" ] ; then
     exit 0
 fi
 
+# Unfortunately, the --upgrade DOES NOT ALWAYS WORK.
+# Uninstall first...
+echo y | pip3 uninstall  dmt
+
+# ...then install the new version:
 pip3 install --user --upgrade . || exit 1
 
 # Add .local/bin to PATH
