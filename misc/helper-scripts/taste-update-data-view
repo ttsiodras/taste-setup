@@ -76,8 +76,9 @@ fi
 
 DATAVIEW+=" $(taste-config --prefix)/share/taste-types/taste-types.asn"
 
-
-asn2aadlPlus $DATAVIEW "$AADL" -aadlv2
+# can asn2aadlPlus with a call to uniq to filter out duplicate outputs
+# due to multiple calls to the ASN.1 compiler
+asn2aadlPlus $DATAVIEW "$AADL" -aadlv2 2>&1 | uniq >&2
 
 if [ "$?" = "1" ]
 then
