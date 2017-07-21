@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -t 0 ]
+if [ -t 1 ]
 then
     COLORON="\e[1m\e[32m"
     REDCOLORON="\e[1m\e[31m"

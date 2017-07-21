@@ -3,7 +3,7 @@
 # TASTE MSC Editor
 # Create a new MSC file for a given Provided interface of a function
 
-if [ -t 0 ] ; then
+if [ -t 1 ] ; then
     COLORON="\e[1m\e[32m"
     REDCOLORON="\e[1m\e[31m"
     COLOROFF="\e[0m"
