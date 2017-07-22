@@ -6,12 +6,12 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR/../pymsc || exit 1
 
 # Skip install if the version installed is the same and the tree is clean
-HEAD="$(grep __version msccore/__init__.py | awk '{print $NF}')" | tr -d '"'
+HEAD="$(grep __version msccore/__init__.py | awk '{print $NF}' | tr -d '"')"
 
 VERSION_INSTALLED="$(pip2 freeze | grep taste-msc | awk -F= '{print $NF}')"
 git status >/dev/null
 TREE_CLEAN=$?
-if [ ${TREE_CLEAN} -eq 0 -a ${HEAD} -eq ${VERSION_INSTALLED} ] ; then
+if [ ${TREE_CLEAN} -eq 0 -a "${HEAD}" == "${VERSION_INSTALLED}" ] ; then
     echo taste-msc tree is clean and already installed. Skipping taste-msc install...
     exit 0
 fi
