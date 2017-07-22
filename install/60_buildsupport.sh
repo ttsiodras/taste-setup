@@ -7,7 +7,7 @@ cd $DIR/../buildsupport || exit 1
 
 # Skip Ocarina building if tree is clean and version is identical
 HEAD="$(git log --oneline | head -1 | cut -d' ' -f1)"
-VERSION_INSTALLED="$(buildsupport -v 2>&1 | grep -A1 Based | tail -1 | tr -d '\012')"
+VERSION_INSTALLED="$(buildsupport -v 2>&1 | grep Version | cut -f 4 -d' ' | tr -d '\012')"
 git status >/dev/null
 TREE_CLEAN=$?
 if [ ${TREE_CLEAN} -eq 0 -a "${HEAD}" == "${VERSION_INSTALLED}" ] ; then
