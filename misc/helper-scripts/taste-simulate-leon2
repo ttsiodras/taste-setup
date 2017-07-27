@@ -1,2 +1,3 @@
 #!/bin/bash
+export LD_LIBRARY_PATH=$HOME/tool-src/qemu-Leon3
 /opt/qemu-leon2/bin/qemu-system-sparc -M at697 -nographic -kernel "$@"
