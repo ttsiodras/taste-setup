@@ -115,7 +115,7 @@ class Poll_taste_probe_console(threading.Thread):
     def ProcessTM(self):
         '''Parses the incoming Telemetry (Update_monitorings)'''
         # For now, there's only one type of monitoring TM
-        if self.messageReceivedType != PA.i_update_monitorings:
+        if self.messageReceivedType != PythonController.i_update_monitorings:
             return
 
         # Are we recording?
@@ -142,7 +142,7 @@ class Poll_taste_probe_console(threading.Thread):
 
         # Actual TM handling:
         var_monitorings = dataview_uniq_asn.TASTE_Monitoring_list()
-        DV.SetDataFor_TASTE_Monitoring_list(var_monitorings._ptr, self._pMem)
+        var_monitorings.SetData(self._pMem)
         # for each one of the entries in the list
         for i in xrange(0, var_monitorings.GetLength()):
             monitoring = var_monitorings[i]
