@@ -117,5 +117,8 @@ PROPERTIES=ConcurrencyView.pro
 if [ $V2 -eq 0 ]
 then
     TASTE-CV  --edit-aadl $PROCESS --update-properties $PROPERTIES 
+else
+    rm -rf ConcurrencyView
+    mv "$tempdir"/ConcurrencyView .
 fi
 
