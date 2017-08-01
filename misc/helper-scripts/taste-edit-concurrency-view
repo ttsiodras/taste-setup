@@ -1,4 +1,16 @@
 #!/bin/bash
+# TASTE Concurrency View Creator
+
+# Logging with colors (only in a terminal)
+if [ -t 1 ] ; then
+    COLORON="\e[1m\e[32m"
+    COLOROFF="\e[0m"
+else
+    COLORON=""
+    COLOROFF=""
+fi
+INFO="${COLORON}[INFO]${COLOROFF}"
+ERROR="${COLORON}[ERROR]${COLOROFF}"
 
 error=0
 NB_ARGS=3
@@ -32,10 +44,23 @@ else
     fi
 fi
 
+# Check if models are from V2 and convert to V1_3 accordingly
+V2=0
+grep "version => \"2" InterfaceView.aadl >/dev/null && {
+    echo -e "${INFO} Converting interface view from V2 to V1.3"
+    TASTE --load-interface-view InterfaceView.aadl --export-interface-view-to-1_3 __iv_1_3.aadl
+    INTERFACEVIEW=__iv_1_3.aadl
+    echo -e "${INFO} Converting deployment view from V2 to V1.3"
+    TASTE --load-deployment-view "$DEPLOYMENTVIEW" --export-deployment-view-to-1_3 __dv_1_3.aadl
+    DEPLOYMENTVIEW=__dv_1_3.aadl
+    V2=1
+};
+
+
 if [ $error -eq 1 ]
 then
-    echo 'If you are using custom names for interface, deployment and data views, please specify them in order:
-Usage: taste-edit-concurrency-view InterfaceView.aadl DeploymentView.aadl DataView.aadl'
+    echo -e "${ERROR} If you are using custom names for interface, deployment and data views, please specify them in order:
+Usage: taste-edit-concurrency-view InterfaceView.aadl DeploymentView.aadl DataView.aadl"
     exit -1
 fi
 
@@ -72,10 +97,10 @@ then
     done
     PROCESS+=,$OCARINA_COMPONENTS
 else
-    echo "The following command failed:
+    echo -e "${ERROR} The following command failed:
 ${CMD}
 "
-    echo 'Buildsupport reported errors - Fix your models before you can edit the Concurrency View'
+    echo -e "${ERROR} Buildsupport reported errors - Fix your models before you can edit the Concurrency View"
     exit -2
 fi
 
@@ -88,4 +113,12 @@ From this tool you may:
 
 PROPERTIES=ConcurrencyView.pro
 [ ! -z $DEBUG ] && echo TASTE-CV --edit-aadl $PROCESS --update-properties $PROPERTIES
-TASTE-CV  --edit-aadl $PROCESS --update-properties $PROPERTIES 
+
+if [ $V2 -eq 0 ]
+then
+    TASTE-CV  --edit-aadl $PROCESS --update-properties $PROPERTIES 
+else
+    rm -rf ConcurrencyView
+    mv "$tempdir"/ConcurrencyView .
+fi
+
