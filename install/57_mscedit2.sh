@@ -6,7 +6,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Note: Opengeode does not need this, because they check in
 # all temporary files into the repo. These have been ignored in
 # mscedit2, therefore they need to be compiled explicitly.
-sudo apt-get install -y pyside-tools
+sudo apt-get install -y pyside-tools || exit 1
 
 cd $DIR/../mscedit2 || exit 1
 make
