@@ -3,7 +3,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . ${DIR}/common.sh
 
 # Install tools necesarry for Mscc compilation
-sudo apt install -y mono-devel mono-xbuild
+sudo apt-get install -y mono-devel mono-xbuild
 
 # Compile Mscc
 pushd "${DIR}/../mscc" >/dev/null
