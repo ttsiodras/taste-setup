@@ -49,3 +49,6 @@
 [submodule "components_library"]
 	path = components_library
 	url = https://gitrepos.estec.esa.int/taste/components_library
+[submodule "upython-taste"]
+	path = upython-taste
+	url = https://gitrepos.estec.esa.int/ttsiodras/uPython-mirror.git
