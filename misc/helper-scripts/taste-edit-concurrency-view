@@ -70,9 +70,9 @@ OCARINA_COMPONENTS="$(taste-config --prefix)/share/ocarina/AADLv2/ocarina_compon
 
 # Tempdir will not be deleted - OS shall make the cleanup (likely at reboot)
 tempdir=$(mktemp -d)
-taste-extract-asn-from-design.exe -i "$INTERFACEVIEW" -j "$tempdir"/dataview-uniq.asn
+mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -j "$tempdir"/dataview-uniq.asn
 asn2aadlPlus "$tempdir"/dataview-uniq.asn "$tempdir"/dataview-uniq.aadl -aadlv2
-taste-extract-asn-from-design.exe -i "$INTERFACEVIEW" -k "$tempdir"/dataview-uniq.asn
+mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -k "$tempdir"/dataview-uniq.asn
 DATAVIEW="$tempdir"/dataview-uniq.aadl
 CMD="buildsupport -i ${INTERFACEVIEW}
                   -c ${DEPLOYMENTVIEW}

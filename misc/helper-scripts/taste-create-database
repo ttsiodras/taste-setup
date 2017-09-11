@@ -27,7 +27,7 @@ then
     exit -1
 fi
 
-taste-extract-asn-from-design.exe -i "$INTERFACEVIEW" -j sql_db/$DBNAME.asn
+mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -j sql_db/$DBNAME.asn
 
 # (4) create Python and SQL Alchemy interfaces
 

@@ -66,11 +66,11 @@ grep "version => \"2" "$INTERFACEVIEW" >/dev/null && {
 
 mkdir -p "$output_dir" 2>/dev/null && shift || output_dir=.
 echo '[INFO] Collecting ASN.1 files'
-taste-extract-asn-from-design.exe -i "$INTERFACEVIEW" -j "$output_dir"/dataview-uniq.asn
+mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -j "$output_dir"/dataview-uniq.asn
 echo '[INFO] Generating AADL data view'
 asn2aadlPlus "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq.aadl -aadlv2
 asn2aadlPlus "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq-v1.aadl
-taste-extract-asn-from-design.exe -i "$INTERFACEVIEW" -k "$output_dir"/dataview-uniq.asn
+mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -k "$output_dir"/dataview-uniq.asn
 echo '[INFO] Parsing AADL and generating skeletons with buildsupport'
 buildsupport -i "$INTERFACEVIEW" -d "$output_dir"/dataview-uniq.aadl --gw --aadlv2 -o "$output_dir" --keep-case "$AADL_PROPERTIES" "$@"
 cp -f __interfaceview-v2.aadl "$INTERFACEVIEW" 2>/dev/null || :
