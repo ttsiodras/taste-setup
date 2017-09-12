@@ -19,12 +19,14 @@ def run_gui(platform):
         app = QApplication(sys.argv)
         msg_box = QMessageBox()
         msg_box.setWindowTitle("This plaform is not installed!")
-        msg_box.addButton(QMessageBox.Ok)
-        msg_box.addButton(QMessageBox.Cancel)
+        ok    = msg_box.addButton("Install now",   QMessageBox.AcceptRole)
+        later = msg_box.addButton("Install later", QMessageBox.RejectRole)
+        msg_box.setEscapeButton(later)
+        msg_box.setDefaultButton(ok)
         msg_box.setIcon(QMessageBox.Warning)
         msg_box.setText("Do you want to install target {} ?".format(platform))
-        res = msg_box.exec_()
-        if res == QMessageBox.Ok:
+        msg_box.exec_()
+        if msg_box.clickedButton() == ok:
             print("OK, will do.")
         else:
             warn_box = QMessageBox()
