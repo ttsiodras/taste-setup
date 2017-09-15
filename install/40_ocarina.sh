@@ -25,6 +25,11 @@ make distclean # ignore any errors here
 make || exit 1
 make install
 
+# Install Maxime's customized version of available deployment targets
+cat ../misc/supported-platforms/ocarina_components.aadl  | \
+    sed "s,/home/taste/tool-inst,$(taste-config --prefix)," > \
+    ${PREFIX}/share/ocarina/AADLv2/ocarina_components.aadl
+
 # Add Ocarina to PATH
 PATH_CMD='export PATH=$PATH:'"${PREFIX}/bin"
 UpdatePATH
