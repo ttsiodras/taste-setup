@@ -48,7 +48,7 @@ fi
 # Make sure the RTEMS_MAKEFILE_PATH_LEON is set
 grep RTEMS_MAKEFILE_PATH_LEON $HOME/.bashrc.taste >/dev/null || {
     read UNUSED FINAL_RTEMS_FOLDER <<< $(cat "$INSTALLED_RTEMS_INFO")
-    GR712_FOLDER="$(find $FINAL_RTEMS_FOLDER -type d -name gr712rc)"
+    GR712_FOLDER="$(find $FINAL_RTEMS_FOLDER -maxdepth 2 -type d -name gr712rc)"
     echo Adding RTEMS_MAKEFILE_PATH_LEON env var to settings.
     echo "export RTEMS_MAKEFILE_PATH_LEON=\"$GR712_FOLDER\"" >> $HOME/.bashrc.taste
 }
@@ -63,3 +63,6 @@ cat $HOME/.bashrc.taste | \
     sed "s,/opt/rtems-4.[^/]*/sparc-rtems4.[^/]*/leon.,${NEW_RTEMS_FOLDER}/sparc-rtems4.12/gr712rc," \
     > ${TMPCFG}
 mv ${TMPCFG} $HOME/.bashrc.taste
+
+# For Dockerfiles and chroots, the LEON3 simulator depends on these i386 libraries
+apt-get install libcurl3-gnutls:i386 libbz2-1.0:i386 libncurses5:i386 libglib2.0-0:i386
