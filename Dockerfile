@@ -43,7 +43,7 @@ RUN bash -c 'cd /root/tool-src ; DISABLE_TASTE_BANNER=1 install/60_buildsupport.
 RUN bash -c 'cd /root/tool-src ; DISABLE_TASTE_BANNER=1 install/70_taste-model-checker.sh'
 RUN bash -c 'cd /root/tool-src ; DISABLE_TASTE_BANNER=1 install/80_build-scripts.sh'
 # Those that need RTEMS can set it up themselves (avoid creating huge Docker image)
-#RUN bash -c 'cd /root/tool-src ; DISABLE_TASTE_BANNER=1 install/85_rtems.sh'
+RUN bash -c 'cd /root/tool-src ; DISABLE_TASTE_BANNER=1 install/85_rtems.sh'
 RUN bash -c 'cd /root/tool-src ; DISABLE_TASTE_BANNER=1 install/90_misc.sh'
 RUN bash -c 'cd /root/tool-src ; DISABLE_TASTE_BANNER=1 install/91_env.sh'
 RUN bash -c 'cd /root/tool-src ; DISABLE_TASTE_BANNER=1 install/95_components_library.sh'
