@@ -65,4 +65,4 @@ cat $HOME/.bashrc.taste | \
 mv ${TMPCFG} $HOME/.bashrc.taste
 
 # For Dockerfiles and chroots, the LEON3 simulator depends on these i386 libraries
-apt-get install libcurl3-gnutls:i386 libbz2-1.0:i386 libncurses5:i386 libglib2.0-0:i386
+apt-get install -y --force-yes libcurl3-gnutls:i386 libbz2-1.0:i386 libncurses5:i386 libglib2.0-0:i386
