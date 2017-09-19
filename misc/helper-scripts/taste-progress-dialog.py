@@ -29,11 +29,15 @@ class MyThread(QThread, QObject):
                 self.quit.emit()
                 return
             else:
-                self.signal.emit(line)
-                self.progress.emit(value)
-                value += 10
-                if value == 100:
-                    value = 0
+                try:
+                    split = line.split()
+                    possible_val = split[0]
+                    value = int(possible_val)
+                    text = ' '.join(split[1:])
+                    self.progress.emit(value)
+                except (ValueError, IndexError):
+                    text = line
+                self.signal.emit(text)
                 time.sleep(0.1)
 
 
