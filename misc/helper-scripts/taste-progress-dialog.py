@@ -37,13 +37,6 @@ class MyThread(QThread, QObject):
                 time.sleep(0.1)
 
 
-def check_crazyflie():
-    ''' This function should be in a different module '''
-    return
-
-def check_snoopy():
-    raise NotImplementedError()
-
 
 def run_gui():
         app = QApplication(sys.argv)
