@@ -1,3 +1,4 @@
+export DISABLE_TASTE_BANNER=1
 TASTE_PATHS=$HOME/.bashrc.taste
 PREFIX=$HOME/tool-inst
 

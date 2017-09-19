@@ -1,0 +1,6 @@
+#!/bin/bash -e
+
+echo "Checking if target $1 is supported"
+
+exit 0
+
