@@ -60,6 +60,9 @@ do
     FIRST=0
 done
 
+EXTRA_CMD+=' --update-properties ConcurrencyView_Properties.aadl '
+
+
 echo -e "${INFO} Running
     TASTE $EXTRA_CMD
 "

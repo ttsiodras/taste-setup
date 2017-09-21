@@ -52,11 +52,13 @@ echo "    TASTE $EXTRA_CMD
           --load-interface-view InterfaceView.aadl 
           --load-deployment-view DeploymentView.aadl 
           --aadl-library $(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl
+          --update-properties ConcurrencyView_Properties.aadl
 "
 
 TASTE $EXTRA_CMD \
       --data-view DataView.aadl \
       --load-interface-view InterfaceView.aadl \
       --load-deployment-view DeploymentView.aadl \
-      --aadl-library $(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl
+      --aadl-library $(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl \
+      --update-properties ConcurrencyView_Properties.aadl
 
