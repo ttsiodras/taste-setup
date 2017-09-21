@@ -5,6 +5,11 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # Setup the tools in ~/.local/bin
 cd "$DIR/../ocarina" || exit 1
 
+# Install Maxime's customized version of available deployment targets
+cat ../misc/supported-platforms/ocarina_components.aadl  | \
+    sed "s,/home/taste/tool-inst,$(taste-config --prefix)," > \
+    ${PREFIX}/share/ocarina/AADLv2/ocarina_components.aadl
+
 # Skip Ocarina building if tree is clean and version is identical
 HEAD="$(git log --oneline | head -1 | cut -d' ' -f1)"
 VERSION_INSTALLED="$(ocarina -v 2>&1 | grep ^Oca | awk '{print $NF}' | sed 's,),,;s,r,,')"
@@ -24,11 +29,6 @@ make distclean # ignore any errors here
 ./configure --prefix="${PREFIX}" || exit 1
 make || exit 1
 make install
-
-# Install Maxime's customized version of available deployment targets
-cat ../misc/supported-platforms/ocarina_components.aadl  | \
-    sed "s,/home/taste/tool-inst,$(taste-config --prefix)," > \
-    ${PREFIX}/share/ocarina/AADLv2/ocarina_components.aadl
 
 # Add Ocarina to PATH
 PATH_CMD='export PATH=$PATH:'"${PREFIX}/bin"
