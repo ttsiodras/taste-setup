@@ -1,6 +1,9 @@
 #!/bin/bash
 # TASTE Concurrency View Creator
 
+( cat ) | taste-progress-dialog.py &
+log_pid=$!
+
 # Logging with colors (only in a terminal)
 if [ -t 1 ] ; then
     COLORON="\e[1m\e[32m"
@@ -47,10 +50,12 @@ fi
 # Check if models are from V2 and convert to V1_3 accordingly
 V2=0
 grep "version => \"2" InterfaceView.aadl >/dev/null && {
+    echo '20 Analyse Interface View' > /proc/$log_pid/fd/0
     echo -e "${INFO} Converting interface view from V2 to V1.3"
     TASTE --load-interface-view InterfaceView.aadl --export-interface-view-to-1_3 __iv_1_3.aadl
     INTERFACEVIEW=__iv_1_3.aadl
     echo -e "${INFO} Converting deployment view from V2 to V1.3"
+    echo '40 Analyse Deployment View' > /proc/$log_pid/fd/0
     TASTE --load-deployment-view "$DEPLOYMENTVIEW" --export-deployment-view-to-1_3 __dv_1_3.aadl
     DEPLOYMENTVIEW=__dv_1_3.aadl
     V2=1
@@ -61,6 +66,9 @@ if [ $error -eq 1 ]
 then
     echo -e "${ERROR} If you are using custom names for interface, deployment and data views, please specify them in order:
 Usage: taste-edit-concurrency-view InterfaceView.aadl DeploymentView.aadl DataView.aadl"
+    echo '100 Error' > /proc/$log_pid/fd/0
+    # Must kill the cat command still running in the background to release TASTE GUI
+    kill $(pstree -p $(jobs -x echo %1) | grep cat | cut -d \( -f 3 | cut -d \) -f 1)
     exit -1
 fi
 
@@ -69,11 +77,13 @@ AADL_PROPERTIES+="$(taste-config --prefix)/share/config_ellidiss/TASTE_DV_Proper
 OCARINA_COMPONENTS="$(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl"
 
 # Tempdir will not be deleted - OS shall make the cleanup (likely at reboot)
+echo '60 Parse Data View' > /proc/$log_pid/fd/0
 tempdir=$(mktemp -d)
 mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -j "$tempdir"/dataview-uniq.asn
 asn2aadlPlus "$tempdir"/dataview-uniq.asn "$tempdir"/dataview-uniq.aadl -aadlv2
 mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -k "$tempdir"/dataview-uniq.asn
 DATAVIEW="$tempdir"/dataview-uniq.aadl
+echo '80 Generate Concurrency View' > /proc/$log_pid/fd/0
 CMD="buildsupport -i ${INTERFACEVIEW}
                   -c ${DEPLOYMENTVIEW}
                   -d ${DATAVIEW}
@@ -101,6 +111,9 @@ else
 ${CMD}
 "
     echo -e "${ERROR} Buildsupport reported errors - Fix your models before you can edit the Concurrency View"
+    echo '100 Error' > /proc/$log_pid/fd/0
+    # Must kill the cat command still running in the background to release TASTE GUI
+    kill $(pstree -p $(jobs -x echo %1) | grep cat | cut -d \( -f 3 | cut -d \) -f 1)
     exit -2
 fi
 
@@ -122,3 +135,8 @@ else
     mv "$tempdir"/ConcurrencyView .
 fi
 
+echo '100 Done' > /proc/$log_pid/fd/0
+
+# Must kill the cat command still running in the background to release TASTE GUI
+kill $(pstree -p $(jobs -x echo %1) | grep cat | cut -d \( -f 3 | cut -d \) -f 1)
+exit 0
