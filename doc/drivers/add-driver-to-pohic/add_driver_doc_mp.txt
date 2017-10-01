@@ -1,0 +1,218 @@
+1) edit ocarina_components.aadl and look for this pattern:
+
+
+  --------------------------------------------------
+  -- USB BRICK (STAR DUNDEE) DEVICE FOR SPACEWIRE --
+  --------------------------------------------------
+
+
+2) below this section, add the following to declare the 2 new drivers for two SPW ports:
+
+  ---------------------------------------------------
+  -- CUSTOM DRIVER TO SIMULATE SPW PORT A OF GR740 --
+  ---------------------------------------------------
+
+  device gr740_spw_a
+  features
+    link : requires bus access ocarina_buses::spacewire.generic;
+  end gr740_spw_a;
+
+  device implementation gr740_spw_a.pohic
+  properties
+    Deployment::Driver_Name       => "gr740_spw_a";
+    Device_Driver                 => classifier (ocarina_drivers_gr740_spw_a::driver.gr740_spw_a);
+    Initialize_Entrypoint         => classifier (ocarina_drivers_gr740_spw_a::spw_a_init);
+    Provided_Virtual_Bus_Class    => (classifier (ocarina_buses::pohi.c));
+  end gr740_spw_a.pohic;
+
+  ---------------------------------------------------
+  -- CUSTOM DRIVER TO SIMULATE SPW PORT B OF GR740 --
+  ---------------------------------------------------
+
+  device gr740_spw_b
+  features
+    link : requires bus access ocarina_buses::spacewire.generic;
+  end gr740_spw_b;
+
+  device implementation gr740_spw_b.pohic
+  properties
+    Deployment::Driver_Name       => "gr740_spw_b";
+    Device_Driver                 => classifier (ocarina_drivers_gr740_spw_b::driver.gr740_spw_b);
+    Initialize_Entrypoint         => classifier (ocarina_drivers_gr740_spw_b::spw_b_init);
+    Provided_Virtual_Bus_Class    => (classifier (ocarina_buses::pohi.c));
+  end gr740_spw_b.pohic;
+
+
+!!pay attention to the Driver_Name!!
+
+we have to define the devices in packages named "ocarina_drivers_gr740_spw_a / b"
+
+3) look for that pattern in the file:
+
+
+  with ocarina_drivers_star_dundee_spacewire_brick;
+
+4) just below, add:
+
+  with ocarina_drivers_gr740_spw_a;
+  with ocarina_drivers_gr740_spw_b;
+
+5) look for that pattern:
+
+package ocarina_drivers_star_dundee_spacewire_brick
+
+6) below that patten section, add:
+
+package ocarina_drivers_gr740_spw_a
+public
+
+with ocarina_buses;
+with Deployment;
+
+subprogram spw_a_poller
+properties
+	Source_Language => (C);
+	Source_Name => "__po_hi_c_driver_gr740_spw_a_poller";
+end spw_a_poller;
+
+subprogram spw_a_sender
+properties
+	Source_Language => (C);
+	Source_Name => "__po_hi_c_driver_gr740_spw_a_sender";
+end spw_a_sender;
+
+subprogram spw_a_init
+properties
+	Source_Language => (C);
+	Source_Name => "__po_hi_c_driver_gr740_spw_a_init";
+end spw_a_init;
+
+
+thread thr_poller
+end thr_poller;
+
+thread implementation thr_poller.i
+calls
+	mycall : {
+	  pspg : subprogram spw_a_poller;
+	};
+properties
+   Period => 1000ms;
+   Dispatch_Protocol => Periodic;
+end thr_poller.i;
+
+abstract driver
+properties
+   Deployment::Version  => "0.1beta";
+   Deployment::Help     => "Write your ASN.1 configuration here";
+   Deployment::Configuration_Type => classifier (ocarina_drivers::configuration_type_spacewire);
+end driver;
+
+abstract implementation driver.gr740_spw_a
+subcomponents
+   receiver_rasta_spacewire : thread thr_poller.i;
+   sender                   : subprogram spw_a_sender;
+end driver.gr740_spw_a;
+
+end ocarina_drivers_gr740_spw_a;
+
+
+package ocarina_drivers_gr740_spw_b
+public
+
+with ocarina_buses;
+with Deployment;
+
+subprogram spw_b_poller
+properties
+	Source_Language => (C);
+	Source_Name => "__po_hi_c_driver_gr740_spw_b_poller";
+end spw_b_poller;
+
+subprogram spw_b_sender
+properties
+	Source_Language => (C);
+	Source_Name => "__po_hi_c_driver_gr740_spw_b_sender";
+end spw_b_sender;
+
+subprogram spw_b_init
+properties
+	Source_Language => (C);
+	Source_Name => "__po_hi_c_driver_gr740_spw_b_init";
+end spw_b_init;
+
+
+thread thr_poller
+end thr_poller;
+
+thread implementation thr_poller.i
+calls
+	mycall : {
+	  pspg : subprogram spw_b_poller;
+	};
+properties
+   Period => 1000ms;
+   Dispatch_Protocol => Periodic;
+end thr_poller.i;
+
+abstract driver
+properties
+   Deployment::Version  => "0.1beta";
+   Deployment::Help     => "Write your ASN.1 configuration here";
+   Deployment::Configuration_Type => classifier (ocarina_drivers::configuration_type_spacewire);
+end driver;
+
+abstract implementation driver.gr740_spw_b
+subcomponents
+   receiver_rasta_spacewire : thread thr_poller.i;
+   sender                   : subprogram spw_b_sender;
+end driver.gr740_spw_b;
+
+end ocarina_drivers_gr740_spw_b;
+
+
+6) for the moment note this line:
+
+   Deployment::Configuration_Type => classifier (ocarina_drivers::configuration_type_spacewire);
+
+It is defined in the file like this:
+
+   data configuration_type_spacewire
+   properties
+      Type_Source_Name              => "Spacewire-Conf-T";
+      Deployment::ASN1_Module_Name  => "POHICDRIVER-SPACEWIRE";
+      Source_Language               => (ASN1);
+      Source_Text                   => ("/home/taste/tool-inst/include/ocarina/runtime/polyorb-hi-c/src/drivers/configuration/spacewire.asn", "drivers/configuration/spacewire.h");
+   end configuration_type_spacewire;
+
+This can be modified to add a custom type for the configuration of our device ...
+
+
+7) go to ~/tool-src/polyorb-hi-c/src/drivers
+
+
+Create (or copy from another driver) the C code of the driver
+name of the file: po_hi_driver_gr740_spw_a.c
+
+// The following pattern is __PO_HI_NEED_DRIVER_<Driver_Name> 
+// the Driver_Name is in the AADL file (Deployment::Driver_Name)
+// Then the definition will be done in deployment.h automatically
+#ifdef __PO_HI_NEED_DRIVER_GR740_SPW_A
+
+
+8) go to ~/tool-src/polyorb-hi-c/include/drivers
+
+Create (or copy from another driver) the include file of the driver
+name of the file: po_hi_driver_gr740_spw_a.h
+
+9) The drivers must be copied to:
+/home/taste/tool-inst/include/ocarina/runtime/polyorb-hi-c/include/drivers/ (.h files)
+and 
+/home/taste/tool-inst/include/ocarina/runtime/polyorb-hi-c/src/drivers (.c files)
+
+This is normally done by the Makefile in pohic/src/drivers
+
+the following two files must be completed with the new driver names (.c and .o):
+
+Makefile.common.in in tool-src/polyorb-hi-c/share/make  (add the .o)
+Makefile.am  in tool-srtc/polyorb-hi-c/src/drivers   (add the .c)
