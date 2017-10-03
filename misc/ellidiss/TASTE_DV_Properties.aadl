@@ -7,7 +7,7 @@
 -- Driver : Driver
 property set TASTE_DV_Properties is
 --  MyBoolean: aadlboolean applies to (System, Processor, Process);
-  CoverageEnabled: aadlboolean applies to (Process);
+    CoverageEnabled: aadlboolean applies to (Process);
     Comment: aadlstring applies to (Device, Bus);
 --  MyInt: aadlinteger applies to (System);
 --  MyReal: aadlreal applies to (Bus);
