@@ -42,6 +42,6 @@ then
 fi
 
 echo 'Trace file were generated. You may now run:
-    msce.py -o ./trace.msc
+    taste-msc-editor -o ./trace.msc
     gtkwave ./bench.vcd.new
 '
