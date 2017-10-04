@@ -2263,6 +2263,16 @@ properties
    EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rtems-4.12-2017.07.17/sparc-rtems4.12/gr740:CFLAGS=-DCONFIGURE_SMP_APPLICATION -DCONFIGURE_MAXIMUM_PROCESSORS=4 ";
 end gr740.rtems412_posix;
 
+processor implementation gr740.rtems410_gaisler_posix
+properties
+   Scheduling_Protocol => (Posix_1003_Highest_Priority_First_Protocol);
+   Priority_Range => 0 .. 255;
+   Scheduler_Quantum => 0 Ms;
+   Preemptive_Scheduler => true;
+   Deployment::Execution_Platform => LEON_RTEMS_POSIX;
+   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rtems-4.10/sparc-rtems/leon3:CFLAGS=-qngmp:LDFLAGS=-qngmp ";
+end gr740.rtems410_gaisler_posix;
+
 --   processor implementation leon.ork
 --   properties
 --      Deployment::Execution_Platform => LEON_ORK;
