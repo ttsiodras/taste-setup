@@ -7,8 +7,8 @@ from PySide.QtGui import (QApplication,
                           QMessageBox)
 
 def install_gr740_rtems410_gaisler_posix():
-    """ $ /home/taste/tool-src/add-ons/install-gaisler """
-    print 'Installing this nice target'
+    """ $ /home/taste/tool-src/add-ons/install-gaisler-4.10.sh """
+    os.system("$HOME/tool-src/add-ons/install-gaisler-4.10.sh")
 
 def check_gr740_rtems410_gaisler_posix():
     if not os.path.isdir("/opt/rtems-4.10"):
@@ -29,16 +29,16 @@ PLATFORMS = { "crazyflie_v2.gnat"      : lambda: True,
              }
 
 def query_user(platform):
-        msg_box = QMessageBox()
-        msg_box.setWindowTitle("This plaform is not installed!")
-        ok    = msg_box.addButton("Install now",   QMessageBox.AcceptRole)
-        later = msg_box.addButton("Install later", QMessageBox.RejectRole)
-        msg_box.setEscapeButton(later)
-        msg_box.setDefaultButton(ok)
-        msg_box.setIcon(QMessageBox.Warning)
-        msg_box.setText("Do you want to install target\n{} ?".format(platform))
-        msg_box.exec_()
-        return msg_box.clickedButton() == ok
+    msg_box = QMessageBox()
+    msg_box.setWindowTitle("This plaform is not installed!")
+    ok    = msg_box.addButton("Install now",   QMessageBox.AcceptRole)
+    later = msg_box.addButton("Install later", QMessageBox.RejectRole)
+    msg_box.setEscapeButton(later)
+    msg_box.setDefaultButton(ok)
+    msg_box.setIcon(QMessageBox.Warning)
+    msg_box.setText("Do you want to install target\n{} ?".format(platform))
+    msg_box.exec_()
+    return msg_box.clickedButton() == ok
 
 def main():
     app = QApplication(sys.argv)
