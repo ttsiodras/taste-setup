@@ -7,6 +7,7 @@ from PySide.QtGui import (QApplication,
                           QMessageBox)
 
 def install_gr740_rtems410_gaisler_posix():
+    """ $ /home/taste/tool-src/add-ons/install-gaisler """
     print 'Installing this nice target'
 
 def check_gr740_rtems410_gaisler_posix():
@@ -37,14 +38,7 @@ def query_user(platform):
         msg_box.setIcon(QMessageBox.Warning)
         msg_box.setText("Do you want to install target\n{} ?".format(platform))
         msg_box.exec_()
-        if msg_box.clickedButton() == ok:
-           return True
-        else:
-            warn_box = QMessageBox()
-            warn_box.setIcon(QMessageBox.Information)
-            warn_box.setText("You can install the platform later, manually")
-            warn_box.exec_()
-            return False
+        return msg_box.clickedButton() == ok
 
 def main():
     app = QApplication(sys.argv)
@@ -64,6 +58,13 @@ def main():
         install_it, = exc.args
         if query_user(platform):
             install_it()
+        else:
+            warn_box = QMessageBox()
+            warn_box.setIcon(QMessageBox.Information)
+            warn_box.setText("You can install the platform later by typing:\n"
+                              + str(install_it.__doc__))
+            warn_box.exec_()
+
     else:
         print("Platform {} is installed".format(platform))
         sys.exit(0)
