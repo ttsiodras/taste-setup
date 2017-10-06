@@ -1,0 +1,13 @@
+Docs/
+Examples/
+License/
+UCF/
+Utils/
+VHDL/
+Verilog/
+linux/Config.o
+linux/Data.o
+linux/DataLinux.o
+linux/Error.o
+linux/Lib/
+linux/Main.o
