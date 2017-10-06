@@ -8,7 +8,7 @@ from PySide.QtGui import (QApplication,
 
 def install_gr740_rtems410_gaisler_posix():
     """ $ /home/taste/tool-src/add-ons/install-gaisler-4.10.sh """
-    os.system("$HOME/tool-src/add-ons/install-gaisler-4.10.sh")
+    os.system("xterm -e $HOME/tool-src/add-ons/install-gaisler-4.10.sh")
 
 def check_gr740_rtems410_gaisler_posix():
     if not os.path.isdir("/opt/rtems-4.10"):
