@@ -14,18 +14,19 @@ def check_gr740_rtems410_gaisler_posix():
     if not os.path.isdir("/opt/rtems-4.10"):
         raise NotImplementedError(install_gr740_rtems410_gaisler_posix)
 
-
-PLATFORMS = { "crazyflie_v2.gnat"      : lambda: True,
-              "stm32f4_discovery.gnat" : lambda: True,
-              "leon.rtems_posix"       : lambda: True,
-              "leon2.rtems412_posix"   : lambda: True,
-              "leon3.rtems412_posix"   : lambda: True,
-              "gr712.rtems412_posix"   : lambda: True,
-              "gr740.rtems412_posix"   : lambda: True,
-              "gr740.rtems410_gaisler_posix" :
+# When editing, replace dot (.) with underscore (_)
+# the TASTE GUI mixes them up if there is more than one underscore
+PLATFORMS = { "crazyflie_v2_gnat"      : lambda: True,
+              "stm32f4_discovery_gnat" : lambda: True,
+              "leon_rtems_posix"       : lambda: True,
+              "leon2_rtems412_posix"   : lambda: True,
+              "leon3_rtems412_posix"   : lambda: True,
+              "gr712_rtems412_posix"   : lambda: True,
+              "gr740_rtems412_posix"   : lambda: True,
+              "gr740_rtems410_gaisler_posix" :
                   check_gr740_rtems410_gaisler_posix,
-              "x86.linux"              : lambda: True,
-              "x86.win32"              : lambda: True
+              "x86_linux"              : lambda: True,
+              "x86_win32"              : lambda: True
              }
 
 def query_user(platform):
@@ -45,7 +46,7 @@ def main():
     # check if the target in supported
     try:
         platform = sys.argv[1]
-        PLATFORMS[platform]()
+        PLATFORMS[platform.replace('.', '_')]()
     except KeyError:
         warn_box = QMessageBox()
         warn_box.setIcon(QMessageBox.Information)
