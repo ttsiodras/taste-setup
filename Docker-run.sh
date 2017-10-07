@@ -26,6 +26,7 @@ XAUTH=/tmp/.docker.xauth
 touch ${XAUTH}
 xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f ${XAUTH} nmerge -
 docker run \
+    --privileged \
     -e DISPLAY \
     -e XAUTHORITY=${XAUTH} \
     -v ${XSOCK}:${XSOCK} \
