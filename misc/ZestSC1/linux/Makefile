@@ -30,5 +30,6 @@ clean:
 	rm $(OBJS)
 
 $(TARGET): $(OBJS)
+	mkdir -p Lib
 	$(AR) $(ARFLAGS) $(TARGET) $(OBJS)
 
