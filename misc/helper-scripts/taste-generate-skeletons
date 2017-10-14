@@ -4,8 +4,17 @@
 # this script builds a unique dataview.aadl file and calls buildsupport with --gw --aadlv2 -o $2 --keep-case
 
 # Initialise the progress bar
-( cat ) | taste-progress-dialog.py &
-log_pid=$!
+myfifo=/tmp/$$$RANDOM
+mkfifo $myfifo
+tail -f $myfifo | taste-progress-dialog.py &
+
+function quit {
+    echo 'QUIT'
+    rm $myfifo
+    tailps=$(pstree -p $$ | grep tail | python -c "import sys, re; print re.search(r'tail\((.*)\)', [x for x in sys.stdin][0]).group(1)")
+    kill $tailps || xterm -e "echo Internal Error, unable to kill subprocess. Open a terminal and type 'pkill tail' to (hopefully) recover"
+    exit $1
+}
 
 # First check if an existing file is given as first argument (interface view)
 # If not, check for the presence of a file called "InterfaceView.aadl".
@@ -16,11 +25,9 @@ then
     then
         INTERFACEVIEW=InterfaceView.aadl
     else
-        echo 'Error: interface view not found
+        echo '[ERROR] Interface view not found
 Usage: [FORCE=1] taste-generate-skeletons [InterfaceView.aadl] [output-directory]'
-        # Must kill the cat command still running in the background to release TASTE GUI
-        kill $(pstree -p $(jobs -x echo %1) | grep cat | cut -d \( -f 3 | cut -d \) -f 1)
-        exit -1
+        quit 1
     fi
 else
     INTERFACEVIEW="$1"
@@ -34,9 +41,7 @@ grep -i taste-directives.aadl "$INTERFACEVIEW" >/dev/null && {
     echo "  taste-upgrade-IF-view oldIFview newIFview"
     echo
     echo ...and use the newIFview instead.
-    # Must kill the cat command still running in the background to release TASTE GUI
-    kill $(pstree -p $(jobs -x echo %1) | grep cat | cut -d \( -f 3 | cut -d \) -f 1)
-    exit 1
+    quit 1
 }
 
 # Second, check if an output directory is passed as second argument
@@ -59,9 +64,7 @@ then
 If you want to force generation of the skeletons anyway, type:
 $ FORCE=1 taste-generate-skeletons
 '
-        # Must kill the cat command still running in the background to release TASTE GUI
-        kill $(pstree -p $(jobs -x echo %1) | grep cat | cut -d \( -f 3 | cut -d \) -f 1)
-        exit 0
+        quit 0
     fi
 fi
 
@@ -70,25 +73,25 @@ md5sum "$INTERFACEVIEW" > InterfaceView.md5
 # Detect models from Ellidiss tools v2, and convert them to 1.3
 grep "version => \"2" "$INTERFACEVIEW" >/dev/null && {
    echo '[INFO] Converting interface view from V2 to V1.3'
-   echo '20 Analyse Interface View' > /proc/$log_pid/fd/0
+   echo '20 Analyse Interface View' > $myfifo
    cp -f "$INTERFACEVIEW" "$output_dir"/__interfaceview-v2.aadl
    TASTE --load-interface-view "$output_dir"/__interfaceview-v2.aadl --export-interface-view-to-1_3 "$INTERFACEVIEW"
 };
 
 mkdir -p "$output_dir" 2>/dev/null && shift || output_dir=.
 echo '[INFO] Collecting ASN.1 files'
-echo '40 Collect and process ASN.1 models' > /proc/$log_pid/fd/0
+echo '40 Collect and process ASN.1 models' > $myfifo
 mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -j "$output_dir"/dataview-uniq.asn
 echo '[INFO] Generating AADL data view'
 asn2aadlPlus "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq.aadl -aadlv2
 asn2aadlPlus "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq-v1.aadl
 mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -k "$output_dir"/dataview-uniq.asn
 echo '[INFO] Parsing AADL and generating skeletons with buildsupport'
-echo '80 Generate code skeletons' > /proc/$log_pid/fd/0
+echo '80 Generate code skeletons' > $myfifo
 buildsupport -i "$INTERFACEVIEW" -d "$output_dir"/dataview-uniq.aadl --gw --aadlv2 -o "$output_dir" --keep-case "$AADL_PROPERTIES" "$@"
 if [ $? -eq 0 ]
 then
-    echo '100 Done' > /proc/$log_pid/fd/0
+    echo '100 Done' > $myfifo
     ret=0
 else
     ret=1
@@ -97,9 +100,8 @@ cp -f __interfaceview-v2.aadl "$INTERFACEVIEW" 2>/dev/null || :
 rm -f "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq.aadl "$output_dir"/dataview-uniq-v1.aadl \
       "$output_dir"/__interfaceview-v2.aadl
 
-echo '100 Done' > /proc/$log_pid/fd/0
-# Must kill the cat command still running in the background to release TASTE GUI
-kill $(pstree -p $(jobs -x echo %1) | grep cat | cut -d \( -f 3 | cut -d \) -f 1)
-exit $ret
+echo '100 Done' > $myfifo
+
+quit $ret
 
 
