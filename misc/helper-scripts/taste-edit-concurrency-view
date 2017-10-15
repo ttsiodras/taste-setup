@@ -60,12 +60,12 @@ fi
 # Check if models are from V2 and convert to V1_3 accordingly
 V2=0
 grep "version => \"2" InterfaceView.aadl >/dev/null && {
-    echo '20 Analyse Interface View' > $myfifo
+    echo '0-40 Analyse Interface View' > $myfifo
     echo -e "${INFO} Converting interface view from V2 to V1.3"
     TASTE --load-interface-view InterfaceView.aadl --export-interface-view-to-1_3 __iv_1_3.aadl
     INTERFACEVIEW=__iv_1_3.aadl
     echo -e "${INFO} Converting deployment view from V2 to V1.3"
-    echo '40 Analyse Deployment View' > $myfifo
+    echo '40-60 Analyse Deployment View' > $myfifo
     TASTE --load-deployment-view "$DEPLOYMENTVIEW" --export-deployment-view-to-1_3 __dv_1_3.aadl
     DEPLOYMENTVIEW=__dv_1_3.aadl
     V2=1
@@ -85,13 +85,13 @@ AADL_PROPERTIES+="$(taste-config --prefix)/share/config_ellidiss/TASTE_DV_Proper
 OCARINA_COMPONENTS="$(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl"
 
 # Tempdir will not be deleted - OS shall make the cleanup (likely at reboot)
-echo '60 Parse Data View' > $myfifo
+echo '60-80 Parse Data View' > $myfifo
 tempdir=$(mktemp -d)
 mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -j "$tempdir"/dataview-uniq.asn
 asn2aadlPlus "$tempdir"/dataview-uniq.asn "$tempdir"/dataview-uniq.aadl -aadlv2
 mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -k "$tempdir"/dataview-uniq.asn
 DATAVIEW="$tempdir"/dataview-uniq.aadl
-echo '80 Generate Concurrency View' > $myfifo
+echo '80-100 Generate Concurrency View' > $myfifo
 CMD="buildsupport -i ${INTERFACEVIEW}
                   -c ${DEPLOYMENTVIEW}
                   -d ${DATAVIEW}

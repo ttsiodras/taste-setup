@@ -91,7 +91,7 @@ DATAVIEW+=" $(taste-config --prefix)/share/taste-types/taste-types.asn"
 # can asn2aadlPlus with a call to uniq to filter out duplicate outputs
 # due to multiple calls to the ASN.1 compiler
 #asn2aadlPlus $DATAVIEW "$AADL" -aadlv2 2>&1 | uniq >&2
-echo '50 Updating data view' > $myfifo
+echo '0-100 Updating data view' > $myfifo
 asn2aadlPlus $DATAVIEW "$AADL" -aadlv2 2>&1 > >(uniq >&2)
 echo '100 Completed' > $myfifo
 
