@@ -2,6 +2,18 @@
 
 echo TASTE Data View Convertor - From ASN.1 to AADLV2
 
+# Initialise the progress bar
+myfifo=/tmp/$$$RANDOM
+mkfifo $myfifo
+tail -f $myfifo | taste-progress-dialog.py &
+
+function quit {
+    rm $myfifo
+    tailps=$(pstree -p $$ | grep tail | python -c "import sys, re; print re.search(r'tail\((.*)\)', [x for x in sys.stdin][0]).group(1)")
+    kill $tailps || xterm -e "echo Internal Error, unable to kill subprocess. Open a terminal and type 'pkill tail' to (hopefully) recover"
+    exit $1
+}
+
 if [ -t 1 ] ; then
     COLORON="\e[1m\e[32m"
     REDCOLORON="\e[1m\e[31m"
@@ -25,7 +37,7 @@ do
         if [ ! -f "$f" ]
         then
             echo -e "${INFO} File not found: ${f}"
-            exit 1
+            quit 1
         else
             echo -e "${INFO} Using file: ${f}"
             filename=$(readlink -e "$f")
@@ -50,7 +62,7 @@ then
     else
         >&2 echo -e "${ERROR} No data view found"
         echo -e "${INFO} Usage: taste-update-data-view <set of ASN.1 files>"
-        exit 1
+        quit 1
     fi
     if [ -f DataView.acn ]
     then
@@ -79,15 +91,17 @@ DATAVIEW+=" $(taste-config --prefix)/share/taste-types/taste-types.asn"
 # can asn2aadlPlus with a call to uniq to filter out duplicate outputs
 # due to multiple calls to the ASN.1 compiler
 #asn2aadlPlus $DATAVIEW "$AADL" -aadlv2 2>&1 | uniq >&2
+echo '50 Updating data view' > $myfifo
 asn2aadlPlus $DATAVIEW "$AADL" -aadlv2 2>&1 > >(uniq >&2)
+echo '100 Completed' > $myfifo
 
 if [ "$?" = "1" ]
 then
     >&2 echo -e "${ERROR} Impossible to convert the dataview from ASN.1 to AADL"
     echo -e "${INFO} Command: asn2aadlPlus ${DATAVIEW} ${AADL} -aadlv2"
-    exit 1
+    quit 1
 else
     echo -e "${INFO} All OK"
-    exit 0
+    quit 0
 fi
 
