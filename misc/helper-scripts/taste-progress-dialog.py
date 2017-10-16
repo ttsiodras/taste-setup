@@ -127,7 +127,7 @@ class MyDialog(QDialog):
     def periodic_update(self):
         self.current_value += 5
         if self.current_value >= self.target_value:
-            self.current_value = self.target_value - 1
+            self.current_value = self.target_value
         else:
             QTimer.singleShot(200, self.periodic_update)
         self.bar.setValue(self.current_value)
