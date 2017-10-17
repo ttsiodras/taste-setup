@@ -9,7 +9,7 @@ from collections import deque
 
 import PySide
 from PySide import QtGui
-from PySide.QtCore import QThread, Signal, QObject, Qt, Slot
+from PySide.QtCore import QThread, Signal, QObject, Qt, Slot, QTimer
 
 from PySide.QtGui import (QApplication,
                           QMessageBox,
@@ -20,51 +20,63 @@ from PySide.QtGui import (QApplication,
 log = deque()
 
 
-
-
 class MyThread(QThread, QObject):
     ''' Thread waiting for data on stdin and sending signals to the prgress
     bar in case something came in.
-    Text can be formatted:
-      * if the line starts with a number, it will use the value (range 0..100)
-        to update the progress bar, and it will display the text above the bar.
-      * if the line starts with @ERROR@ the process will stop and all the
-        history will be dispayed in a log dialog.
-      * in all other cases, the line is appended to the log
+    To update the bar, the line shall start with either a range or a numer.
+    e.g.
+        0-50 Doing something     # The bar will progress from 0 to 49%
+        70   Something else      # The bar will remain at 70%
+
+    Without a number/range, the text is only appended to the log
+    If the line starts with @ERROR@ the thread will stop
     '''
     text       = Signal(str)
-    progress   = Signal(int)
+    progress   = Signal(int, int)
     end        = Signal()
     error      = Signal()
     force_quit = False
 
+    def update_bar(self, from_value, to_value, text):
+        ''' Request an update of the progress bar (value/range and text) '''
+        if 100 < from_value < 0 or 100 < to_value < 0:
+            return
+        self.progress.emit(from_value, to_value)
+        self.text.emit(text)
+        if from_value == 100:
+            self.end.emit()
+            self.force_quit = True
+
     def run(self):
-        value = 10
         while True:
             # read from stdin without any buffering
             if self.force_quit:
                 return
             line = sys.stdin.readline()
             if len(line) == 0:
-                print("Bye")
                 self.end.emit()
                 return
             else:
-                split = line.split()
+                split = line.split(' ', 1)
                 try:
-                    # check for format "NUMBER text"
-                    possible_val = split[0]
-                    value = int(possible_val)
-                    if 100 < value < 0:
+                    # check for a range format (e.g. 10-20)
+                    left, right = split[0].split('-')
+                    from_v, to_v = int(left), int(right)
+                    if from_v > to_v:
                         raise ValueError
-                    text = ' '.join(split[1:])
-                    self.progress.emit(value)
-                    self.text.emit(text)
-                    if value == 100:
-                        self.end.emit()
-                        return
+                    if 100 < from_v < 0 or 100 < to_v < 0:
+                        raise ValueError
+                    text = split[1]
+                    self.update_bar(from_v, to_v, text)
                 except (ValueError, IndexError):
-                    text = line
+                    try:
+                        # check for format "NUMBER text"
+                        possible_val = split[0]
+                        value = int(possible_val)
+                        text = split[1]
+                        self.update_bar(value, value, text)
+                    except (ValueError, IndexError):
+                        text = line
                 log.append(text)
                 try:
                     if split[0] == '@ERROR@':
@@ -72,6 +84,7 @@ class MyThread(QThread, QObject):
                         return
                 except IndexError:
                     pass
+
 
 class MyDialog(QDialog):
     def __init__(self):
@@ -111,6 +124,21 @@ class MyDialog(QDialog):
     def complete_or_cancel(self):
         self.done = True
 
+    def periodic_update(self):
+        self.current_value += 5
+        if self.current_value >= self.target_value:
+            self.current_value = self.target_value
+        else:
+            QTimer.singleShot(200, self.periodic_update)
+        self.bar.setValue(self.current_value)
+
+    @Slot(int, int)
+    def reach_target(self, from_value, to_value):
+        self.current_value = from_value
+        self.target_value  = to_value
+        self.bar.setValue(self.current_value)
+        QTimer.singleShot(100, self.periodic_update)
+
     def closeEvent(self, e):
         if not self.done:
             e.ignore()
@@ -129,11 +157,11 @@ def run_gui():
 
     progress.setValue(0)
 
-    thread.text.connect     (dialog.label.setText)
-    thread.end.connect      (dialog.complete_or_cancel)
-    thread.end.connect      (dialog.close)
-    thread.progress.connect (progress.setValue)
-    thread.error.connect    (handle_error)
+    thread.text.connect      (dialog.label.setText)
+    thread.end.connect       (dialog.complete_or_cancel)
+    thread.end.connect       (dialog.close)
+    thread.progress.connect  (dialog.reach_target)
+    thread.error.connect     (handle_error)
 
     thread.start()
     dialog.exec_()

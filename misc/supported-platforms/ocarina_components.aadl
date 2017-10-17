@@ -2150,7 +2150,7 @@ end crazyflie_v2.gnat;
 processor stm32f4_discovery extends arm
 properties
    Deployment::Execution_Platform => GNAT_Runtime;
-   Deployment::Ada_Runtime => "stm32f407_discovery";
+   Deployment::Ada_Runtime => "stm32f407_discovery_full";
 end stm32f4_discovery;
 
 processor implementation stm32f4_discovery.gnat
