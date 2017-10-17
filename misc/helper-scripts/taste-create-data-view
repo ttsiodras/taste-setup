@@ -42,39 +42,51 @@ else
 BEGIN
 IMPORTS T-Int32, T-UInt32, T-Int8, T-UInt8, T-Boolean FROM TASTE-BasicTypes;
 
+TASTE-Boolean ::= BOOLEAN
+
 -- ASN.1 Type definitions must start with an uppercase
 -- Field names in records (SEQUENCE) must start with a lowercase
 -- Underscores are not allowed: use dash (hyphen) 
 
 -- Simple types:
 
-MyInteger   ::= INTEGER (0..255)
-MyReal      ::= REAL (0.0 .. 1000.0)
-MyBool      ::= BOOLEAN
-MyEnum      ::= ENUMERATED { hello, world, how-are-you }
+-- MyInteger   ::= INTEGER (0..255)
+-- MyReal      ::= REAL (0.0 .. 1000.0)
+-- MyBool      ::= BOOLEAN
+-- MyEnum      ::= ENUMERATED { hello, world, how-are-you }
 
 -- Complex types:
 
-MySeq       ::= SEQUENCE {
-    input-data  MyInteger,
-    output-data MyInteger,
-    validity    ENUMERATED { valid, invalid }
-}
-
-MyChoice    ::= CHOICE {
-    a BOOLEAN,
-    b MySeq
-}
-
-MySeqOf     ::= SEQUENCE (SIZE (2)) OF MyEnum
-
-MyOctStr    ::= OCTET STRING (SIZE (3))
-
--- You can also declare constants
-myVar       MySeqOf     ::= { hello, world }
+--  MySeq       ::= SEQUENCE {
+--      input-data  MyInteger,
+--      output-data MyInteger,
+--      validity    ENUMERATED { valid, invalid }
+--  }
+--
+--  MyChoice    ::= CHOICE {
+--      a BOOLEAN,
+--      b MySeq
+--  }
+--
+--  MySeqOf     ::= SEQUENCE (SIZE (2)) OF MyEnum
+--
+--  MyOctStr    ::= OCTET STRING (SIZE (3))
+--
+--  -- You can also declare constants
+--  myVar       MySeqOf     ::= { hello, world }
 
 END
 ' > DataView.asn
+echo 'TASTE-Dataview DEFINITIONS ::= BEGIN
+
+    --  In this ACN model, you can specify custom binary encoding rules for
+    --  your data types. For example if you require a specific memory layout
+    --  for a record, or need to add padding fields, define endianness, etc.
+    --  you can do that with ACN. Refer to the ACN user manual for details.
+
+    --  TASTE-Boolean []
+END
+' > DataView.acn
 fi
 
 if [ -z $NONINTERACTIVE ]
@@ -83,7 +95,7 @@ then
     echo -e "${INFO} Converting the data view to AADL..."
 fi
 
-cp $(taste-config --prefix)/share/taste-types/taste-types.asn .
+# cp $(taste-config --prefix)/share/taste-types/taste-types.asn .
 
 taste-update-data-view
 
