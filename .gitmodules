@@ -49,12 +49,6 @@
 [submodule "components_library"]
 	path = components_library
 	url = https://gitrepos.estec.esa.int/taste/components_library
-[submodule "mscedit2"]
-	path = mscedit2
-	url = https://gitrepos.estec.esa.int/ivany4/opengeode.git
-[submodule "mscc"]
-	path = mscc
-	url = https://gitrepos.estec.esa.int/ivany4/mscc.git
 [submodule "upython-taste"]
 	path = upython-taste
 	url = https://gitrepos.estec.esa.int/taste/uPython-mirror.git
