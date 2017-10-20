@@ -53,6 +53,8 @@ RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/90_mi
 RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/91_env.sh'
 RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/95_components_library.sh'
 RUN bash -c 'cd /bin ; sudo rm sh ; sudo ln -s bash sh'
+RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/96_ZestSC1.sh'
+RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/97_upython.sh'
 RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/98_bash.sh'
 RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/99_paths.sh'
 RUN bash -c 'echo ". ~/.bashrc.taste" >> /root/.bashrc'
