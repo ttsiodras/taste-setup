@@ -17,10 +17,10 @@ CC = gcc
 
 ifdef SAFEMODE
 # Debugging values:
-  CFLAGS = -c -fPIC -g -O0 -W -Wall -fno-inline -I../Inc -m32
+  CFLAGS = -c -fPIC -g -O0 -W -Wall -fno-inline -I../Inc
 else
 # Production values:
-  CFLAGS = -c -O2 -W -Wall -I../Inc -m32
+  CFLAGS = -c -O2 -W -Wall -I../Inc
 endif
 
 all: $(TARGET)
