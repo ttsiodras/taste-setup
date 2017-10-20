@@ -56,6 +56,10 @@ RUN bash -c 'cd /bin ; sudo rm sh ; sudo ln -s bash sh'
 RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/98_bash.sh'
 RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/99_paths.sh'
 RUN bash -c 'echo ". ~/.bashrc.taste" >> /root/.bashrc'
+# Deal with insane bugs in QT when redirecting X11 from a container
+RUN bash -c 'echo "export QT_X11_NO_MITSHM=1" >> /root/.bashrc'
+# And make sure the message queues of the container are large enough for TASTE GUIs
+RUN bash -c 'echo "echo 100 > /proc/sys/fs/mqueue/msg_max" >> /root/.bashrc'
 #
 #
 # Now run the Docker image setting up X11 redirection, with...
