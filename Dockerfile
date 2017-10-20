@@ -1,9 +1,9 @@
 #
-# Process with:
+# Process this Dockerfile with:
 #
 #     docker build -t taste .
 #
-# And the run with X11 redirection, with...
+# And then run a fresh TASTE container with proper X11 redirection, with...
 #
 #     ./Docker-run.sh
 #
@@ -62,6 +62,7 @@ RUN bash -c 'echo "export QT_X11_NO_MITSHM=1" >> /root/.bashrc'
 RUN bash -c 'echo "echo 100 > /proc/sys/fs/mqueue/msg_max" >> /root/.bashrc'
 #
 #
-# Now run the Docker image setting up X11 redirection, with...
+# At this point, you can start a fresh TASTE container with proper X11 redirection, with...
 #
 #     ./Docker-run.sh
+#
