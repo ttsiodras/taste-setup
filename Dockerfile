@@ -35,6 +35,7 @@ RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISAB
 RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/15_asn1scc.sh'
 RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/20_msc.sh'
 RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/30_qemu.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/39_tasteconfig.sh'
 RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/40_ocarina.sh'
 RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/45_pohi.sh'
 RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/50_opengeode.sh'
