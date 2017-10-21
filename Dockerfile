@@ -1,9 +1,9 @@
 #
-# Process with:
+# Process this Dockerfile with:
 #
 #     docker build -t taste .
 #
-# And the run with X11 redirection, with...
+# And then run a fresh TASTE container with proper X11 redirection, with...
 #
 #     ./Docker-run.sh
 #
@@ -26,38 +26,46 @@ RUN bash -c 'cd /root ; git clone https://gitrepos.estec.esa.int/taste/taste-set
 # but the execution has to be broken down into steps, so that Docker
 # can resume the build from whichever step failed in the last attempt.
 RUN bash -c 'cd /root/tool-src ; git submodule init ; git submodule update'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/01_sudo.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/03_debian.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/04_pythonlibs.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/05_antlr.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/06_stlink.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/10_dmt.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/15_asn1scc.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/20_msc.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/30_qemu.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/40_ocarina.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/45_pohi.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/50_opengeode.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/53_pymsc.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/54_speedometer.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/55_asn1valueEditor.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/56_msc-editor.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/60_buildsupport.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/01_sudo.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/03_debian.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/04_pythonlibs.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/05_antlr.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/06_stlink.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/10_dmt.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/15_asn1scc.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/20_msc.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/30_qemu.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/39_tasteconfig.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/40_ocarina.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/45_pohi.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/50_opengeode.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/53_pymsc.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/54_speedometer.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/55_asn1valueEditor.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/56_msc-editor.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/60_buildsupport.sh'
 # Those that need postgres can set it up themselves (avoid creating huge Docker image)
-# RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/65_postgres.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/70_taste-model-checker.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/80_build-scripts.sh'
+# RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/65_postgres.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/70_taste-model-checker.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/80_build-scripts.sh'
 # Those that need RTEMS can set it up themselves (avoid creating huge Docker image)
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/85_rtems.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/90_misc.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/91_env.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/95_components_library.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/85_rtems.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/90_misc.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/91_env.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/95_components_library.sh'
 RUN bash -c 'cd /bin ; sudo rm sh ; sudo ln -s bash sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/98_bash.sh'
-RUN bash -c 'cd /root/tool-src ; HOME=/root DISABLE_TASTE_BANNER=1 install/99_paths.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/96_ZestSC1.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/97_upython.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/98_bash.sh'
+RUN bash -c 'cd /root/tool-src ; PATH=/root/tool-inst/bin:$PATH HOME=/root DISABLE_TASTE_BANNER=1 install/99_paths.sh'
 RUN bash -c 'echo ". ~/.bashrc.taste" >> /root/.bashrc'
+# Deal with insane bugs in QT when redirecting X11 from a container
+RUN bash -c 'echo "export QT_X11_NO_MITSHM=1" >> /root/.bashrc'
+# And make sure the message queues of the container are large enough for TASTE GUIs
+RUN bash -c 'echo "echo 100 > /proc/sys/fs/mqueue/msg_max" >> /root/.bashrc'
 #
 #
-# Now run the Docker image setting up X11 redirection, with...
+# At this point, you can start a fresh TASTE container with proper X11 redirection, with...
 #
 #     ./Docker-run.sh
+#

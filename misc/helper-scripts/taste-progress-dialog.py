@@ -169,6 +169,8 @@ def run_gui():
     thread.wait()
 
 def main():
+    if os.getenv("DISABLE_PROGRESS_BAR") is not None:
+        sys.exit(0)
     signal.signal(signal.SIGINT, signal.SIG_DFL)
     run_gui()
 
