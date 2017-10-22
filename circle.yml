@@ -7,7 +7,8 @@ dependencies:
     - "~/docker"
   override:
     - docker info
-    - if [[ -e ~/docker/image.tar ]]; then docker load --input ~/docker/image.tar; else docker build -t taste . && { mkdir -p ~/docker; docker save taste > ~/docker/image.tar ; } ; fi
+    - if [[ -e ~/docker/image.tar ]]; then docker load --input ~/docker/image.tar; else docker build -t taste . && { mkdir -p ~/docker; docker save taste > ~/docker/image.tar ; } ; fi:
+        timeout: 3600
 
 test:
   override:
