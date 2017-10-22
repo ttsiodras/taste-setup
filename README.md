@@ -10,10 +10,7 @@ machine that you can import via VirtualBox's "File/Import Appliance")
 
 Otherwise, use a Debian-based distribution, create a new 'taste' user, and...
 
-    $ git clone --recursive https://gitrepos.estec.esa.int/taste/taste-setup.git tool-src
-    
-...followed by 
-
+    $ git clone https://gitrepos.estec.esa.int/taste/taste-setup.git tool-src
     $ cd tool-src
     $ ./Update-TASTE.sh
 
