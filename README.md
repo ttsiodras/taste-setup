@@ -48,9 +48,9 @@ you would start by creating a new 'taste' user, and...
 
 You'd then have to follow the prompts to fix whatever issues are detected in your configuration.
 
-Since the installation scripts depend on Debian tools, this kind of setup can only work inside
-environments that are (or are based on) a Debian distribution; if this is not the case,
-you can try the setup from inside a debootstrap-ed chroot:
+In any native distribution offering `debootstrap`
+-------------------------------------------------
+Since the installation scripts depend on Debian tools, the setup process only works as-is inside environments that are Debian-based. Note however that almost all distributions offer `debootstrap` - a tool that allows the setup of a complete Debian chroot:
 
     # mkdir /opt/stretch-chroot
     # debootstrap stretch /opt/stretch-chroot
@@ -59,3 +59,7 @@ you can try the setup from inside a debootstrap-ed chroot:
     # mount -o bind /dev /opt/stretch-chroot/dev/
     # mount -o bind /dev/pts /opt/stretch-chroot/dev/pts/
     # chroot /opt/stretch-chroot
+
+At this point, you can continue with the normal process described above for Debian-based distributions - for (almost) all intents and purposes, this chroot will behave just like a native Debian install; and thus allows you to have a "sandboxed" TASTE install that will not interfere with your main distribution.
+
+In fact, this is reason enough to employ this process even if you do have a Debian-based distribution; the chroot will contain all TASTE-related work, and will therefore leave your main distribution undisturbed.
