@@ -52,13 +52,13 @@ In any native distribution offering `debootstrap`
 -------------------------------------------------
 Since the installation scripts depend on Debian tools, the setup process only works as-is inside environments that are Debian-based. Note however that almost all distributions offer `debootstrap` - a tool that allows the setup of a complete Debian chroot:
 
-    # mkdir /opt/stretch-chroot
-    # debootstrap stretch /opt/stretch-chroot
-    # mount -t proc none /opt/stretch-chroot/proc/
-    # mount -t sysfs none /opt/stretch-chroot/sys/
-    # mount -o bind /dev /opt/stretch-chroot/dev/
-    # mount -o bind /dev/pts /opt/stretch-chroot/dev/pts/
-    # chroot /opt/stretch-chroot
+    # mkdir /opt/jessie-chroot
+    # debootstrap jessie /opt/jessie-chroot
+    # mount -t proc none /opt/jessie-chroot/proc/
+    # mount -t sysfs none /opt/jessie-chroot/sys/
+    # mount -o bind /dev /opt/jessie-chroot/dev/
+    # mount -o bind /dev/pts /opt/jessie-chroot/dev/pts/
+    # chroot /opt/jessie-chroot
 
 At this point, you can continue with the normal process described above for Debian-based distributions - for (almost) all intents and purposes, this chroot will behave just like a native Debian install; and thus allows you to have a "sandboxed" TASTE install that will not interfere with your main distribution.
 
