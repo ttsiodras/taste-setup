@@ -9,6 +9,7 @@ mkfifo $myfifo
 tail -f $myfifo | taste-progress-dialog.py &
 
 function quit {
+    echo '100 Done' > $myfifo
     rm $myfifo
     tailps=$(pstree -p $$ | grep tail | python -c "import sys, re; print re.search(r'tail\((.*)\)', [x for x in sys.stdin][0]).group(1)")
     kill $tailps || xterm -e "echo Internal Error, unable to kill subprocess. Open a terminal and type 'pkill tail' to (hopefully) recover"
@@ -113,7 +114,6 @@ cp -f __interfaceview-v2.aadl "$INTERFACEVIEW" 2>/dev/null || :
 rm -f "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq.aadl "$output_dir"/dataview-uniq-v1.aadl \
       "$output_dir"/__interfaceview-v2.aadl
 
-echo '100 Done' > $myfifo
 
 quit $ret
 
