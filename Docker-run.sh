@@ -25,12 +25,10 @@ XSOCK=/tmp/.X11-unix
 XAUTH=/tmp/.docker.xauth
 touch ${XAUTH}
 xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f ${XAUTH} nmerge -
-HOME=/root
 export TASTE_IN_DOCKER=1
 docker run \
     --privileged \
     -e DISPLAY \
-    -e HOME \
     -e TASTE_IN_DOCKER \
     -e XAUTHORITY=${XAUTH} \
     -v ${XSOCK}:${XSOCK} \
