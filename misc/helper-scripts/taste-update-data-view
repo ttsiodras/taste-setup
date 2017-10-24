@@ -8,6 +8,7 @@ mkfifo $myfifo
 tail -f $myfifo | taste-progress-dialog.py &
 
 function quit {
+    echo '100 Completed' > $myfifo
     rm $myfifo
     tailps=$(pstree -p $$ | grep tail | python -c "import sys, re; print re.search(r'tail\((.*)\)', [x for x in sys.stdin][0]).group(1)")
     kill $tailps || xterm -e "echo Internal Error, unable to kill subprocess. Open a terminal and type 'pkill tail' to (hopefully) recover"
@@ -93,7 +94,6 @@ DATAVIEW+=" $(taste-config --prefix)/share/taste-types/taste-types.asn"
 #asn2aadlPlus $DATAVIEW "$AADL" -aadlv2 2>&1 | uniq >&2
 echo '0-100 Updating data view' > $myfifo
 asn2aadlPlus $DATAVIEW "$AADL" -aadlv2 2>&1 > >(uniq >&2)
-echo '100 Completed' > $myfifo
 
 if [ "$?" = "1" ]
 then
