@@ -14,3 +14,5 @@ STFLASH_PATH=$(realpath "${DIR}/../stlink/build/Release")
 PATH_CMD='export PATH=$PATH:'"${STFLASH_PATH}"
 UpdatePATH
 
+sudo cp -n etc/udev/rules.d/* /etc/udev/rules.d || :
+
