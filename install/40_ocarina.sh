@@ -48,3 +48,7 @@ UpdatePATH
 # Add Ocarina env var necessary for Python mappings to function
 PATH_CMD="export OCARINA_PATH=`ocarina-config --prefix`"
 UpdatePATH
+
+# Add Ocarina-specific PYTHONPATH dependencies
+PATH_CMD='export PYTHONPATH=$OCARINA_PATH/include/ocarina/runtime/python:$OCARINA_PATH/lib:$PYTHONPATH'
+UpdatePATH
