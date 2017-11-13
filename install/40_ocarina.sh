@@ -31,7 +31,7 @@ fi
 
 make distclean # ignore any errors here
 ./support/reconfig || exit 1
-./configure --prefix="${PREFIX}" || exit 1
+./configure --enable-python --enable-shared --prefix="${PREFIX}" || exit 1
 make || exit 1
 make install
 
@@ -39,4 +39,8 @@ overWriteAADLcomponents
 
 # Add Ocarina to PATH
 PATH_CMD='export PATH=$PATH:'"${PREFIX}/bin"
+UpdatePATH
+
+# Add Ocarina Python-binding libraries to LD_LIBRARY_PATH
+PATH_CMD='export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:'"${PREFIX}/lib"
 UpdatePATH
