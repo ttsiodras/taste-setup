@@ -44,3 +44,7 @@ UpdatePATH
 # Add Ocarina Python-binding libraries to LD_LIBRARY_PATH
 PATH_CMD='export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:'"${PREFIX}/lib"
 UpdatePATH
+
+# Add Ocarina env var necessary for Python mappings to function
+PATH_CMD="export OCARINA_PATH=`ocarina-config --prefix`"
+UpdatePATH
