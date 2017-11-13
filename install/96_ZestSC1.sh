@@ -9,6 +9,6 @@ make -C ../misc/ZestSC1/linux/ || exit 1
 mkdir -p ${PREFIX}/share/ZestSC1
 cp -u ../misc/ZestSC1/linux/Lib/libZestSC1.a ${PREFIX}/share/ZestSC1/
 
-grep ZESTSC! $HOME/.bashrc.taste >/dev/null || {
+grep ZESTSC1 $HOME/.bashrc.taste >/dev/null || {
     echo 'export ZESTSC1=$HOME/tool-src/misc/ZestSC1/TASTE-VHDL-XISE.tar.bz2' >> $HOME/.bashrc.taste
 }
