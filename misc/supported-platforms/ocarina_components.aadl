@@ -2147,19 +2147,35 @@ properties
 end crazyflie_v2.gnat;
 
 
-processor stm32f4_discovery extends arm
+processor stm32f407_discovery extends arm
 properties
    Deployment::Execution_Platform => GNAT_Runtime;
    Deployment::Ada_Runtime => "stm32f407_discovery_full";
-end stm32f4_discovery;
+end stm32f407_discovery;
 
-processor implementation stm32f4_discovery.gnat
+processor implementation stm32f407_discovery.gnat2017
 properties
    Scheduling_Protocol => (Posix_1003_Highest_Priority_First_Protocol);
    Priority_Range => 0 .. 255;
    Cheddar_Properties::Scheduler_Quantum => 0 Ms;
    Cheddar_Properties::Preemptive_Scheduler => true;
-end stm32f4_discovery.gnat;
+end stm32f407_discovery.gnat2017;
+
+processor stm32f429_discovery extends arm
+properties
+   Deployment::Execution_Platform => GNAT_Runtime;
+   Deployment::Ada_Runtime => "stm32f429_discovery_full";
+end stm32f429_discovery;
+
+processor implementation stm32f429_discovery.gnat2017
+properties
+   Scheduling_Protocol => (Posix_1003_Highest_Priority_First_Protocol);
+   Priority_Range => 0 .. 255;
+   Cheddar_Properties::Scheduler_Quantum => 0 Ms;
+   Cheddar_Properties::Preemptive_Scheduler => true;
+end stm32f429_discovery.gnat2017;
+
+
 
 processor nds extends arm
 end nds;
