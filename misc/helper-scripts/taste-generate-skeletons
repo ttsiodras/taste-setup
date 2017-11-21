@@ -9,12 +9,20 @@ mkfifo $myfifo
 tail -f $myfifo | taste-progress-dialog.py &
 
 function quit {
-    echo '100 Done' > $myfifo
+    echo '100 Completed' > $myfifo
     rm $myfifo
-    tailps=$(pstree -p $$ | grep tail | python -c "import sys, re; print re.search(r'tail\((.*)\)', [x for x in sys.stdin][0]).group(1)")
-    kill $tailps || xterm -e "echo Internal Error, unable to kill subprocess. Open a terminal and type 'pkill tail' to (hopefully) recover"
+    tailps=$(pstree -p $$ | grep tail | python -c "try:
+    import sys, re; print re.search(r'tail\((.*)\)', [x for x in sys.stdin][0]).group(1)
+except: pass")
+    if [ ! -z $tailps ]
+    then
+        kill $tailps || xterm -e "echo Internal Error in taste-update-data-view"
+    fi
     exit $1
 }
+
+# Install a trap handler to make sure Ctrl-C leads to calling the quit function (trap 2 = SINGINT)
+trap 2 quit 1
 
 # Logging with colors (only in a terminal)
 if [ -t 1 ] ; then
