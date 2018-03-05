@@ -1,0 +1,31 @@
+# bash completion for taste/buildsupport 
+# place in /etc/bash_completion.d and reload with ". /etc_bash_completion"
+# maxime.perrotin@esa.int
+
+have buildsupport &&
+_buildsupport()
+{
+    local cur prev
+
+    _get_comp_words_by_ref cur
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts="-l --glue -w --gw -v --onlycv -j --keep-case -o --output -i --interfaceview -c --deploymentview -d --dataview -t --test -g --debug -s --stack -v --version -p --polyorb-hi-c" 
+
+    COMPREPLY=()
+
+    case $prev in
+	-i|--interfaceview|-c|--deploymentview|-d|--dataview)
+	    _filedir 'aadl'
+            return 0
+            ;;
+        -s|--stack)
+            COMPREPLY=( $( compgen -W '128 256 512 1024 2048 4096 8192' -- "$cur" ) )
+            return 0
+            ;;
+    esac
+
+    _expand || return 0
+
+    COMPREPLY=( $( compgen -W "${opts}" -- "$cur" ) )
+} &&
+complete -F _buildsupport -o nospace buildsupport

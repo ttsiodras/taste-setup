@@ -1,0 +1,36 @@
+# bash completion for taste/assert-builder-ocarina.py
+# place in /etc/bash_completion.d and reload with ". /etc_bash_completion"
+# maxime.perrotin@esa.int
+_taste_orchestrator()
+{
+    local cur prev
+    _get_comp_words_by_ref cur
+     prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts="-f --fast -g --debug -p --with-polyorb-hi-c -r --with-coverage -h --gprof -o --output -s --stack -i --interfaceView -c --deploymentView -S --subSCADE -M --subSIMULINK -C --subC -A --subAda -G --subOG -P --subRTDS -V --subVHDL -e --with-extra-C-code -d --with-extra-Ada-code -l --with-extra-lib"
+    COMPREPLY=()
+    case $prev in
+	-i|--interfaceView|-c|--deploymentView)
+	    _filedir 'aadl'
+            return 0
+            ;;
+        -s|--stack)
+            COMPREPLY=( $( compgen -W '128 256 512 1024 2048 4096 8192' -- "$cur" ) )
+            return 0
+            ;;
+	-o|--output|-e|--with-extra-C-code|-d|--with-extra-Ada-code)
+	    _filedir
+	    return 0
+    	    ;;
+	-l|--with-extra-lib)
+	    _filedir 'a'
+	    return 0
+       	    ;;
+	-S|--subSCADE|-M|--subSIMULINK|-C|--subC|-A|--subAda|-G|--subOG|-P|--subRTDS|-V|-subVHDL)
+            return 0
+            ;;
+    esac      
+    
+    _expand || return 0 
+    COMPREPLY=( $( compgen -W "${opts}" -- "$cur" ) )   
+} &&  
+complete -F _taste_orchestrator -o nospace assert-builder-ocarina.py
