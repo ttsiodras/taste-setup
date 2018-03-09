@@ -1,0 +1,19 @@
+# bash completion for taste-config
+# place in /etc/bash_completion.d and reload with ". /etc_bash_completion"
+# maxime.perrotin@esa.int
+
+have taste-config &&
+_taste_config()
+{
+    local cur prev
+
+    _get_comp_words_by_ref cur
+    opts="--prefix --packages --orchestrator --buildsupport --dmt --directives" 
+
+    COMPREPLY=()
+
+    _expand || return 0
+
+    COMPREPLY=( $( compgen -W "${opts}" -- "$cur" ) )
+} &&
+complete -F _taste_config -o nospace taste-config
