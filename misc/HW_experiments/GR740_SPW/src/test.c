@@ -525,21 +525,23 @@ rtems_task test_app(rtems_task_argument ignored)
 	}
 
 	fflush(NULL);
-	rtems_task_start(tid_link, link_ctrl_task, 0);
-	rtems_task_start(tid_dma, dma_task, 0);
+	// rtems_task_start(tid_link, link_ctrl_task, 0);
+        rtems_task_start(tid_dma, dma_task, 0);
 	rtems_task_wake_after(12);
 
 	printf("Starting Packet processing loop. Enter Command:\n\n");
 	quit = 0;
 	command = 1;
+
 	while (quit == 0) {
+#if 0
+                printf("> ");
+                fflush(stdout);
+#endif
+
 		rtems_task_wake_after(10);
 
 		if (command == 1) {
-#if 0
-			printf("> ");
-			fflush(stdout);
-#endif
 			command = 0;
 		}
 
@@ -576,7 +578,6 @@ rtems_task test_app(rtems_task_argument ignored)
 			}
 		}
 		in_buf_pos = 0;
-
 		/* Parse words to a command */
 		if (word < 1) {
 			printf(" invalid command\n");
