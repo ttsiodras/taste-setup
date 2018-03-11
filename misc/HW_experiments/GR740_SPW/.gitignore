@@ -1,0 +1,4 @@
+bin.*
+objs.*
+deps.*
+src/version.h
