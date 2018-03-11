@@ -102,10 +102,12 @@ grep "version => \"2" "$INTERFACEVIEW" >/dev/null && {
 mkdir -p "$output_dir" 2>/dev/null && shift || output_dir=.
 echo -e "${INFO} Collecting ASN.1 files"
 echo '40-80 Collecting ASN.1 models' > $myfifo
+# create dataview-uniq.asn including TASTE directives (flag -j)
 mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -j "$output_dir"/dataview-uniq.asn
 echo -e "${INFO} Generating AADL data view"
 asn2aadlPlus "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq.aadl -aadlv2
 asn2aadlPlus "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq-v1.aadl
+# create dataview-uniq.asn excluding TASTE directives (flag -k)
 mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -k "$output_dir"/dataview-uniq.asn
 echo -e "${INFO} Parsing AADL and generating skeletons with buildsupport"
 echo '80-100 Generate code skeletons' > $myfifo
