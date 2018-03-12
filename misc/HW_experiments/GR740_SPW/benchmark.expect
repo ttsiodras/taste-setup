@@ -1,0 +1,9 @@
+#!/usr/bin/expect -f
+set timeout 30
+spawn /home/assert/bin.local/leon3-gdb.sh ./bin.release.FPU.leon3/fputest
+expect "(gdb) "
+send "c\r"
+expect "500000"
+send \003
+send "quit"
+send_user "\n"
