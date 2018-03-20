@@ -1,0 +1,3 @@
+#!/bin/bash
+arm-eabi-objcopy -O binary "$1" "$1".bin
+st-flash write "$1".bin 0x8000000
