@@ -11,7 +11,6 @@ else
         cd ..
     done
 fi
-exit 0
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export DISABLE_TASTE_BANNER=1
 for INSTALL_SCRIPT in install/[0-9]*sh ; do
