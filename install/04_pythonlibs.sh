@@ -8,3 +8,5 @@ pip2 freeze | grep stringtemplate3 >/dev/null \
     || pip2 install --user --upgrade stringtemplate3 || exit 1
 pip2 freeze | grep enum34 >/dev/null \
     || pip2 install --user --upgrade enum34 || exit 1
+pip2 freeze | grep ply==3.4 >/dev/null \
+    || pip2 install --user --upgrade 'ply==3.4' || exit 1
