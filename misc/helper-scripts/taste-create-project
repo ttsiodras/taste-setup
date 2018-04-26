@@ -14,18 +14,25 @@ fi
 INFO="${COLORON}[INFO]${COLOROFF}"
 ERROR="${REDCOLORON}[ERROR]${COLOROFF}"
 
+echo -e "${INFO} A new folder will be created to host your TASTE project."
+read -p "Please enter a name for the new project folder: " new_folder
 
-if [ -f InterfaceView.aadl ]
+if [ "$new_folder" != "" ]
 then
-    echo -e "${ERROR} InterfaceView.aadl already exists. Use taste-edit-project instead."
-    exit 1
+    if [ -d "$new_folder" ]
+    then
+        echo -e "${ERROR} A folder with that name already exists"
+        exit 1
+    else
+        mkdir "$new_folder"
+        cd "$new_folder"
+    fi
 fi
 
 if [ ! -f DataView.aadl ]
 then
     echo -e "${INFO} Creating a default ASN.1 data model."
     NONINTERACTIVE=1 taste-create-data-view
-    #NONINTERACTIVE=1 taste-create-acn-model
 else
     echo -e "${INFO} Using existing DataView.aadl"
 fi
@@ -61,4 +68,3 @@ TASTE $EXTRA_CMD \
       --load-deployment-view DeploymentView.aadl \
       --aadl-library $(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl \
       --update-properties ConcurrencyView_Properties.aadl
-
