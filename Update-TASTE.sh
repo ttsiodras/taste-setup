@@ -6,6 +6,7 @@ if [ -z "$1" -o "$1" == "--stable" ] ; then
 else
     git submodule | awk '{print $2}' | while read FOLDER ; do
         cd "$FOLDER" || exit 1
+        git fetch || exit 1
         git checkout master || exit 1
         git pull || exit 1
         cd ..
