@@ -12,5 +12,5 @@ dependencies:
 
 test:
   override:
-    - HOMEB=/root ; XSOCK=/tmp/.X11-unix ; XAUTH=/tmp/.docker.xauth ; touch ${XAUTH} ; xauth nlist ${DISPLAY} | sed -e 's/^..../ffff/' | xauth -f ${XAUTH} nmerge - ; HOME=/root ; export TASTE_IN_DOCKER=1 ; docker run --privileged -e DISPLAY -e HOME -e TASTE_IN_DOCKER -e XAUTHORITY=${XAUTH} -v ${XSOCK}:${XSOCK} -v ${XAUTH}:${XAUTH} -v "$HOME":"$HOMEB"/work -it taste /bin/bash -c 'cd /root/ ; . .bashrc.taste ; cd tool-src ; ./Update-TASTE.sh || exit 1 ; cd testSuites/Demo_C ; ./build-script.sh || exit 1':
+    - export TASTE_IN_DOCKER=1 ; docker run -e DISPLAY -e TASTE_IN_DOCKER -it taste /bin/bash -c 'cd /root/ ; . .bashrc.taste ; cd tool-src ; ./Update-TASTE.sh || exit 1 ; cd testSuites/ ; ./regression.py || exit 1':
 
