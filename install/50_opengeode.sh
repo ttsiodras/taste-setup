@@ -2,13 +2,14 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . "${DIR}/common.sh"
 
-# Setup opengeode in ~/.local/bin
-cd "$DIR/../opengeode" || exit 1
+# Detect the version installed by running OUTSIDE the folder
+# (if run from the source folder, the reported version is always the current one!)
+cd "$DIR/../" || exit 1
+VERSION_INSTALLED="$(opengeode --version 2>&1)"
 
 # Skip install if the version installed is the same and the tree is clean
+cd "opengeode" || exit 1
 HEAD="$(grep _version_ opengeode/opengeode.py | head -1 | awk -F\' '{print $2}')"
-
-VERSION_INSTALLED="$(opengeode --version 2>&1)"
 
 GIT_OUTPUT=$(git status --porcelain)
 if [ "${GIT_OUTPUT}" == "" ] ; then
