@@ -12,5 +12,5 @@ dependencies:
 
 test:
   override:
-      - export TASTE_IN_DOCKER=1 ; docker run -e DISPLAY -e TASTE_IN_DOCKER -e CIRCLECI -v $CIRCLE_ARTIFACTS:$CIRCLE_ARTIFACTS -e CIRCLE_ARTIFACTS -it taste /bin/bash -c 'apt-get install -y --force-yes xvfb ; Xvfb & export DISPLAY=:0 ; cd /root/ ; . .bashrc.taste ; cd tool-src ; ./Update-TASTE.sh || exit 1 ; cd testSuites/ ; ./regression.py || exit 1':
+      - export TASTE_IN_DOCKER=1 ; export CIRCLECI ; docker run -e DISPLAY -e TASTE_IN_DOCKER -e CIRCLECI -v $CIRCLE_ARTIFACTS:$CIRCLE_ARTIFACTS -e CIRCLE_ARTIFACTS -it taste /bin/bash -c 'apt-get install -y --force-yes xvfb ; Xvfb & export DISPLAY=:0 ; cd /root/ ; . .bashrc.taste ; cd tool-src ; ./Update-TASTE.sh || exit 1 ; cd testSuites/ ; ./regression.py || exit 1':
 
