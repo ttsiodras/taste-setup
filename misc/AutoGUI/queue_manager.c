@@ -90,6 +90,11 @@ void build_full_queue_name(char* queue_name, char* full_queue_name)
 void checkMQsize(void)
 {
     static char tmp[1024];
+
+    if (NULL != getenv("CIRCLECI"))
+	// In CircleCI it is impossible to sysctl the mqueue values inside the Docker container...
+	return;
+
     FILE *fp = fopen("/proc/sys/fs/mqueue/msg_max", "r");
     if (fgets(tmp, sizeof(tmp), fp)) {
 	int value = atoi(tmp);
