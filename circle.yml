@@ -12,6 +12,5 @@ dependencies:
 
 test:
   override:
-      # - export TASTE_IN_DOCKER=1 ; export CIRCLECI ; docker run -e DISPLAY -e CIRCLE_BRANCH -e TASTE_IN_DOCKER -e CIRCLECI -v $CIRCLE_ARTIFACTS:$CIRCLE_ARTIFACTS -e CIRCLE_ARTIFACTS -it taste /bin/bash -c 'apt-get install -y --force-yes xvfb ; Xvfb & export DISPLAY=:0 ; cd /root/ ; . .bashrc.taste ; cd tool-src ; git fetch ; git checkout -f "${CIRCLE_BRANCH}" ; ./Update-TASTE.sh || exit 1 ; cd testSuites/ ; ./regression.py | tee ${CIRCLE_ARTIFACTS}/A_complete_regression.log ; exit ${PIPESTATUS[0]}':
-      - export TASTE_IN_DOCKER=1 ; export CIRCLECI ; docker run -e DISPLAY -e CIRCLE_BRANCH -e TASTE_IN_DOCKER -e CIRCLECI -v $CIRCLE_ARTIFACTS:$CIRCLE_ARTIFACTS -e CIRCLE_ARTIFACTS -it taste /bin/bash -c 'apt-get install -y --force-yes xvfb ; Xvfb & export DISPLAY=:0 ; cd /root/ ; . .bashrc.taste ; cd tool-src ; git fetch ; git checkout -f "${CIRCLE_BRANCH}" ; ./Update-TASTE.sh || exit 1':
+      - export TASTE_IN_DOCKER=1 ; export CIRCLECI ; docker run -e DISPLAY -e CIRCLE_BRANCH -e TASTE_IN_DOCKER -e CIRCLECI -v $CIRCLE_ARTIFACTS:$CIRCLE_ARTIFACTS -e CIRCLE_ARTIFACTS --privileged -it taste /bin/bash -c 'apt-get install -y --force-yes xvfb ; Xvfb & export DISPLAY=:0 ; cd /root/ ; . .bashrc.taste ; cd tool-src ; git fetch ; git checkout -f "${CIRCLE_BRANCH}" ; ./Update-TASTE.sh || exit 1 ; cd testSuites/ ; ./regression.py | tee ${CIRCLE_ARTIFACTS}/A_complete_regression.log ; exit ${PIPESTATUS[0]}':
           timeout: 7200
