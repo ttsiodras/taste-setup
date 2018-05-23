@@ -105,6 +105,9 @@ public
   with GRSPW;
   with Native_UART;
   with TCP_IP_Protocol;
+  with STM32F4_UART;
+  with Crazyflie_BLE;
+  with Client_BLE;
 
   ------------------------
   -- Configuration Type --
@@ -326,6 +329,60 @@ public
     Initialize_Entrypoint         => classifier (ocarina_drivers_scoc3_spacewire::spg_init);
     Provided_Virtual_Bus_Class    => (classifier (ocarina_buses::pohi.c));
   end scoc3_spacewire.pohic;
+  
+  ---------------------------
+  -- STM32F4 serial driver --
+  ---------------------------
+
+  device STM32F4_serial
+  features
+    link : requires bus access ocarina_buses::serial.generic;
+  end STM32F4_serial;
+
+  device implementation STM32F4_serial.pohiada
+  properties
+    Deployment::Driver_Name       => "serial_STM32F4";
+    Device_Driver =>
+         classifier (STM32F4_UART::Driver_STM32F4_UART_Protocol.impl);
+    Initialize_Entrypoint => classifier (STM32F4_UART::Initialize);
+    Provided_Virtual_Bus_Class    => (classifier (ocarina_buses::raw.i));
+  end STM32F4_serial.pohiada;
+  
+  --------------------------
+  -- Crazyflie BLE driver --
+  --------------------------
+
+  device Crazyflie_BLE_serial
+  features
+    link : requires bus access ocarina_buses::serial.generic;
+  end Crazyflie_BLE_serial;
+
+  device implementation Crazyflie_BLE_serial.pohiada
+  properties
+    Deployment::Driver_Name       => "serial_Crazyflie_BLE";
+    Device_Driver =>
+         classifier (Crazyflie_BLE::Driver_Crazyflie_BLE_Protocol.impl);
+    Initialize_Entrypoint => classifier (Crazyflie_BLE::Initialize);
+    Provided_Virtual_Bus_Class    => (classifier (ocarina_buses::raw.i));
+  end Crazyflie_BLE_serial.pohiada;
+  
+  --------------------------
+  -- Crazyflie BLE driver --
+  --------------------------
+
+  device Client_BLE_serial
+  features
+    link : requires bus access ocarina_buses::serial.generic;
+  end Client_BLE_serial;
+
+  device implementation Client_BLE_serial.pohiada
+  properties
+    Deployment::Driver_Name       => "serial_Client_BLE";
+    Device_Driver =>
+         classifier (Client_BLE::Driver_Client_BLE_Protocol.impl);
+    Initialize_Entrypoint => classifier (Client_BLE::Initialize);
+    Provided_Virtual_Bus_Class    => (classifier (ocarina_buses::raw.i));
+  end Client_BLE_serial.pohiada;
 
   ---------------------------
   -- Generic serial driver --
@@ -1692,6 +1749,401 @@ subcomponents
 end driver.i;
 
 end ocarina_drivers_scoc3_spacewire;
+package STM32F4_UART
+
+-- This package models a UART-based protocol layer for the
+-- PolyORB-HI/Ada AADL runtime, based on the GRUART chipset from
+-- AEROFlex Gaisler. It defines the subprograms and threads to be
+-- integrated with the runtime low level interface.
+--
+-- To configure this interface, you should use the
+-- Deployment::Configuration property with the following format:
+--     "serial DEVICE BAUDS DATA_BITS PARITY STOP_BIT"
+--
+-- e.g.
+--
+--     uart : device GRUART::GRUART_Device
+--            {Deployment::Configuration => "serial /dev/ttyS0 9600 8 N 1"
+--
+
+public
+
+   with Deployment;
+   with Generic_Bus;
+
+   ------------
+   -- DEVICE --
+   ------------
+
+   -- The main entrypoint for this package is this device, it relies
+   -- on the 'Implement_As' feature that defines its full
+   -- specification.
+
+   device STM32F4_UART_Device
+   features
+      DB9_Wire : requires bus access Generic_Bus::Generic_Bus.impl;
+      -- Connection to the remote node
+
+   end STM32F4_UART_Device;
+
+   device implementation STM32F4_UART_Device.impl
+   properties
+      Device_Driver =>
+         classifier (STM32F4_UART::Driver_STM32F4_UART_Protocol.impl);
+      Initialize_Entrypoint => classifier (STM32F4_UART::Initialize);
+   end STM32F4_UART_Device.impl;
+
+   ------------
+   -- DRIVER --
+   ------------
+
+   -- In AADLv2, we can model the actual implementation of a driver
+   -- using an abstract component.
+
+   abstract Driver_STM32F4_UART_Protocol
+   properties
+      Deployment::Configuration_Type
+        => classifier (ocarina_drivers::configuration_type_serial);
+      Deployment::Version  => "0.1beta";
+      Deployment::Help     => "Write your ASN.1 configuration here";
+   end Driver_STM32F4_UART_Protocol;
+
+   abstract implementation Driver_STM32F4_UART_Protocol.impl
+   subcomponents
+      receiver : thread Driver_STM32F4_UART_Protocol_thread_receiver.impl;
+      sender : subprogram Send;
+   end Driver_STM32F4_UART_Protocol.impl;
+
+   -------------
+   -- THREADS --
+   -------------
+
+   -- This thread handles the execution logic of the protocol
+   -- stack. It relies on the previous subprograms to receive
+   -- messages.
+
+   thread Driver_STM32F4_UART_Protocol_thread_receiver
+
+      -- This thread is dispatched when an event is detected on the
+      -- real hardware. It then calls receive to handle the incoming
+      -- event.
+
+   properties
+      Dispatch_Protocol => Background;
+      Priority          => 10;
+      source_stack_size => 10 KByte;
+   end Driver_STM32F4_UART_Protocol_thread_receiver;
+
+   thread implementation Driver_STM32F4_UART_Protocol_thread_receiver.impl
+   calls
+      call1 : { pspg : subprogram receive; };
+   end Driver_STM32F4_UART_Protocol_thread_receiver.impl;
+
+   -----------------
+   -- SUBPROGRAMS --
+   -----------------
+
+   -- These subprograms model the high-level view of the SpaceWire
+   -- protocol stack. They define an API used by the stack to send and
+   -- receive data, and perform node's initialisation.
+
+   subprogram Initialize
+
+     -- Initialize the different internal resources for managing
+     -- connections on a node. This subprogram has no formal visible
+     -- parameters, but relies on well-known data structures and
+     -- variables to configure the stack.
+
+   properties
+      Source_Name => "PolyORB_HI_Drivers_STM32F4_UART.Initialize";
+      Source_Language => (Ada);
+   end Initialize;
+
+   -------------
+
+   subprogram Receive
+
+      -- Receive data and dispatch them to the receiving entity. This
+      -- program and its sibling (send) share a common protocol, not
+      -- defined in the AADL model.
+
+   properties
+      Source_Name => "PolyORB_HI_Drivers_STM32F4_UART.Receive";
+      Source_Language => (Ada);
+   end Receive;
+
+   -------------
+
+   subprogram Send
+
+      -- Send data to a remote node. This program and its sibling
+      -- (receive) share a common protocol, not defined in the AADL
+      -- model.
+
+   properties
+      Source_Name => "PolyORB_HI_Drivers_STM32F4_UART.Send";
+      Source_Language => (Ada);
+   end Send;
+
+end STM32F4_UART;
+package Crazyflie_BLE
+
+-- This package models a UART-based protocol layer for the
+-- PolyORB-HI/Ada AADL runtime, based on the GRUART chipset from
+-- AEROFlex Gaisler. It defines the subprograms and threads to be
+-- integrated with the runtime low level interface.
+--
+
+
+public
+
+   with Deployment;
+   with Generic_Bus;
+
+   ------------
+   -- DEVICE --
+   ------------
+
+   -- The main entrypoint for this package is this device, it relies
+   -- on the 'Implement_As' feature that defines its full
+   -- specification.
+
+   device Crazyflie_BLE_Device
+   features
+      DB9_Wire : requires bus access Generic_Bus::Generic_Bus.impl;
+      -- Connection to the remote node
+
+   end Crazyflie_BLE_Device;
+
+   device implementation Crazyflie_BLE_Device.impl
+   properties
+      Device_Driver =>
+         classifier (Crazyflie_BLE::Driver_Crazyflie_BLE_Protocol.impl);
+      Initialize_Entrypoint => classifier (Crazyflie_BLE::Initialize);
+   end Crazyflie_BLE_Device.impl;
+
+   ------------
+   -- DRIVER --
+   ------------
+
+   -- In AADLv2, we can model the actual implementation of a driver
+   -- using an abstract component.
+
+   abstract Driver_Crazyflie_BLE_Protocol
+   properties
+      Deployment::Configuration_Type
+        => classifier (ocarina_drivers::configuration_type_serial);
+      Deployment::Version  => "0.1beta";
+      Deployment::Help     => "Write your ASN.1 configuration here";
+   end Driver_Crazyflie_BLE_Protocol;
+
+   abstract implementation Driver_Crazyflie_BLE_Protocol.impl
+   subcomponents
+      receiver : thread Driver_Crazyflie_BLE_Protocol_thread_receiver.impl;
+      sender : subprogram Send;
+   end Driver_Crazyflie_BLE_Protocol.impl;
+
+   -------------
+   -- THREADS --
+   -------------
+
+   -- This thread handles the execution logic of the protocol
+   -- stack. It relies on the previous subprograms to receive
+   -- messages.
+
+   thread Driver_Crazyflie_BLE_Protocol_thread_receiver
+
+      -- This thread is dispatched when an event is detected on the
+      -- real hardware. It then calls receive to handle the incoming
+      -- event.
+
+   properties
+      Dispatch_Protocol => Background;
+      Priority          => 10;
+      source_stack_size => 10 KByte;
+   end Driver_Crazyflie_BLE_Protocol_thread_receiver;
+
+   thread implementation Driver_Crazyflie_BLE_Protocol_thread_receiver.impl
+   calls
+      call1 : { pspg : subprogram receive; };
+   end Driver_Crazyflie_BLE_Protocol_thread_receiver.impl;
+
+   -----------------
+   -- SUBPROGRAMS --
+   -----------------
+
+   -- These subprograms model the high-level view of the SpaceWire
+   -- protocol stack. They define an API used by the stack to send and
+   -- receive data, and perform node's initialisation.
+
+   subprogram Initialize
+
+     -- Initialize the different internal resources for managing
+     -- connections on a node. This subprogram has no formal visible
+     -- parameters, but relies on well-known data structures and
+     -- variables to configure the stack.
+
+   properties
+      Source_Name => "PolyORB_HI_Drivers_Crazyflie_BLE.Initialize";
+      Source_Language => (Ada);
+   end Initialize;
+
+   -------------
+
+   subprogram Receive
+
+      -- Receive data and dispatch them to the receiving entity. This
+      -- program and its sibling (send) share a common protocol, not
+      -- defined in the AADL model.
+
+   properties
+      Source_Name => "PolyORB_HI_Drivers_Crazyflie_BLE.Receive";
+      Source_Language => (Ada);
+   end Receive;
+
+   -------------
+
+   subprogram Send
+
+      -- Send data to a remote node. This program and its sibling
+      -- (receive) share a common protocol, not defined in the AADL
+      -- model.
+
+   properties
+      Source_Name => "PolyORB_HI_Drivers_Crazyflie_BLE.Send";
+      Source_Language => (Ada);
+   end Send;
+
+end Crazyflie_BLE;
+package Client_BLE
+
+-- This package models a UART-based protocol layer for the
+-- PolyORB-HI/Ada AADL runtime, based on the GRUART chipset from
+-- AEROFlex Gaisler. It defines the subprograms and threads to be
+-- integrated with the runtime low level interface.
+--
+
+
+public
+
+   with Deployment;
+   with Generic_Bus;
+
+   ------------
+   -- DEVICE --
+   ------------
+
+   -- The main entrypoint for this package is this device, it relies
+   -- on the 'Implement_As' feature that defines its full
+   -- specification.
+
+   device Client_BLE_Device
+   features
+      DB9_Wire : requires bus access Generic_Bus::Generic_Bus.impl;
+      -- Connection to the remote node
+
+   end Client_BLE_Device;
+
+   device implementation Client_BLE_Device.impl
+   properties
+      Device_Driver =>
+         classifier (Client_BLE::Driver_Client_BLE_Protocol.impl);
+      Initialize_Entrypoint => classifier (Client_BLE::Initialize);
+   end Client_BLE_Device.impl;
+
+   ------------
+   -- DRIVER --
+   ------------
+
+   -- In AADLv2, we can model the actual implementation of a driver
+   -- using an abstract component.
+
+   abstract Driver_Client_BLE_Protocol
+   properties
+      Deployment::Configuration_Type
+        => classifier (ocarina_drivers::configuration_type_serial);
+      Deployment::Version  => "0.1beta";
+      Deployment::Help     => "Write your ASN.1 configuration here";
+   end Driver_Client_BLE_Protocol;
+
+   abstract implementation Driver_Client_BLE_Protocol.impl
+   subcomponents
+      receiver : thread Driver_Client_BLE_Protocol_thread_receiver.impl;
+      sender : subprogram Send;
+   end Driver_Client_BLE_Protocol.impl;
+
+   -------------
+   -- THREADS --
+   -------------
+
+   -- This thread handles the execution logic of the protocol
+   -- stack. It relies on the previous subprograms to receive
+   -- messages.
+
+   thread Driver_Client_BLE_Protocol_thread_receiver
+
+      -- This thread is dispatched when an event is detected on the
+      -- real hardware. It then calls receive to handle the incoming
+      -- event.
+
+   properties
+      Dispatch_Protocol => Background;
+      Priority          => 10;
+      source_stack_size => 100 KByte;
+   end Driver_Client_BLE_Protocol_thread_receiver;
+
+   thread implementation Driver_Client_BLE_Protocol_thread_receiver.impl
+   calls
+      call1 : { pspg : subprogram receive; };
+   end Driver_Client_BLE_Protocol_thread_receiver.impl;
+
+   -----------------
+   -- SUBPROGRAMS --
+   -----------------
+
+   -- These subprograms model the high-level view of the SpaceWire
+   -- protocol stack. They define an API used by the stack to send and
+   -- receive data, and perform node's initialisation.
+
+   subprogram Initialize
+
+     -- Initialize the different internal resources for managing
+     -- connections on a node. This subprogram has no formal visible
+     -- parameters, but relies on well-known data structures and
+     -- variables to configure the stack.
+
+   properties
+      Source_Name => "PolyORB_HI_Drivers_Client_BLE.Initialize";
+      Source_Language => (Ada);
+   end Initialize;
+
+   -------------
+
+   subprogram Receive
+
+      -- Receive data and dispatch them to the receiving entity. This
+      -- program and its sibling (send) share a common protocol, not
+      -- defined in the AADL model.
+
+   properties
+      Source_Name => "PolyORB_HI_Drivers_Client_BLE.Receive";
+      Source_Language => (Ada);
+   end Receive;
+
+   -------------
+
+   subprogram Send
+
+      -- Send data to a remote node. This program and its sibling
+      -- (receive) share a common protocol, not defined in the AADL
+      -- model.
+
+   properties
+      Source_Name => "PolyORB_HI_Drivers_Client_BLE.Send";
+      Source_Language => (Ada);
+   end Send;
+
+end Client_BLE;
 package ocarina_drivers_star_dundee_spacewire_brick
 public
 
