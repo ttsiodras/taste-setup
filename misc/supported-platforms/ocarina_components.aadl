@@ -42,6 +42,12 @@ end serial;
 bus implementation serial.generic
 end serial.generic;
 
+bus bluetooth
+end bluetooth;
+
+bus implementation bluetooth.crazyflie
+end bluetooth.crazyflie;
+
 
 ----------------------
 --  Virtual buses  --
@@ -137,6 +143,14 @@ public
       Source_Text                   => ("/home/taste/tool-inst/include/ocarina/runtime/polyorb-hi-c/src/drivers/configuration/spacewire.asn", "drivers/configuration/spacewire.h");
    end configuration_type_spacewire;
 
+   data configuration_type_bluetooth
+   properties
+      Type_Source_Name              => "Bluetooth-Conf-T";
+      Deployment::ASN1_Module_Name  => "POHICDRIVER-BLUETOOTH";
+      Source_Language               => (ASN1);
+      Source_Text                   => ("/home/taste/tool-inst/include/ocarina/runtime/polyorb-hi-c/src/drivers/configuration/bluetooth.asn", "drivers/configuration/bluetooth.h");
+   end configuration_type_bluetooth;
+   
   --------------
   -- Keyboard --
   --------------
@@ -179,9 +193,9 @@ public
     Provided_Virtual_Bus_Class    => (classifier (ocarina_buses::pohi.c));
   end leon_ethernet.greth;
 
-  ------------------
-  -- RASTA SERIAL --
-  ------------------
+  -----------------
+  -- LEON SERIAL --
+  -----------------
 
   device leon_serial
   features
@@ -342,9 +356,8 @@ public
   device implementation STM32F4_serial.pohiada
   properties
     Deployment::Driver_Name       => "serial_STM32F4";
-    Device_Driver =>
-         classifier (STM32F4_UART::Driver_STM32F4_UART_Protocol.impl);
-    Initialize_Entrypoint => classifier (STM32F4_UART::Initialize);
+    Device_Driver                 => classifier (STM32F4_UART::driver.STM32F4_UART);
+    Initialize_Entrypoint         => classifier (STM32F4_UART::Initialize);
     Provided_Virtual_Bus_Class    => (classifier (ocarina_buses::raw.i));
   end STM32F4_serial.pohiada;
   
@@ -352,37 +365,35 @@ public
   -- Crazyflie BLE driver --
   --------------------------
 
-  device Crazyflie_BLE_serial
+  device Crazyflie_BLE
   features
-    link : requires bus access ocarina_buses::serial.generic;
-  end Crazyflie_BLE_serial;
+    link : requires bus access ocarina_buses::bluetooth.crazyflie;
+  end Crazyflie_BLE;
 
-  device implementation Crazyflie_BLE_serial.pohiada
+  device implementation Crazyflie_BLE.pohiada
   properties
-    Deployment::Driver_Name       => "serial_Crazyflie_BLE";
-    Device_Driver =>
-         classifier (Crazyflie_BLE::Driver_Crazyflie_BLE_Protocol.impl);
-    Initialize_Entrypoint => classifier (Crazyflie_BLE::Initialize);
+    Deployment::Driver_Name       => "Crazyflie_BLE";
+    Device_Driver                 => classifier (Crazyflie_BLE::driver.Crazyflie_BLE);
+    Initialize_Entrypoint         => classifier (Crazyflie_BLE::Initialize);
     Provided_Virtual_Bus_Class    => (classifier (ocarina_buses::raw.i));
-  end Crazyflie_BLE_serial.pohiada;
+  end Crazyflie_BLE.pohiada;
   
   --------------------------
   -- Crazyflie BLE driver --
   --------------------------
 
-  device Client_BLE_serial
+  device Client_BLE
   features
-    link : requires bus access ocarina_buses::serial.generic;
-  end Client_BLE_serial;
+    link : requires bus access ocarina_buses::bluetooth.crazyflie;
+  end Client_BLE;
 
-  device implementation Client_BLE_serial.pohiada
+  device implementation Client_BLE.pohiada
   properties
-    Deployment::Driver_Name       => "serial_Client_BLE";
-    Device_Driver =>
-         classifier (Client_BLE::Driver_Client_BLE_Protocol.impl);
-    Initialize_Entrypoint => classifier (Client_BLE::Initialize);
+    Deployment::Driver_Name       => "Client_BLE";
+    Device_Driver                 => classifier (Client_BLE::driver.Client_BLE);
+    Initialize_Entrypoint         => classifier (Client_BLE::Initialize);
     Provided_Virtual_Bus_Class    => (classifier (ocarina_buses::raw.i));
-  end Client_BLE_serial.pohiada;
+  end Client_BLE.pohiada;
 
   ---------------------------
   -- Generic serial driver --
@@ -1751,47 +1762,14 @@ end driver.i;
 end ocarina_drivers_scoc3_spacewire;
 package STM32F4_UART
 
--- This package models a UART-based protocol layer for the
--- PolyORB-HI/Ada AADL runtime, based on the GRUART chipset from
--- AEROFlex Gaisler. It defines the subprograms and threads to be
--- integrated with the runtime low level interface.
---
 -- To configure this interface, you should use the
 -- Deployment::Configuration property with the following format:
 --     "serial DEVICE BAUDS DATA_BITS PARITY STOP_BIT"
---
--- e.g.
---
---     uart : device GRUART::GRUART_Device
---            {Deployment::Configuration => "serial /dev/ttyS0 9600 8 N 1"
---
 
 public
 
    with Deployment;
    with Generic_Bus;
-
-   ------------
-   -- DEVICE --
-   ------------
-
-   -- The main entrypoint for this package is this device, it relies
-   -- on the 'Implement_As' feature that defines its full
-   -- specification.
-
-   device STM32F4_UART_Device
-   features
-      DB9_Wire : requires bus access Generic_Bus::Generic_Bus.impl;
-      -- Connection to the remote node
-
-   end STM32F4_UART_Device;
-
-   device implementation STM32F4_UART_Device.impl
-   properties
-      Device_Driver =>
-         classifier (STM32F4_UART::Driver_STM32F4_UART_Protocol.impl);
-      Initialize_Entrypoint => classifier (STM32F4_UART::Initialize);
-   end STM32F4_UART_Device.impl;
 
    ------------
    -- DRIVER --
@@ -1800,19 +1778,19 @@ public
    -- In AADLv2, we can model the actual implementation of a driver
    -- using an abstract component.
 
-   abstract Driver_STM32F4_UART_Protocol
+   abstract driver
    properties
       Deployment::Configuration_Type
         => classifier (ocarina_drivers::configuration_type_serial);
       Deployment::Version  => "0.1beta";
       Deployment::Help     => "Write your ASN.1 configuration here";
-   end Driver_STM32F4_UART_Protocol;
+   end driver;
 
-   abstract implementation Driver_STM32F4_UART_Protocol.impl
+   abstract implementation driver.STM32F4_UART
    subcomponents
       receiver : thread Driver_STM32F4_UART_Protocol_thread_receiver.impl;
       sender : subprogram Send;
-   end Driver_STM32F4_UART_Protocol.impl;
+   end driver.STM32F4_UART;
 
    -------------
    -- THREADS --
@@ -1888,39 +1866,14 @@ public
 end STM32F4_UART;
 package Crazyflie_BLE
 
--- This package models a UART-based protocol layer for the
--- PolyORB-HI/Ada AADL runtime, based on the GRUART chipset from
--- AEROFlex Gaisler. It defines the subprograms and threads to be
--- integrated with the runtime low level interface.
---
-
+-- To configure this interface, you should use the
+-- Deployment::Configuration property with the following format:
+--     "bluetooth CHANNEL DATARATE ADDRESS"
 
 public
 
    with Deployment;
    with Generic_Bus;
-
-   ------------
-   -- DEVICE --
-   ------------
-
-   -- The main entrypoint for this package is this device, it relies
-   -- on the 'Implement_As' feature that defines its full
-   -- specification.
-
-   device Crazyflie_BLE_Device
-   features
-      DB9_Wire : requires bus access Generic_Bus::Generic_Bus.impl;
-      -- Connection to the remote node
-
-   end Crazyflie_BLE_Device;
-
-   device implementation Crazyflie_BLE_Device.impl
-   properties
-      Device_Driver =>
-         classifier (Crazyflie_BLE::Driver_Crazyflie_BLE_Protocol.impl);
-      Initialize_Entrypoint => classifier (Crazyflie_BLE::Initialize);
-   end Crazyflie_BLE_Device.impl;
 
    ------------
    -- DRIVER --
@@ -1929,19 +1882,19 @@ public
    -- In AADLv2, we can model the actual implementation of a driver
    -- using an abstract component.
 
-   abstract Driver_Crazyflie_BLE_Protocol
+   abstract driver
    properties
       Deployment::Configuration_Type
-        => classifier (ocarina_drivers::configuration_type_serial);
+        => classifier (ocarina_drivers::configuration_type_bluetooth);
       Deployment::Version  => "0.1beta";
       Deployment::Help     => "Write your ASN.1 configuration here";
-   end Driver_Crazyflie_BLE_Protocol;
+   end driver;
 
-   abstract implementation Driver_Crazyflie_BLE_Protocol.impl
+   abstract implementation driver.Crazyflie_BLE
    subcomponents
       receiver : thread Driver_Crazyflie_BLE_Protocol_thread_receiver.impl;
       sender : subprogram Send;
-   end Driver_Crazyflie_BLE_Protocol.impl;
+   end driver.Crazyflie_BLE;
 
    -------------
    -- THREADS --
@@ -2017,39 +1970,14 @@ public
 end Crazyflie_BLE;
 package Client_BLE
 
--- This package models a UART-based protocol layer for the
--- PolyORB-HI/Ada AADL runtime, based on the GRUART chipset from
--- AEROFlex Gaisler. It defines the subprograms and threads to be
--- integrated with the runtime low level interface.
---
-
+-- To configure this interface, you should use the
+-- Deployment::Configuration property with the following format:
+--     "bluetooth CHANNEL DATARATE ADDRESS"
 
 public
 
    with Deployment;
    with Generic_Bus;
-
-   ------------
-   -- DEVICE --
-   ------------
-
-   -- The main entrypoint for this package is this device, it relies
-   -- on the 'Implement_As' feature that defines its full
-   -- specification.
-
-   device Client_BLE_Device
-   features
-      DB9_Wire : requires bus access Generic_Bus::Generic_Bus.impl;
-      -- Connection to the remote node
-
-   end Client_BLE_Device;
-
-   device implementation Client_BLE_Device.impl
-   properties
-      Device_Driver =>
-         classifier (Client_BLE::Driver_Client_BLE_Protocol.impl);
-      Initialize_Entrypoint => classifier (Client_BLE::Initialize);
-   end Client_BLE_Device.impl;
 
    ------------
    -- DRIVER --
@@ -2058,19 +1986,19 @@ public
    -- In AADLv2, we can model the actual implementation of a driver
    -- using an abstract component.
 
-   abstract Driver_Client_BLE_Protocol
+   abstract driver
    properties
       Deployment::Configuration_Type
-        => classifier (ocarina_drivers::configuration_type_serial);
+        => classifier (ocarina_drivers::configuration_type_bluetooth);
       Deployment::Version  => "0.1beta";
       Deployment::Help     => "Write your ASN.1 configuration here";
-   end Driver_Client_BLE_Protocol;
+   end driver;
 
-   abstract implementation Driver_Client_BLE_Protocol.impl
+   abstract implementation driver.Client_BLE
    subcomponents
       receiver : thread Driver_Client_BLE_Protocol_thread_receiver.impl;
       sender : subprogram Send;
-   end Driver_Client_BLE_Protocol.impl;
+   end driver.Client_BLE;
 
    -------------
    -- THREADS --
