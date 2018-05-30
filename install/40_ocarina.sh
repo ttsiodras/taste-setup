@@ -4,9 +4,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function overWriteAADLcomponents()
 {
-    # Install Maxime's customized version of available deployment targets
-    echo Installing customized version of available deployment targets...
-    cat ../misc/supported-platforms/ocarina_components.aadl  | \
+    # Install TASTE customized version of available deployment targets
+    # Also done in misc, but doing it here allows standalone update of ocarina
+    echo Installing TASTE-supported deployment targets
+    cat ../misc/aadl-library/ocarina_components.aadl  | \
         sed "s,/home/taste/tool-inst,$(taste-config --prefix)," > \
         "${PREFIX}/share/ocarina/AADLv2/ocarina_components.aadl"
 }
