@@ -16,6 +16,6 @@ install:
 	@cp taste*.aadl $(shell ocarina-config --resources)/AADLv2
 	@cp TASTE*.aadl ../../ellidiss-GUI/TASTE-linux/config
 	@cp TASTE*.aadl ../../ellidiss-GUI/TASTE-linux64/config
-	@cp TASTE*.aadl ../../ellidiss-GUI/TASTE-v1-linux/config
+	@#cp TASTE*.aadl ../../ellidiss-GUI/TASTE-v1-linux/config
 	@mkdir -p $(shell taste-config --prefix)/share/config_ellidiss
 	@cp TASTE*.aadl $(shell taste-config --prefix)/share/config_ellidiss  # legacy
