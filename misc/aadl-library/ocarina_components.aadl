@@ -2643,7 +2643,7 @@ properties
    Scheduler_Quantum => 0 Ms;
    Preemptive_Scheduler => true;
    Deployment::Execution_Platform => LEON_RTEMS_POSIX;
-   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rtems-5.1-2018.03.12/sparc-rtems5/leon3";
+   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rtems-5.1-2018.03.08/sparc-rtems5/leon3";
 end leon3.rtems51_posix;
 
 processor implementation gr712.rtems51_posix
@@ -2653,7 +2653,7 @@ properties
    Scheduler_Quantum => 0 Ms;
    Preemptive_Scheduler => true;
    Deployment::Execution_Platform => LEON_RTEMS_POSIX;
-   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rtems-5.1-2018.03.12/sparc-rtems5/gr712rc:CFLAGS=-DCONFIGURE_SMP_APPLICATION -DCONFIGURE_MAXIMUM_PROCESSORS=2 ";
+   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rtems-5.1-2018.03.08/sparc-rtems5/gr712rc:CFLAGS=-DCONFIGURE_SMP_APPLICATION -DCONFIGURE_MAXIMUM_PROCESSORS=2 ";
 end gr712.rtems51_posix;
 
 processor implementation gr740.rtems51_posix
@@ -2663,7 +2663,7 @@ properties
    Scheduler_Quantum => 0 Ms;
    Preemptive_Scheduler => true;
    Deployment::Execution_Platform => LEON_RTEMS_POSIX;
-   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rtems-5.1-2018.03.12/sparc-rtems5/gr740:CFLAGS=-DCONFIGURE_SMP_APPLICATION -DCONFIGURE_MAXIMUM_PROCESSORS=4 ";
+   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rtems-5.1-2018.03.08/sparc-rtems5/gr740:CFLAGS=-DCONFIGURE_SMP_APPLICATION -DCONFIGURE_MAXIMUM_PROCESSORS=4 ";
 end gr740.rtems51_posix;
 
 -- GAISLER targets
