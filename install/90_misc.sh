@@ -29,10 +29,8 @@ cp peek-poke/PeekPoke.glade ${PREFIX}/share/peekpoke/PeekPoke.glade || exit 1
 # Helper scripts
 cp -a helper-scripts/* ${PREFIX}/bin/
 
-# Our own version (potentially with patches) of the AADL configuration files
-mkdir -p ${PREFIX}/share/config_ellidiss || exit 1
-cp ellidiss/TASTE_IV_Properties.aadl ${PREFIX}/share/config_ellidiss || exit 1
-cp ellidiss/TASTE_DV_Properties.aadl ${PREFIX}/share/config_ellidiss || exit 1
+# Copy AADL Libraries to Ocarina and ellidiss folders
+make -C aadl-library install
 
 # Ellidiss - point the PATH to the repo
 # REAL_ELLIDISS=$(realpath "${DIR}/../ellidiss-GUI/TASTE-linux/bin")

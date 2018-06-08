@@ -6,9 +6,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 mkdir -p ${PREFIX}/share/asn1scc/ || exit 1
 cd ${PREFIX}/share/  || exit 1
 ASN1SCC_BIN=$(which asn1.exe)
-VER=$(mono ~/GitHub/asn1scc/Asn1f4/bin/Debug/a/asn1scc/asn1.exe -v | grep ^FullSemVer | awk '{print $NF}')
-if [ "${VER}" != "3.3.10-ASN1SCC-V4.1+317" ] ; then
-    wget -q -O - https://github.com/ttsiodras/asn1scc/releases/download/4.1/asn1scc-bin-4.1.tar.bz2 \
+VER=$(mono ~/tool-inst/share/asn1scc/asn1.exe -v | grep ^FullSemVer | awk '{print $NF}')
+if [ "${VER}" != "3.3.10-ASN1SCC-V4.1+342" ] ; then
+    wget -q -O - https://github.com/ttsiodras/asn1scc/releases/download/4.1b/asn1scc-bin-4.1b.tar.bz2 \
         | tar jxvf -
 fi
 
