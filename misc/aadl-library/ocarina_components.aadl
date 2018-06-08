@@ -2625,8 +2625,8 @@ end leon2;
 processor leon3 extends leon
 end leon3;
 
-processor gr712 extends leon
-end gr712;
+processor gr712rc extends leon
+end gr712rc;
 
 processor n2x extends leon
 end n2x;
@@ -2646,7 +2646,17 @@ properties
    EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rtems-5.1-2018.03.08/sparc-rtems5/leon3";
 end leon3.rtems51_posix;
 
-processor implementation gr712.rtems51_posix
+processor implementation n2x.rtems51_posix
+properties
+   Scheduling_Protocol => (Posix_1003_Highest_Priority_First_Protocol);
+   Priority_Range => 0 .. 255;
+   Scheduler_Quantum => 0 Ms;
+   Preemptive_Scheduler => true;
+   Deployment::Execution_Platform => LEON_RTEMS_POSIX;
+   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rtems-5.1-2018.03.08/sparc-rtems5/leon3:CFLAGS=-DCONFIGURE_SMP_APPLICATION -DCONFIGURE_MAXIMUM_PROCESSORS=4 ";
+end n2x.rtems51_posix;
+
+processor implementation gr712rc.rtems51_posix
 properties
    Scheduling_Protocol => (Posix_1003_Highest_Priority_First_Protocol);
    Priority_Range => 0 .. 255;
@@ -2654,7 +2664,7 @@ properties
    Preemptive_Scheduler => true;
    Deployment::Execution_Platform => LEON_RTEMS_POSIX;
    EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rtems-5.1-2018.03.08/sparc-rtems5/gr712rc:CFLAGS=-DCONFIGURE_SMP_APPLICATION -DCONFIGURE_MAXIMUM_PROCESSORS=2 ";
-end gr712.rtems51_posix;
+end gr712rc.rtems51_posix;
 
 processor implementation gr740.rtems51_posix
 properties
@@ -2677,6 +2687,16 @@ properties
    Deployment::Execution_Platform => LEON_RTEMS_POSIX;
    EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rcc-1.3-rc4/sparc-gaisler-rtems5/leon3";
 end leon3.rcc13rc4_posix;
+
+processor implementation gr712rc.rcc13rc4_posix
+properties
+   Scheduling_Protocol => (Posix_1003_Highest_Priority_First_Protocol);
+   Priority_Range => 0 .. 255;
+   Scheduler_Quantum => 0 Ms;
+   Preemptive_Scheduler => true;
+   Deployment::Execution_Platform => LEON_RTEMS_POSIX;
+   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rcc-1.3-rc4/sparc-gaisler-rtems5/gr712rc_smp:CFLAGS=-DCONFIGURE_SMP_APPLICATION -DCONFIGURE_MAXIMUM_PROCESSORS=2 ";
+end gr712rc.rcc13rc4_posix;
 
 processor implementation n2x.rcc13rc4_posix
 properties
