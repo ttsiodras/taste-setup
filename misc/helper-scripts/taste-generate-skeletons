@@ -8,6 +8,9 @@ myfifo=/tmp/$$$RANDOM
 mkfifo $myfifo
 tail -f $myfifo | taste-progress-dialog.py &
 
+mkdir -p .cache
+export PROJECT_CACHE=$(pwd)/.cache
+
 function quit {
     echo '100 Completed' > $myfifo
     rm $myfifo
