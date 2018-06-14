@@ -150,7 +150,7 @@ public
       Source_Language               => (ASN1);
       Source_Text                   => ("/home/taste/tool-inst/include/ocarina/runtime/polyorb-hi-c/src/drivers/configuration/bluetooth.asn", "drivers/configuration/bluetooth.h");
    end configuration_type_bluetooth;
-   
+
   --------------
   -- Keyboard --
   --------------
@@ -265,7 +265,7 @@ public
     Initialize_Entrypoint      => classifier (ocarina_drivers_apbuart_serial::spg_serial_init);
     Provided_Virtual_Bus_Class => (classifier (ocarina_buses::raw.i));
   end rasta_serial.apbuart_drvmgr;
-  
+
   device implementation rasta_serial.pohiada
   properties
     Deployment::Driver_Name    => "serial_rasta";
@@ -317,7 +317,7 @@ public
       classifier (ocarina_drivers_grspw_packet::spg_grspw_packet_init_rasta);
     Provided_Virtual_Bus_Class    => (classifier (ocarina_buses::pohi.c));
   end rasta_spacewire.grspw_pohic;
-  
+
   device implementation rasta_spacewire.pohiada
   properties
     Deployment::Driver_Name       => "spacewire_rasta";
@@ -343,7 +343,7 @@ public
     Initialize_Entrypoint         => classifier (ocarina_drivers_scoc3_spacewire::spg_init);
     Provided_Virtual_Bus_Class    => (classifier (ocarina_buses::pohi.c));
   end scoc3_spacewire.pohic;
-  
+
   ---------------------------
   -- STM32F4 serial driver --
   ---------------------------
@@ -360,7 +360,7 @@ public
     Initialize_Entrypoint         => classifier (STM32F4_UART::Initialize);
     Provided_Virtual_Bus_Class    => (classifier (ocarina_buses::raw.i));
   end STM32F4_serial.pohiada;
-  
+
   --------------------------
   -- Crazyflie BLE driver --
   --------------------------
@@ -377,7 +377,7 @@ public
     Initialize_Entrypoint         => classifier (Crazyflie_BLE::Initialize);
     Provided_Virtual_Bus_Class    => (classifier (ocarina_buses::raw.i));
   end Crazyflie_BLE.pohiada;
-  
+
   --------------------------
   -- Crazyflie BLE driver --
   --------------------------
@@ -652,9 +652,9 @@ end thr_poller;
 
 thread implementation thr_poller.i
 calls
-	mycall : {
-	  pspg : subprogram spg_poller;
-	};
+        mycall : {
+          pspg : subprogram spg_poller;
+        };
 connections
    parameter pspg.data1 -> data1;
    parameter pspg.data2 -> data2;
@@ -753,9 +753,9 @@ end thr_poller;
 
 thread implementation thr_poller.i
 calls
-	mycall : {
-	  pspg : subprogram spg_poller;
-	};
+        mycall : {
+          pspg : subprogram spg_poller;
+        };
 connections
    parameter pspg.data1 -> data1;
    parameter pspg.data2 -> data2;
@@ -810,8 +810,8 @@ with Deployment;
 
 subprogram spg_generic_keyboard_init
 properties
-	Source_Language   => (C);
-	Source_Name       => "__po_hi_driver_generic_keyboard_init";
+        Source_Language   => (C);
+        Source_Name       => "__po_hi_driver_generic_keyboard_init";
 end spg_generic_keyboard_init;
 
 
@@ -822,9 +822,9 @@ end keyboard_poller;
 
 thread implementation keyboard_poller.i
 calls
-	mycall : {
-	  pspg : subprogram spg_generic_keyboard_poller;
-	};
+        mycall : {
+          pspg : subprogram spg_generic_keyboard_poller;
+        };
 connections
    parameter pspg.key_pressed -> key_pressed;
 properties
@@ -837,8 +837,8 @@ subprogram spg_generic_keyboard_poller
 features
    key_pressed : out parameter Base_Types::Integer;
 properties
-	Source_Language   => (C);
-	Source_Name       => "__po_hi_driver_generic_keyboard_poller";
+        Source_Language   => (C);
+        Source_Name       => "__po_hi_driver_generic_keyboard_poller";
 end spg_generic_keyboard_poller;
 
 abstract generic_keyboard_driver
@@ -861,7 +861,7 @@ end generic_keyboard_driver.i;
 end ocarina_drivers_generic_keyboard;
 package Generic_Native
 
--- This package models a generic native platform with one generic bus. 
+-- This package models a generic native platform with one generic bus.
 --
 -- Native platforms are GNU/Linux variants, MacOS X, Solaris, Windows,
 -- ...
@@ -913,14 +913,14 @@ package GR_CPCI_X4CV
 public
   with Deployment;
   with Generic_Bus;
-  
+
   ---------------
   -- PROCESSOR --
   ---------------
 
   -- The Rasta board has one LEON2 processor, 3 SpW cores and several
-  -- UARTS.  
-  -- 
+  -- UARTS.
+  --
   -- SpaceWire cores and UARTS are connected to separate bus, of type
   -- Generic_Bus.impl.
 
@@ -1239,21 +1239,21 @@ with ocarina_drivers;
 
 subprogram spg_leon_eth_poller
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_eth_leon_poller";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_eth_leon_poller";
 end spg_leon_eth_poller;
 
 
 subprogram spg_leon_eth_sender
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_eth_leon_sender";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_eth_leon_sender";
 end spg_leon_eth_sender;
 
 subprogram spg_leon_eth_init
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_eth_leon_init";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_eth_leon_init";
 end spg_leon_eth_init;
 
 thread thr_poller
@@ -1262,9 +1262,9 @@ end thr_poller;
 
 thread implementation thr_poller.i
 calls
-	mycall : {
-	  pspg : subprogram spg_leon_eth_poller;
-	};
+        mycall : {
+          pspg : subprogram spg_leon_eth_poller;
+        };
 properties
    Period => 1000ms;
    Dispatch_Protocol => Periodic;
@@ -1299,27 +1299,27 @@ with ocarina_drivers;
 
 subprogram spg_serial_poller_leon
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_serial_leon_poller";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_serial_leon_poller";
 end spg_serial_poller_leon;
 
 
 subprogram spg_serial_sender_leon
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_serial_leon_sender";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_serial_leon_sender";
 end spg_serial_sender_leon;
 
 subprogram spg_serial_init_leon
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_serial_leon_init";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_serial_leon_init";
 end spg_serial_init_leon;
 
 subprogram spg_serial_init_leon_sender
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_serial_leon_init_sender";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_serial_leon_init_sender";
 end spg_serial_init_leon_sender;
 
 thread serial_poller
@@ -1328,9 +1328,9 @@ end serial_poller;
 
 thread implementation serial_poller.leon
 calls
-	mycall : {
-	  pspg : subprogram spg_serial_poller_leon;
-	};
+        mycall : {
+          pspg : subprogram spg_serial_poller_leon;
+        };
 properties
    Period => 1000ms;
    Dispatch_Protocol => Periodic;
@@ -1499,40 +1499,40 @@ with Deployment;
 
 subprogram spg_1553_controller_rasta
 properties
-	Source_Language   => (C);
-	Source_Name       => "__po_hi_c_driver_1553_rasta_controller";
+        Source_Language   => (C);
+        Source_Name       => "__po_hi_c_driver_1553_rasta_controller";
 end spg_1553_controller_rasta;
 
 subprogram spg_1553_poller_rasta_terminal
 properties
-	Source_Language   => (C);
-	Source_Name       => "__po_hi_c_driver_1553_rasta_terminal_poller";
+        Source_Language   => (C);
+        Source_Name       => "__po_hi_c_driver_1553_rasta_terminal_poller";
 end spg_1553_poller_rasta_terminal;
 
 subprogram spg_1553_sender_rasta_controller
 properties
-	Source_Language   => (C);
-	Source_Name       => "__po_hi_c_driver_1553_rasta_sender_controller";
+        Source_Language   => (C);
+        Source_Name       => "__po_hi_c_driver_1553_rasta_sender_controller";
 end spg_1553_sender_rasta_controller;
 
 subprogram spg_1553_sender_rasta_terminal
 properties
-	Source_Language   => (C);
-	Source_Name       => "__po_hi_c_driver_1553_rasta_sender_terminal";
+        Source_Language   => (C);
+        Source_Name       => "__po_hi_c_driver_1553_rasta_sender_terminal";
 end spg_1553_sender_rasta_terminal;
 
 
 subprogram spg_1553_init_rasta_controller
 properties
-	Source_Language   => (C);
-	Source_Name       => "__po_hi_c_driver_1553_rasta_init_controller";
+        Source_Language   => (C);
+        Source_Name       => "__po_hi_c_driver_1553_rasta_init_controller";
 end spg_1553_init_rasta_controller;
 
 
 subprogram spg_1553_init_rasta_terminal
 properties
-	Source_Language   => (C);
-	Source_Name       => "__po_hi_c_driver_1553_rasta_init_terminal";
+        Source_Language   => (C);
+        Source_Name       => "__po_hi_c_driver_1553_rasta_init_terminal";
 end spg_1553_init_rasta_terminal;
 
 
@@ -1542,9 +1542,9 @@ end if1553_poller;
 
 thread implementation if1553_poller.rasta_terminal
 calls
-	mycall : {
-	  pspg : subprogram spg_1553_poller_rasta_terminal;
-	};
+        mycall : {
+          pspg : subprogram spg_1553_poller_rasta_terminal;
+        };
 properties
    Period => 2000ms;
    Dispatch_Protocol => Periodic;
@@ -1555,9 +1555,9 @@ end if1553_controller;
 
 thread implementation if1553_controller.rasta
 calls
-	mycall : {
-	  pspg : subprogram spg_1553_controller_rasta;
-	};
+        mycall : {
+          pspg : subprogram spg_1553_controller_rasta;
+        };
 properties
    Period => 4000ms;
    Dispatch_Protocol => Periodic;
@@ -1603,15 +1603,15 @@ with ocarina_drivers;
 
 subprogram spg_serial_poller_rasta
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_serial_rasta_poller";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_serial_rasta_poller";
 end spg_serial_poller_rasta;
 
 
 subprogram spg_serial_sender_rasta
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_serial_rasta_sender";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_serial_rasta_sender";
 end spg_serial_sender_rasta;
 
 
@@ -1619,8 +1619,8 @@ end spg_serial_sender_rasta;
 
 subprogram spg_serial_init_rasta
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_serial_rasta_init";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_serial_rasta_init";
 end spg_serial_init_rasta;
 
 
@@ -1630,9 +1630,9 @@ end serial_poller;
 
 thread implementation serial_poller.rasta
 calls
-	mycall : {
-	  pspg : subprogram spg_serial_poller_rasta;
-	};
+        mycall : {
+          pspg : subprogram spg_serial_poller_rasta;
+        };
 properties
    Period => 1000ms;
    Dispatch_Protocol => Periodic;
@@ -1661,20 +1661,20 @@ with Deployment;
 
 subprogram spg_spacewire_poller_rasta
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_spacewire_rasta_poller";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_spacewire_rasta_poller";
 end spg_spacewire_poller_rasta;
 
 subprogram spg_spacewire_sender_rasta
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_spacewire_rasta_sender";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_spacewire_rasta_sender";
 end spg_spacewire_sender_rasta;
 
 subprogram spg_spacewire_init_rasta
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_spacewire_rasta_init";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_spacewire_rasta_init";
 end spg_spacewire_init_rasta;
 
 
@@ -1683,9 +1683,9 @@ end spacewire_poller;
 
 thread implementation spacewire_poller.rasta
 calls
-	mycall : {
-	  pspg : subprogram spg_spacewire_poller_rasta;
-	};
+        mycall : {
+          pspg : subprogram spg_spacewire_poller_rasta;
+        };
 properties
    Period => 1000ms;
    Dispatch_Protocol => Periodic;
@@ -1715,20 +1715,20 @@ with Deployment;
 
 subprogram spg_poller
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_spacewire_scoc3_poller";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_spacewire_scoc3_poller";
 end spg_poller;
 
 subprogram spg_sender
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_spacewire_scoc3_sender";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_spacewire_scoc3_sender";
 end spg_sender;
 
 subprogram spg_init
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_spacewire_scoc3_init";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_spacewire_scoc3_init";
 end spg_init;
 
 
@@ -1737,9 +1737,9 @@ end thr_poller;
 
 thread implementation thr_poller.i
 calls
-	mycall : {
-	  pspg : subprogram spg_poller;
-	};
+        mycall : {
+          pspg : subprogram spg_poller;
+        };
 properties
    Period => 1000ms;
    Dispatch_Protocol => Periodic;
@@ -2080,20 +2080,20 @@ with Deployment;
 
 subprogram spg_poller
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_spw_usb_brick_poller";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_spw_usb_brick_poller";
 end spg_poller;
 
 subprogram spg_sender
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_spw_usb_brick_sender";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_spw_usb_brick_sender";
 end spg_sender;
 
 subprogram spg_init
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_spw_usb_brick_init";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_spw_usb_brick_init";
 end spg_init;
 
 
@@ -2102,9 +2102,9 @@ end thr_poller;
 
 thread implementation thr_poller.i
 calls
-	mycall : {
-	  pspg : subprogram spg_poller;
-	};
+        mycall : {
+          pspg : subprogram spg_poller;
+        };
 properties
    Period => 1000ms;
    Dispatch_Protocol => Periodic;
@@ -2134,34 +2134,34 @@ with ocarina_drivers;
 
 subprogram spg_serial_poller_linux
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_serial_linux_poller";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_serial_linux_poller";
 end spg_serial_poller_linux;
 
 
 subprogram spg_serial_sender_linux
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_serial_linux_sender";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_serial_linux_sender";
 end spg_serial_sender_linux;
 
 
 subprogram spg_serial_init_linux
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_serial_linux_init";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_serial_linux_init";
 end spg_serial_init_linux;
 
 subprogram spg_serial_init_linux_sender
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_serial_linux_init_sender";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_serial_linux_init_sender";
 end spg_serial_init_linux_sender;
 
 subprogram spg_serial_init_linux_receiver
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_serial_linux_init_receiver";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_serial_linux_init_receiver";
 end spg_serial_init_linux_receiver;
 
 thread serial_poller
@@ -2169,9 +2169,9 @@ end serial_poller;
 
 thread implementation serial_poller.linux
 calls
-	mycall : {
-	  pspg : subprogram spg_serial_poller_linux;
-	};
+        mycall : {
+          pspg : subprogram spg_serial_poller_linux;
+        };
 properties
    Period => 1000ms;
    Dispatch_Protocol => Periodic;
@@ -2211,15 +2211,15 @@ with ocarina_drivers;
 
 subprogram spg_sockets_init
 properties
-	Source_Language   => (C);
-	Source_Name       => "__po_hi_driver_sockets_init";
+        Source_Language   => (C);
+        Source_Name       => "__po_hi_driver_sockets_init";
 end spg_sockets_init;
 
 
 subprogram spg_eth_linux_sender
 properties
-	Source_Language   => (C);
-	Source_Name       => "__po_hi_driver_sockets_send";
+        Source_Language   => (C);
+        Source_Name       => "__po_hi_driver_sockets_send";
 end spg_eth_linux_sender;
 
 subprogram implementation spg_eth_linux_sender.i
@@ -2246,8 +2246,8 @@ with Deployment;
 
 subprogram init
 properties
-	Source_Language   => (C);
-	Source_Name       => "__po_hi_driver_rtems_ne2000_init";
+        Source_Language   => (C);
+        Source_Name       => "__po_hi_driver_rtems_ne2000_init";
 end init;
 
 thread poller
@@ -2255,9 +2255,9 @@ end poller;
 
 thread implementation poller.i
 calls
-	mycall : {
-	  pspg : subprogram spg_poller;
-	};
+        mycall : {
+          pspg : subprogram spg_poller;
+        };
 properties
    Period => 1000ms;
    Dispatch_Protocol => Periodic;
@@ -2266,15 +2266,15 @@ end poller.i;
 
 subprogram spg_poller
 properties
-	Source_Language   => (C);
-	Source_Name       => "__po_hi_driver_rtems_ne2000_poller";
+        Source_Language   => (C);
+        Source_Name       => "__po_hi_driver_rtems_ne2000_poller";
 end spg_poller;
 
 
 subprogram spg_sender
 properties
-	Source_Language   => (C);
-	Source_Name       => "__po_hi_driver_sockets_send";
+        Source_Language   => (C);
+        Source_Name       => "__po_hi_driver_sockets_send";
 end spg_sender;
 
 
@@ -2769,6 +2769,16 @@ properties
    Deployment::Execution_Platform => Native;
 end x86.linux;
 
+processor implementation x86.linux32_dll
+properties
+   Deployment::Execution_Platform => Linux32_DLL;
+end x86.linux32_dll;
+
+processor implementation x86.linux64_dll
+properties
+   Deployment::Execution_Platform => Linux64_DLL;
+end x86.linux64_dll;
+
 processor implementation x86.win32
 properties
    Deployment::Execution_Platform => win32;
@@ -2964,8 +2974,8 @@ with ocarina_drivers;
 
 subprogram spg_greth_poller
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_rtems_drvmgr_ethernet_poller";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_rtems_drvmgr_ethernet_poller";
      Source_Text => ("po_hi_driver_drvmgr_common.c",
                      "po_hi_driver_rtems_drvmgr_ethernet.c");
 end spg_greth_poller;
@@ -2973,16 +2983,16 @@ end spg_greth_poller;
 
 subprogram spg_greth_sender
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_rtems_drvmgr_ethernet_sender";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_rtems_drvmgr_ethernet_sender";
      Source_Text => ("po_hi_driver_drvmgr_common.c",
                      "po_hi_driver_rtems_drvmgr_ethernet.c");
 end spg_greth_sender;
 
 subprogram spg_greth_init
 properties
-	Source_Language => (C);
-	Source_Name => "__po_hi_c_driver_rtems_drvmgr_ethernet_init";
+        Source_Language => (C);
+        Source_Name => "__po_hi_c_driver_rtems_drvmgr_ethernet_init";
      Source_Text => ("po_hi_driver_drvmgr_common.c",
                      "po_hi_driver_rtems_drvmgr_ethernet.c");
 end spg_greth_init;
@@ -2993,9 +3003,9 @@ end thr_poller;
 
 thread implementation thr_poller.i
 calls
-	mycall : {
-	  pspg : subprogram spg_greth_poller;
-	};
+        mycall : {
+          pspg : subprogram spg_greth_poller;
+        };
 properties
    Period => 1000ms;
    Dispatch_Protocol => Periodic;
