@@ -2769,15 +2769,10 @@ properties
    Deployment::Execution_Platform => Native;
 end x86.linux;
 
-processor implementation x86.linux32_dll
+processor implementation x86.linux_dll
 properties
    Deployment::Execution_Platform => Linux32_DLL;
-end x86.linux32_dll;
-
-processor implementation x86.linux64_dll
-properties
-   Deployment::Execution_Platform => Linux64_DLL;
-end x86.linux64_dll;
+end x86.linux_dll;
 
 processor implementation x86.win32
 properties
