@@ -4,8 +4,8 @@ if [ "${TIMESTAMP}" != "Modify: 2018-06-05" ] ; then
     echo "Installing the latest RTEMS cross-compiler..."
     cd /opt || exit 1
     NEW_COMPILER_TARBALL=/tmp/newCompiler.$$.tar.gz
-    if wget -O $NEW_COMPILER_TARBALL "https://download.tuxfamily.org/taste/RTEMS/rtems-5.1-2018.03.08.tar.gz" ; then
-        sudo tar zxvf $NEW_COMPILER_TARBALL || {
+    if wget -O $NEW_COMPILER_TARBALL "https://download.tuxfamily.org/taste/RTEMS/rtems-5.1-2018.03.08.tar.bz2" ; then
+        sudo tar jxvf $NEW_COMPILER_TARBALL || {
             echo Failed to extract $NEW_COMPILER_TARBALL...
             ls -l $NEW_COMPILER_TARBALL
             echo Aborting.

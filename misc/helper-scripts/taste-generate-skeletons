@@ -8,6 +8,9 @@ myfifo=/tmp/$$$RANDOM
 mkfifo $myfifo
 tail -f $myfifo | taste-progress-dialog.py &
 
+mkdir -p .cache
+export PROJECT_CACHE=$(pwd)/.cache
+
 function quit {
     echo '100 Completed' > $myfifo
     rm $myfifo
@@ -100,15 +103,18 @@ grep "version => \"2" "$INTERFACEVIEW" >/dev/null && {
 };
 
 mkdir -p "$output_dir" 2>/dev/null && shift || output_dir=.
+mkdir -p "$output_dir"/debug
 echo -e "${INFO} Collecting ASN.1 files"
 echo '40-80 Collecting ASN.1 models' > $myfifo
 # create dataview-uniq.asn including TASTE directives (flag -j)
 mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -j "$output_dir"/dataview-uniq.asn
+cp "$output_dir"/dataview-uniq.asn "$output_dir"/debug/dataview-uniq-minus-j.asn
 echo -e "${INFO} Generating AADL data view"
 asn2aadlPlus "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq.aadl -aadlv2
-asn2aadlPlus "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq-v1.aadl
+#asn2aadlPlus "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq-v1.aadl
 # create dataview-uniq.asn excluding TASTE directives (flag -k)
 mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -k "$output_dir"/dataview-uniq.asn
+cp "$output_dir"/dataview-uniq.asn "$output_dir"/debug/dataview-uniq-minus-k.asn
 echo -e "${INFO} Parsing AADL and generating skeletons with buildsupport"
 echo '80-100 Generate code skeletons' > $myfifo
 buildsupport -i "$INTERFACEVIEW" -d "$output_dir"/dataview-uniq.aadl --gw --aadlv2 -o "$output_dir" --keep-case "$AADL_PROPERTIES" "$@"
