@@ -1,4 +1,14 @@
 #!/bin/bash
+VERSION=$(uname -v)
+case "$VERSION" in
+    *14.04*Ubuntu* ) 
+        PYTHON_OPT="" ;;
+    *16.04*Ubuntu* ) 
+        PYTHON_OPT="" ;;
+    * )
+        PYTHON_OPT="--enable-python" ;;
+esac
+
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . "${DIR}/common.sh"
 
@@ -32,7 +42,7 @@ fi
 
 make distclean # ignore any errors here
 ./support/reconfig || exit 1
-./configure --enable-python --enable-shared --prefix="${PREFIX}" || exit 1
+./configure $PYTHON_OPT --enable-shared --prefix="${PREFIX}" || exit 1
 make || exit 1
 make install
 
