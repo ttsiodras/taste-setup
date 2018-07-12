@@ -2771,7 +2771,7 @@ end x86.linux;
 
 processor implementation x86.linux_dll
 properties
-   Deployment::Execution_Platform => Linux32_DLL;
+   Deployment::Execution_Platform => Linux_DLL;
 end x86.linux_dll;
 
 processor implementation x86.win32
