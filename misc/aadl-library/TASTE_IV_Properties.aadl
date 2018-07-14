@@ -12,5 +12,6 @@ property set TASTE_IV_Properties is
     MSCFiles : aadlstring applies to (Subprogram);
     is_Component_Type : aadlboolean applies to (System);
     is_instance_of    : aadlstring applies to (System);
+    FPGA_Modes : aadlstring applies to (System);
 --    MSCFiles : list of aadlstring applies to (Subprogram);
 end TASTE_IV_Properties;

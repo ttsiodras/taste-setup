@@ -111,7 +111,7 @@ mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -j "$output_
 cp "$output_dir"/dataview-uniq.asn "$output_dir"/debug/dataview-uniq-minus-j.asn
 echo -e "${INFO} Generating AADL data view"
 asn2aadlPlus "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq.aadl -aadlv2
-#asn2aadlPlus "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq-v1.aadl
+asn2aadlPlus "$output_dir"/dataview-uniq.asn "$output_dir"/dataview-uniq-v1.aadl
 # create dataview-uniq.asn excluding TASTE directives (flag -k)
 mono $(which taste-extract-asn-from-design.exe) -i "$INTERFACEVIEW" -k "$output_dir"/dataview-uniq.asn
 cp "$output_dir"/dataview-uniq.asn "$output_dir"/debug/dataview-uniq-minus-k.asn
