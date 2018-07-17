@@ -10,9 +10,25 @@ def install_gr740_rtems410_gaisler_posix():
     """ $ $HOME/tool-src/add-ons/install-gaisler-4.10.sh """
     os.system("xterm -e $HOME/tool-src/add-ons/install-gaisler-4.10.sh")
 
+def install_gr740_rtems51_posix():
+    """ $ $HOME/tool-src/install/85_rtems.sh """
+    os.system("xterm -e $HOME/tool-src/install/85_rtems.sh")
+
+def install_gr740_rcc13rc4_posix():
+    """ $ $HOME/tool-src/add-ons/install-gaisler-rcc-1.3-rc4.sh """
+    os.system("xterm -e $HOME/tool-src/add-ons/install-gaisler-rcc-1.3-rc4.sh")
+
 def check_gr740_rtems410_gaisler_posix():
     if not os.path.isdir("/opt/rtems-4.10"):
         raise NotImplementedError(install_gr740_rtems410_gaisler_posix)
+
+def check_gr740_rtems51_posix():
+    if not os.path.isdir("/opt/rtems-5.1-2018.03.08"):
+        raise NotImplementedError(install_gr740_rtems51_posix)
+
+def check_gr740_rcc13rc4_posix():
+    if not os.path.isdir("/opt/rcc-1.3-rc4"):
+        raise NotImplementedError(install_gr740_rcc13rc4_posix)
 
 # When editing, replace dot (.) with underscore (_)
 # the TASTE GUI mixes them up if there is more than one underscore
@@ -23,8 +39,12 @@ PLATFORMS = { "crazyflie_v2_gnat"      : lambda: True,
               "leon3_rtems412_posix"   : lambda: True,
               "gr712_rtems412_posix"   : lambda: True,
               "gr740_rtems412_posix"   : lambda: True,
+              "gr740_rtems51_posix"    : 
+                  check_gr740_rtems51_posix,
               "gr740_rtems410_gaisler_posix" :
                   check_gr740_rtems410_gaisler_posix,
+              "gr740_rcc13rc4_posix"   :
+                  check_gr740_rcc13rc4_posix,
               "x86_linux"              : lambda: True,
               "x86_win32"              : lambda: True
              }
