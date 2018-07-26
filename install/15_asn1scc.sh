@@ -7,8 +7,8 @@ mkdir -p ${PREFIX}/share/asn1scc/ || exit 1
 cd ${PREFIX}/share/  || exit 1
 ASN1SCC_BIN=$(which asn1.exe)
 VER=$(mono ~/tool-inst/share/asn1scc/asn1.exe -v | grep ^FullSemVer | awk '{print $NF}')
-if [ "${VER}" != "3.3.10-ASN1SCC-V4.1+385" ] ; then
-    wget -q -O - https://github.com/ttsiodras/asn1scc/releases/download/4.1c/asn1scc-bin-4.1c.tar.bz2 \
+if [ "${VER}" != "3.3.10-ASN1SCC-V4.1+387" ] ; then
+    wget -q -O - https://github.com/ttsiodras/asn1scc/releases/download/4.1d/asn1scc-bin-4.1d.tar.bz2 \
         | tar jxvf -
 fi
 
