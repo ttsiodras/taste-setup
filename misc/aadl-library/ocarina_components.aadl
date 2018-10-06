@@ -2678,45 +2678,45 @@ end gr740.rtems51_posix;
 
 -- GAISLER targets
 
-processor implementation leon3.rcc13rc4_posix
+processor implementation leon3.rcc13rc5_posix
 properties
    Scheduling_Protocol => (Posix_1003_Highest_Priority_First_Protocol);
    Priority_Range => 0 .. 255;
    Scheduler_Quantum => 0 Ms;
    Preemptive_Scheduler => true;
    Deployment::Execution_Platform => LEON_RTEMS_POSIX;
-   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rcc-1.3-rc4/sparc-gaisler-rtems5/leon3";
-end leon3.rcc13rc4_posix;
+   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rcc-1.3-rc5-gcc/sparc-gaisler-rtems5/leon3";
+end leon3.rcc13rc5_posix;
 
-processor implementation gr712rc.rcc13rc4_posix
+processor implementation gr712rc.rcc13rc5_posix
 properties
    Scheduling_Protocol => (Posix_1003_Highest_Priority_First_Protocol);
    Priority_Range => 0 .. 255;
    Scheduler_Quantum => 0 Ms;
    Preemptive_Scheduler => true;
    Deployment::Execution_Platform => LEON_RTEMS_POSIX;
-   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rcc-1.3-rc4/sparc-gaisler-rtems5/gr712rc_smp:CFLAGS=-DCONFIGURE_SMP_APPLICATION -DCONFIGURE_MAXIMUM_PROCESSORS=2 ";
-end gr712rc.rcc13rc4_posix;
+   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rcc-1.3-rc5-gcc/sparc-gaisler-rtems5/gr712rc_smp:CFLAGS=-DCONFIGURE_SMP_APPLICATION -DCONFIGURE_MAXIMUM_PROCESSORS=2 ";
+end gr712rc.rcc13rc5_posix;
 
-processor implementation n2x.rcc13rc4_posix
+processor implementation n2x.rcc13rc5_posix
 properties
    Scheduling_Protocol => (Posix_1003_Highest_Priority_First_Protocol);
    Priority_Range => 0 .. 255;
    Scheduler_Quantum => 0 Ms;
    Preemptive_Scheduler => true;
    Deployment::Execution_Platform => LEON_RTEMS_POSIX;
-   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rcc-1.3-rc4/sparc-gaisler-rtems5/leon3_smp:CFLAGS=-DCONFIGURE_SMP_APPLICATION -DCONFIGURE_MAXIMUM_PROCESSORS=4 ";
-end n2x.rcc13rc4_posix;
+   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rcc-1.3-rc5-gcc/sparc-gaisler-rtems5/leon3_smp:CFLAGS=-DCONFIGURE_SMP_APPLICATION -DCONFIGURE_MAXIMUM_PROCESSORS=4 ";
+end n2x.rcc13rc5_posix;
 
-processor implementation gr740.rcc13rc4_posix
+processor implementation gr740.rcc13rc5_posix
 properties
    Scheduling_Protocol => (Posix_1003_Highest_Priority_First_Protocol);
    Priority_Range => 0 .. 255;
    Scheduler_Quantum => 0 Ms;
    Preemptive_Scheduler => true;
    Deployment::Execution_Platform => LEON_RTEMS_POSIX;
-   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rcc-1.3-rc4/sparc-gaisler-rtems5/gr740_smp:CFLAGS=-DCONFIGURE_SMP_APPLICATION -DCONFIGURE_MAXIMUM_PROCESSORS=4 ";
-end gr740.rcc13rc4_posix;
+   EnvVars => "RTEMS_MAKEFILE_PATH_LEON=/opt/rcc-1.3-rc5-gcc/sparc-gaisler-rtems5/gr740_smp:CFLAGS=-DCONFIGURE_SMP_APPLICATION -DCONFIGURE_MAXIMUM_PROCESSORS=4 ";
+end gr740.rcc13rc5_posix;
 
 --   processor implementation leon.ork
 --   properties

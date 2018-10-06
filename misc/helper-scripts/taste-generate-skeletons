@@ -124,6 +124,7 @@ then
     ret=0
 else
     echo -e "${ERROR} Generation of code skeletons failed"
+    rm -f InterfaceView.md5
     ret=1
 fi
 cp -f __interfaceview-v2.aadl "$INTERFACEVIEW" 2>/dev/null || :

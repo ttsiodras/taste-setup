@@ -42,6 +42,8 @@ then
     EXTRA_CMD+=' InterfaceView.aadl' 
     EXTRA_CMD+=" --aadl-library $(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl "
 else
+    # Update path to Ocarina Components in the deployment view
+    sed -i "s,HWLibraries.*,HWLibraries => (\"$(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl\");," DeploymentView.aadl 
     EXTRA_CMD+=' --load-deployment-view DeploymentView.aadl '
 fi
 
