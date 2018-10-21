@@ -11,8 +11,8 @@ if [ "${ARCH}" == "x86_64" ] ; then
 fi
 
 VERSION=$(uname -v)
-echo "Checking whether running inside CI environment..."
-if [ ! -z "${CI}" ] ; then
+echo "Checking whether running inside Docker-ized Debian environment..."
+if [ -f /.dockerenv ] ; then
     VERSION=DockerizedDebian
 fi
 echo "Version detected: ${VERSION}"
