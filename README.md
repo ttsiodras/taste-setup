@@ -1,3 +1,5 @@
+[![Build and Test Status of Data Modelling Tools on Circle CI](https://circleci.com/gh/ttsiodras/taste-setup.svg?style=shield)](https://circleci.com/gh/ttsiodras/taste-setup/tree/master)
+
 TASTE
 =====
 
