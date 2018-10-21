@@ -1,11 +1,13 @@
 #!/bin/bash
 export TASTE_IN_DOCKER=1 
 export CIRCLECI 
+export CI
 docker run \
     -e DISPLAY \
     -e CIRCLE_BRANCH \
     -e TASTE_IN_DOCKER \
     -e CIRCLECI \
+    -e CI \
     -v "${CIRCLE_ARTIFACTS}":"${CIRCLE_ARTIFACTS}" \
     -e CIRCLE_ARTIFACTS \
     -it taste \
