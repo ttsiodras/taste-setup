@@ -11,9 +11,11 @@ if [ "${ARCH}" == "x86_64" ] ; then
 fi
 
 VERSION=$(uname -v)
-if [ ! -z "${CIRCLECI}" ] ; then
-    VERSION=DockeredDebian
+echo "Checking whether running inside CI environment..."
+if [ ! -z "${CI}" ] ; then
+    VERSION=DockerizedDebian
 fi
+echo "Version detected: ${VERSION}"
 
 case "$VERSION" in
     *14.04*Ubuntu* )
