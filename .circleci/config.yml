@@ -16,4 +16,4 @@ jobs:
           command: ./circleci-test.sh
 
       - store_artifacts:
-          path: 
+          path: artifacts
