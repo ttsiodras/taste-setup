@@ -7,10 +7,13 @@ jobs:
       - restore_cache:
           key: docker-{{ checksum "Dockerfile" }}
       - run:
-          command: if [[ -e ~/docker/image.tar ]]; then docker load --input ~/docker/image.tar; else docker build -t taste . && { mkdir -p ~/docker; docker save taste > ~/docker/image.tar ; } ; fi
+          command: if [[ -e ~/docker/image.tar ]]; then docker load --input ~/docker/image.tar; else docker build --build-arg CI=true -t taste . && { mkdir -p ~/docker; docker save taste > ~/docker/image.tar ; } ; fi
       - save_cache:
           key: docker-{{ checksum "Dockerfile" }}
           paths:
             - ~/docker
       - run:
           command: ./circleci-test.sh
+
+      - store_artifacts:
+          path: 
