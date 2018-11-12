@@ -19,7 +19,7 @@ echo "[-] Checking whether a local postgres DB install has a 'taste' user..."
 echo | psql -U taste postgres  2>/dev/null
 if [ $? -ne 0 ] ; then
     echo "[-] Adding a 'taste' DB user..."
-    sudo su - postgres -c psql <<< \
+    sudo su - postgres -c psql -h 127.0.0.1 <<< \
         "create user taste with password 'tastedb'; alter user taste with superuser;" >/dev/null
     if [ $? -ne 0 ] ; then
         echo "[x] Failed to create DB user 'taste'... Aborting."
