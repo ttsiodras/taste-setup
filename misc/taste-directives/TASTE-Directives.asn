@@ -22,8 +22,8 @@ Taste-directive ::= CHOICE
 {
    simulink-initializer-excel Simulink-Initializer-Excel-T,
    simulink-script            Simulink-Script-T,
-   compiler-option            IA5String (SIZE(1..512)),
-   linker-option              IA5String (SIZE(1..512))
+   compiler-option            IA5String (SIZE(1..2048)),
+   linker-option              IA5String (SIZE(1..2048))
 }
 
 
