@@ -7,7 +7,7 @@ property set Taste is
 
    --  Position_In_File is used in DataView.aadl for the GUI to point to the lines
    --  where datatypes are defined
-   Position_In_File: type record ( line : aadlinteger ; column: aadlinteger ; );
+   Position_In_File: record ( line : aadlinteger ; column: aadlinteger ; ) applies to (data);
 
     Fill_Color : aadlstring applies to
    (system, device, processor, process, bus);
