@@ -21,7 +21,7 @@ RUN echo "HEAD /" | nc `cat /tmp/host_ip.txt` 8000 | grep squid-deb-proxy \
   && (echo "Acquire::http::Proxy::ppa.launchpad.net DIRECT;" >> /etc/apt/apt.conf.d/30proxy) \
   || echo "No squid-deb-proxy detected on docker host"
 RUN bash -c 'export DEBIAN_FRONTEND=noninteractive ; apt-get -y install git sudo'
-RUN bash -c 'cd /root ; git clone https://gitrepos.estec.esa.int/taste/taste-setup.git tool-src'
+RUN bash -c 'cd /root ; git clone https://github.com/ttsiodras/taste-setup.git tool-src'
 
 # The following pieces correspond to the execution of Update-TASTE.sh ;
 # but the execution has to be broken down into steps, so that Docker
