@@ -65,8 +65,11 @@ def abortFunction():
             for v in g_completeLog[k]:
                 timestamp, kind, _, message, receiver, messageParams, order = v
                 if type(messageParams) == list:
-                    messageParams = ''.join(messageParams)
-                messageParams = re.sub(r'^\w+\s*', '', messageParams)
+                    messageParams = ', '.join(
+                        re.sub(r'^\w+\s*', '', p)
+                        for p in messageParams)
+                else:
+                    messageParams = re.sub(r'^\w+\s*', '', messageParams)
                 first = "in" if kind == 'TM' else 'out'
                 second = "from" if kind == 'TM' else 'to'
                 # message format is PIName:PARAM. remove PARAM
