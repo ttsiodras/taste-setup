@@ -6,7 +6,7 @@ case "$VERSION" in
     *16.04*Ubuntu* ) 
         PYTHON_OPT="" ;;
     * )
-        PYTHON_OPT="--enable-python" ;;
+        PYTHON_OPT="" ;;
 esac
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
