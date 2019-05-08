@@ -52,3 +52,6 @@
 [submodule "upython-taste"]
 	path = upython-taste
 	url = https://gitrepos.estec.esa.int/taste/uPython-mirror.git
+[submodule "AADLib"]
+	path = AADLib
+	url = https://gitrepos.estec.esa.int/taste/AADLib
