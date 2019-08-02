@@ -2,13 +2,16 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . ${DIR}/common.sh
 
-pip2 freeze | grep numpy >/dev/null \
-    || pip2 install --user --upgrade numpy || exit 1
-pip2 freeze | grep singledispatch >/dev/null \
-    || pip2 install --user --upgrade singledispatch || exit 1
-pip2 freeze | grep stringtemplate3 >/dev/null \
-    || pip2 install --user --upgrade stringtemplate3 || exit 1
-pip2 freeze | grep enum34 >/dev/null \
-    || pip2 install --user --upgrade enum34 || exit 1
-pip2 freeze | grep ply==3.4 >/dev/null \
-    || pip2 install --user --upgrade 'ply==3.4' || exit 1
+cd ${DIR}
+pip2 freeze > allPyPackages.txt
+
+for LIB in numpy singledispatch stringtemplate3 enum34 'ply==3.4' ; do
+    echo "Upgrading ${LIB}..."
+    grep "${LIB}" allPyPackages.txt >/dev/null \
+        || pip2 install --user --upgrade "${LIB}" || {
+        rm -f allPyPackages.txt
+        exit 1
+    }
+done
+
+rm -f allPyPackages.txt
