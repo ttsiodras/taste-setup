@@ -55,3 +55,6 @@
 [submodule "AADLib"]
 	path = AADLib
 	url = https://gitrepos.estec.esa.int/taste/AADLib
+[submodule "air"]
+	path = air
+	url = https://gitrepos.estec.esa.int/taste/air.git
