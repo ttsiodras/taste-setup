@@ -8,8 +8,10 @@ git submodule update
 
 make || exit 1
 
-cp -u kazoo ${PREFIX}/bin || exit 1
+mkdir -p ${PREFIX}/share/kazoo || exit 1
+cp -a kazoo ${PREFIX}/share/kazoo || exit 1
+cp -a ../kazoo/templates ${PREFIX}/share/kazoo || exit 1
 
 # Add kazoo binary to the PATH
-PATH_CMD='export PATH=$PATH:'"${PREFIX}/bin"
+PATH_CMD='export PATH=$PATH:'"${PREFIX}/share/kazoo"
 UpdatePATH
