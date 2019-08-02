@@ -45,7 +45,7 @@ cd air || exit 1
 # echo -e "0\n0\n0\n0\n0\n1\n0\n1\n0\n\n" | ./configure
 # 
 # Instead, we do this - which is arguably a hack:
-cp ${DIR}/.air_config .
+../../install/air.expect || exit 1
 make || exit 1
 
 # Add to PATH
