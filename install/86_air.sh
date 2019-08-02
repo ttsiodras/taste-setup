@@ -37,7 +37,15 @@ cd air || exit 1
 # Install bare?
 # * [0]: No
 #   [1]: Yes
-echo -e "0\n0\n0\n0\n0\n1\n0\n1\n0\n\n" | ./configure
+#
+# Sadly, air's "configure" doesn't show these options in the same order;
+# e.g. under a 32bit VM the order is different to that under a 64bit VM!
+#
+# So we can't do this..
+# echo -e "0\n0\n0\n0\n0\n1\n0\n1\n0\n\n" | ./configure
+# 
+# Instead, we do this - which is arguably a hack:
+cp ${DIR}/.air_config .
 make || exit 1
 
 # Add to PATH
