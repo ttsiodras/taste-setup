@@ -2,7 +2,7 @@
 TMP=${TMP:-/tmp}
 
 if [ -t 0 ] ; then
-    COLORON="\e[1m\e[32m"
+    COLORON="\e[1m\e[31m"
     COLOROFF="\e[0m"
 else
     COLORON=""
