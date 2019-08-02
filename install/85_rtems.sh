@@ -1,10 +1,10 @@
 #!/bin/bash
-TIMESTAMP="$(stat /opt/rtems-5.1-2018.03.08 2>/dev/null | grep ^Modify | cut -c1-18)"
-if [ "${TIMESTAMP}" != "Modify: 2018-06-05" ] ; then
+TIMESTAMP="$(stat /opt/rtems-5.1-2019.07.25 2>/dev/null | grep ^Modify | cut -c1-18)"
+if [ "${TIMESTAMP}" != "Modify: 2019-07-30" ] ; then
     echo "Installing the latest RTEMS cross-compiler..."
     cd /opt || exit 1
     NEW_COMPILER_TARBALL=/tmp/newCompiler.$$.tar.gz
-    if wget -O $NEW_COMPILER_TARBALL "https://download.tuxfamily.org/taste/RTEMS/rtems-5.1-2018.03.08.tar.bz2" ; then
+    if wget -O $NEW_COMPILER_TARBALL "https://download.tuxfamily.org/taste/RTEMS/rtems-5.1-2019.07.25.tar.bz2" ; then
         sudo tar jxvf $NEW_COMPILER_TARBALL || {
             echo Failed to extract $NEW_COMPILER_TARBALL...
             ls -l $NEW_COMPILER_TARBALL
@@ -12,7 +12,7 @@ if [ "${TIMESTAMP}" != "Modify: 2018-06-05" ] ; then
             exit 1
         }
         rm -f $NEW_COMPILER_TARBALL
-        NEWBIN=/opt/rtems-5.1-2018.03.08/bin
+        NEWBIN=/opt/rtems-5.1-2019.07.25/bin
         if ! grep "^export PATH=.*$NEWBIN" $HOME/.bashrc.taste ; then
             echo Adding new compiler "$NEWBIN" to PATH...
             echo "export PATH=$NEWBIN:\$PATH" >> "$HOME/.bashrc.taste"
