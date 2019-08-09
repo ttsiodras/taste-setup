@@ -17,7 +17,9 @@ cp -a ../kazoo/templates ${PREFIX}/share/kazoo || exit 1
 #
 # To avoid false notification of "dirty" git status,
 # clean up their mess in the "templates-parser" after their build
-rm "${DIR}/../kazoo/templates-parser/tp_xmlada.gpr"
+rm -f "${DIR}/../kazoo/templates-parser/tp_xmlada.gpr"
+rm -f "${DIR}/../kazoo/templates-parser/config/setup/foo.ads.std???"
+
 
 # Add kazoo binary to the PATH
 PATH_CMD='export PATH=$PATH:'"${PREFIX}/share/kazoo"
