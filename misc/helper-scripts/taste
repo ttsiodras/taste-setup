@@ -1,0 +1,113 @@
+#!/bin/bash -e
+if [ -t 1 ] ; then
+    COLORON="\e[1m\e[32m"
+    REDCOLORON="\e[1m\e[31m"
+    COLOROFF="\e[0m"
+else
+    COLORON=""
+    REDCOLORON=""
+    COLOROFF=""
+fi
+echo -e "Welcome to ${COLORON}TASTE${COLOROFF}"
+
+INFO="${COLORON}[INFO]${COLOROFF}"
+ERROR="${REDCOLORON}[ERROR]${COLOROFF}"
+
+# Check if there is an interface view in the current folder
+if [ -f InterfaceView.aadl ]
+then
+    echo -e "${INFO} Opening TASTE project in current folder"
+    INTERFACEVIEW=InterfaceView.aadl
+
+    # If there is no deployment view, only load interface view
+    EXTRA_CMD=
+    if [ ! -f DeploymentView.aadl ]
+    then
+        EXTRA_CMD+=' --load-interface-view InterfaceView.aadl ' 
+        EXTRA_CMD+=" --aadl-library $(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl "
+    else
+        # Update path to Ocarina Components in the deployment view
+        sed -i "s,HWLibraries.*,HWLibraries => (\"$(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl\");," DeploymentView.aadl 
+        EXTRA_CMD+=' --load-deployment-view DeploymentView.aadl '
+    fi
+else
+    echo -e "${INFO} A new TASTE project folder will be created (use Ctrl-C to cancel)"
+    read -p "Please enter a name for the new project folder: " new_folder
+    if [ "$new_folder" != "" ]
+    then
+        if [ -d "$new_folder" ]
+        then
+            echo -e "${ERROR} A folder with that name already exists"
+            exit 1
+        else
+            mkdir "$new_folder"
+            cd "$new_folder"
+            touch InterfaceView.aadl
+            echo 'KAZOO?=kazoo
+
+all:	c
+
+c:	work/Makefile
+	$(MAKE) -C work
+
+skeletons:	InterfaceView.aadl DataView.aadl
+	$(KAZOO) --gw -o work
+	$(MAKE) -C work dataview
+
+work/Makefile:	InterfaceView.aadl DeploymentView.aadl DataView.aadl
+	$(KAZOO) -p --glue --gw -o work
+
+clean:
+	$(MAKE) -C work clean
+
+.PHONY: clean skeletons c
+' > Makefile
+        fi
+    fi
+    # If there is already a dataview, use it, otherwise create one
+    if [ ! -f DataView.aadl ]
+    then
+        echo -e "${INFO} Creating a default ASN.1 data model."
+        NONINTERACTIVE=1 taste-create-data-view
+    else
+        echo -e "${INFO} Using existing DataView.aadl"
+    fi
+    EXTRA_CMD+=' --load-interface-view InterfaceView.aadl ' 
+    EXTRA_CMD+=" --aadl-library $(taste-config --prefix)/share/ocarina/AADLv2/ocarina_components.aadl "
+
+fi
+
+# Add the data view
+EXTRA_CMD+=' --data-view DataView.aadl '
+
+# Add the components from the components library
+FIRST=1
+LIBDIR=$(taste-config --prefix)/share/components_library
+for each in $LIBDIR/*
+do
+    if [ $FIRST -eq 1 ]
+    then
+        EXTRA_CMD+='--edit-aadl '
+    else
+        EXTRA_CMD+=,
+    fi
+    EXTRA_CMD+=$each/interfaceview.aadl
+    FIRST=0
+done
+
+if [ -f ConcurrencyView_Properties.aadl ]
+then
+    EXTRA_CMD+=' --update-properties ConcurrencyView_Properties.aadl '
+fi
+
+if [ "$1" == "init" ]
+then
+    echo -e "${INFO} Done. You can run 'taste' from the project folder to open the editor"
+    echo -e "${INFO} 'make skeletons' to create the skeletons or just 'make' to build everything."
+else
+    # Invoke the GUI from Ellidiss
+    echo -e "${INFO} Running "
+    echo "    TASTE $EXTRA_CMD
+"
+    TASTE $EXTRA_CMD
+fi
