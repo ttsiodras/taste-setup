@@ -43,7 +43,11 @@ else
             mkdir "$new_folder"
             cd "$new_folder"
             touch InterfaceView.aadl
-            echo 'KAZOO?=kazoo
+        fi
+    else
+        new_folder=.
+    fi
+    echo 'KAZOO?=kazoo
 
 all:	c
 
@@ -62,9 +66,7 @@ clean:
 	$(MAKE) -C work clean
 
 .PHONY: clean skeletons c
-' > Makefile
-        fi
-    fi
+' > "$new_folder"/Makefile
     # If there is already a dataview, use it, otherwise create one
     if [ ! -f DataView.aadl ]
     then
