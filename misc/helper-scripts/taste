@@ -66,7 +66,7 @@ clean:
 	$(MAKE) -C work clean
 
 .PHONY: clean skeletons c
-' > "$new_folder"/Makefile
+' > Makefile
     # If there is already a dataview, use it, otherwise create one
     if [ ! -f DataView.aadl ]
     then
