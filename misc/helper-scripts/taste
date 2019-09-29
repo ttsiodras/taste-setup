@@ -98,10 +98,7 @@ do
     FIRST=0
 done
 
-if [ -f ConcurrencyView_Properties.aadl ]
-then
-    EXTRA_CMD+=' --update-properties ConcurrencyView_Properties.aadl '
-fi
+EXTRA_CMD+=' --update-properties ConcurrencyView_Properties.aadl '
 
 if [ "$1" == "init" ]
 then
