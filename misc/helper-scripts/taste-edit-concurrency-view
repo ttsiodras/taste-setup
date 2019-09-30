@@ -1,6 +1,13 @@
 #!/bin/bash
 # TASTE Concurrency View Creator
 
+# Check if the project works with kazoo. If so, skip all the rest
+if [[ -f Makefile && $(grep KAZOO Makefile) != "" ]]
+then
+    make work/glue_built
+    exit 0
+fi
+
 # Initialise the progress bar
 myfifo=/tmp/$$$RANDOM
 mkfifo $myfifo

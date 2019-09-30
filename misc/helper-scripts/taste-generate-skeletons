@@ -3,6 +3,14 @@
 # $2 is the output directory
 # this script builds a unique dataview.aadl file and calls buildsupport with --gw --aadlv2 -o $2 --keep-case
 
+# Check if the project works with kazoo. If so, skip all the rest
+if [[ -f Makefile && $(grep KAZOO Makefile) != "" ]]
+then
+    make skeletons
+    exit 0
+fi
+
+
 # Initialise the progress bar
 myfifo=/tmp/$$$RANDOM
 mkfifo $myfifo

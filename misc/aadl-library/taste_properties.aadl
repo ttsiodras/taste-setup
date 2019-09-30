@@ -9,6 +9,12 @@ property set Taste is
    --  where datatypes are defined
    Position_In_File: record ( line : aadlinteger ; column: aadlinteger ; ) applies to (data);
 
+   -- new properties for TASTE-IV editor COO7 and later:
+
+   is_Component_Type : aadlboolean applies to (System);
+   is_instance_of    : aadlstring applies to (System);
+   is_instance_of2   : classifier(System) applies to (System);
+
     Fill_Color : aadlstring applies to
    (system, device, processor, process, bus);
 

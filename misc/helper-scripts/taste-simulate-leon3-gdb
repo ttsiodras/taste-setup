@@ -1,2 +1,0 @@
-#!/bin/bash
-$HOME/tool-src/misc/qemu-Leon3/qemu-system-sparc -no-reboot -nographic -M leon3_generic -m 64M -kernel "$@" -gdb tcp::9976 -S

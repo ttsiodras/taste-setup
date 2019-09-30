@@ -1,2 +1,96 @@
 #!/bin/bash
-$HOME/tool-src/qemu-Leon3/qemu-system-sparc -no-reboot -nographic -M leon3_generic -m 64M -kernel "$@"
+
+# Use the recent functionality introduced by Jiri Gaisler...
+#
+#   https://lists.rtems.org/pipermail/devel/2019-February/024794.html
+#
+# ...to simulate a 4-core Leon3 SMP machine.
+#
+if [ $# -ne 1 ] ; then
+    echo Usage: $0 sparc_ELF_binary
+    exit 1
+fi
+
+# Ah, the lovely world I live in... Let me explain.
+#
+# <rant>
+#
+# To make TASTE operational in as many environments and configurations
+# as possible (chroots, Docker containers, VMs, etc) it makes sense
+# to compile the RTEMS cross compiler under 32-bits. The reason is simple:
+# A 32-bit cross-compiler works under both 32 and 64bit environments;
+# a 64bit one doesn't.
+#
+# And so it was done; all the binaries under /opt/rtems-5.1-2019.07.25/bin/
+# are indeed 32-bit x86 ELFs.
+#
+# And then, one tries to launch one of these binaries - GDB in this instance -
+# to simulate a 4-core Leon3 SMP... and gets this magnificent error:
+#
+#   taste@taste-9-1 ~/tool-src/testSuites/Demo_C_RTEMS/binary.c/binaries
+#   $ taste-simulate-leon3 leon_partition.exe
+#
+#   Failed to import the site module
+#   Traceback (most recent call last):
+#     File "/usr/lib/python3.5/site.py", line 580, in <module>
+#       main()
+#     File "/usr/lib/python3.5/site.py", line 566, in main
+#       known_paths = addusersitepackages(known_paths)
+#     File "/usr/lib/python3.5/site.py", line 287, in addusersitepackages
+#       user_site = getusersitepackages()
+#     File "/usr/lib/python3.5/site.py", line 263, in getusersitepackages
+#       user_base = getuserbase() # this will also set USER_BASE
+#     File "/usr/lib/python3.5/site.py", line 253, in getuserbase
+#       USER_BASE = get_config_var('userbase')
+#     File "/usr/lib/python3.5/sysconfig.py", line 595, in get_config_var
+#       return get_config_vars().get(name)
+#     File "/usr/lib/python3.5/sysconfig.py", line 538, in get_config_vars
+#       _init_posix(_CONFIG_VARS)
+#     File "/usr/lib/python3.5/sysconfig.py", line 410, in _init_posix
+#       from _sysconfigdata import build_time_vars
+#     File "/usr/lib/python3.5/_sysconfigdata.py", line 6, in <module>
+#       from _sysconfigdata_m import *
+#   ImportError: No module named '_sysconfigdata_m'
+#
+# What the?!?...
+# Launching GDB... ends up on an error about '_sysconfigdata_m'?
+# What is this thing? Why?
+#
+# (sigh)
+#
+# As it turns out:
+#
+# - GDB supports Python scripting - which is a good thing.
+# - Since GDB was compiled as a 32-bit application, it is dynamically linked to...
+#
+#   $ ldd /opt/rtems-5.1-2019.07.25/bin/sparc-rtems5-gdb |& grep python
+#   ...
+#   libpython3.5m.so.1.0 => ...
+#   ...
+#
+#   ...which is a 32-bit Python library.
+#
+# - When said library is used to instantiate a Python interpreter to provide
+#   Python scripting to GDB, it bootstraps the Python environment...
+#
+# - But since this host machine is a 64bit one, the Python environment is setup
+#   for a 64bit Python... So the _sysconfigdata_m.py file exists under:
+#
+#     /usr/lib/python3.5/plat-x86_64-linux-gnu/_sysconfigdata_m.py
+#
+# How to solve this? Cleanly?
+#
+# No clue. I'll just hack the heck out of it.
+#
+# </rant>
+if [ $(uname -m) == "x86_64" ] ; then
+    cd /usr/lib/python3.5
+    if [ ! -h _sysconfigdata_m.py ] ; then
+        sudo ln -s plat-x86_64-linux-gnu/_sysconfigdata_m.py
+    fi
+    cd -
+fi
+
+# Now, finally, launch GDB
+echo -en "tar sim -leon3 -m 4\nload \"$@\"\nrun\nquit\n" | \
+    /opt/rtems-5.1-2019.07.25/bin/sparc-rtems5-gdb "$@"
