@@ -16,16 +16,23 @@ else
 fi
 
 if [ ${TREE_DIRTY} -eq 0 ] && [ "${HEAD}" == "${VERSION_INSTALLED}" ] ; then
-    echo DMT tree is clean and already installed. Skipping DMT install...
+    echo "DMT tree is clean and already installed (${VERSION_INSTALLED}). Skipping DMT install..."
     exit 0
 fi
 
-# Unfortunately, the --upgrade DOES NOT ALWAYS WORK.
-# Uninstall first...
-echo y | pip3 uninstall  dmt
+echo -e "\nInstalling DMT, since..."
 
-# ...then install the new version:
-pip3 install --user --upgrade . || exit 1
+if [ ${TREE_DIRTY} -ne 0 ] ; then
+    echo "- working tree is not clean."
+fi
+
+if [ "${HEAD}" != "${VERSION_INSTALLED}" ] ; then
+    echo "- installed version ${VERSION_INSTALLED} is not ${HEAD}."
+fi
+
+echo -e "\n"
+
+make install || exit 1
 
 # Add .local/bin to PATH
 PATH_CMD='export PATH=$PATH:$HOME/.local/bin'
